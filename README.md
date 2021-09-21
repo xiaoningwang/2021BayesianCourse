@@ -10,7 +10,7 @@
 
 3）在自己的2021BayesianCourse页面内点击“New file”按钮，可以创建新文件；
 
-4）在fork后的自己仓库里创建一个markdown或Rmarkdown文件，文件名为所领词条序号+词条名（如Survival analysis.md或22Survivalanalysis.Rmd**词条单词之间省去空格**），或在文件输入框中输入0Survivalanalysis.Rmd会自动创建子目录（0表示序号后面文字是词条名）；
+4）在fork后的自己仓库里创建一个markdown或Rmarkdown文件，文件名为所领词条序号+词条名（如0Survivalanalysis.md或0Survivalanalysis.Rmd**词条单词之间省去空格**），或在文件输入框中输入0Survivalanalysis.Rmd会自动创建子目录（0表示序号后面文字是词条名）；
 
 5）在线编辑自己的md文件，把之前写好的代码直接复制过来（也可保存于本地，在文档中填写，但务必注意保存）；
 
@@ -32,7 +32,7 @@
 
 ## 注意事项：
 
-1.新建markdown或Rmarkdown文件（所有人统一命名为自己的认领的序号+词条名）。如【2019123456王小宁/22Survival analysis.md】，并在文档中填写你的信息（姓名+学号）；
+1.新建markdown或Rmarkdown文件（所有人统一命名为自己的认领的序号+词条名）。如【0Survival analysis.md】，并在文档中填写你的信息（姓名+学号）；
 
 2.所有内容要分好标题等级；
 
