@@ -4,7 +4,7 @@
 
 # 作业步骤：
 
-1）用个人账号登陆GitHub，并访问代码提交地址页面（https://github.com/xiaoningwang/2021BayesianCourse），点击页面右上角的“Fork”按钮，拷贝2021BayesianCourse库到个人账户下；
+1）用个人账号登陆GitHub，并访问代码提交地址页面（https://github.com/xiaoningwang/2021BayesianCourse）， 点击页面右上角的“Fork”按钮，拷贝2021BayesianCourse库到个人账户下；
 
 2）Fork成功后可以看到在个人账号下，新增了2021BayesianCourse库；
 
