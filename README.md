@@ -1,5 +1,7 @@
 # 2021BayesianCourse
 
+## 课程主页：https://xiaoningwang.github.io/teaching/2021-2-Bayesian
+
 # ⚠️注意
 
 # 作业步骤：
