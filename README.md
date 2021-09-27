@@ -4,6 +4,12 @@
 
 # ⚠️注意
 
+
+## Markdown学习文件：[Markdown 入门参考](http://xianbai.me/learn-md/index.html)
+
+## 范文参考：[多总体比较：ANOVA和Kruskal-Wallis检验](https://mp.weixin.qq.com/s/4hPKtmN6TpuftZAJFrI2eg)
+
+
 # 作业步骤：
 
 1）用个人账号登陆GitHub，并访问代码提交地址页面（https://github.com/xiaoningwang/2021BayesianCourse）， 点击页面右上角的“Fork”按钮，拷贝2021BayesianCourse库到个人账户下；
