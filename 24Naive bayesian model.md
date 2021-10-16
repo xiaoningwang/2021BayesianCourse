@@ -24,3 +24,22 @@ x<sub>i</sub>是某个样本向量的第i项特征
 
 
 有了上面的式子及假定的p(x<sub>i</sub>|c<sub>k</sub>)的条件分布,给定数据x<sub>1</sub>,x<sub>2</sub>,···,x<sub>n</sub>之后，我们就可以寻求使得<img src="https://latex.codecogs.com/svg.image?p(c_{k})\coprod_{i=1}^{n}p(x_{i}|c_{k})" title="p(c_{k})\coprod_{i=1}^{n}p(x_{i}|c_{k})" />最大的类c<sub>k</sub>。
+
+## （四）常见模型及应用
+
+朴素贝叶斯方法通常在给定类别（比如c<sub>k</sub>)之后假定了它们的条件分布p(x<sub>i</sub>|c<sub>k</sub>)的类型，比如正态分布、多项分布或Bernoulli分布等。
+
+* 高斯朴素贝叶斯（Gaussian Naive Bayes）：
+
+是指当特征属性为连续值时，而且分布服从高斯分布，那么在计算P(x|y)的时候可以直接使用高斯分布的概率公式：
+
+* 多项式朴素贝叶斯（Multinomial Naive Bayes）：
+
+
+* 伯努利朴素贝叶斯（Bernoulli Naive Bayes）：
+
+
+
+
+
+
