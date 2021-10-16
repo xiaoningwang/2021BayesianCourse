@@ -39,13 +39,16 @@ x<sub>i</sub>是某个样本向量的第i项特征
 
 * 准备工作阶段:
 
+
   首先确定特征属性，设x={a<sub>1</sub> ,a<sub>2</sub>,...,a<sub>m</sub>}为待分类项，其中a为x的一个特征属性,类别集合为C={c<sub>1</sub> ,c<sub>2</sub>,...,c<sub>n</sub> }并获取训练样本；
 
 * 分类器训练阶段:
+
   
   对每个类别计算类先验概率p(c<sub>k</sub>)，对每个特征属性计算所有划分的条件概率密度p(x<sub>1</sub>,x<sub>2</sub>,···,x<sub>n</sub>|c<sub>k</sub>)
 
 * 应用阶段:
+
 
   对每个类别计算后验概率p(c<sub>k</sub>)p(x<sub>i</sub>|c<sub>k</sub>)，选取后验概率的最大值所对应的类作为X的分类结果。
 
@@ -83,6 +86,7 @@ x<sub>i</sub>是某个样本向量的第i项特征
 
 
 * 伯努利朴素贝叶斯（Bernoulli Naive Bayes）：
+
   使用伯努利贝叶斯方法的预测变量通常是二分变量或布尔变量，符合0-1分布。在计算p(x<sub>i</sub>|y）的时候可以直接使用伯努利分布的概率公式：
   
 &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; <img src="https://latex.codecogs.com/svg.image?p(x_{i}|y)=p(1|y)x_{i}&plus;(1-p(1|y))(1-x_{i})" title="p(x_{i}|y)=p(1|y)x_{i}+(1-p(1|y))(1-x_{i})" />
