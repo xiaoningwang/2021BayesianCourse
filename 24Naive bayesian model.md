@@ -28,11 +28,17 @@ x<sub>i</sub>是某个样本向量的第i项特征
 
 朴素贝叶斯算法流程如下：
 
-* 准备工作阶段：首先确定特征属性，设x={a<sub>1</sub> ,a<sub>2</sub>,...,a<sub>m</sub>}为待分类项，其中a为x的一个特征属性,类别集合为C={c<sub>1</sub> ,c<sub>2</sub>,...,c<sub>n</sub> }并获取训练样本；
+* 准备工作阶段:
 
-* 分类器训练阶段：对每个类别计算类先验概率p(c<sub>k</sub>)，对每个特征属性计算所有划分的条件概率密度p(x<sub>1</sub>,x<sub>2</sub>,···,x<sub>n</sub>|c<sub>k</sub>)
+  首先确定特征属性，设x={a<sub>1</sub> ,a<sub>2</sub>,...,a<sub>m</sub>}为待分类项，其中a为x的一个特征属性,类别集合为C={c<sub>1</sub> ,c<sub>2</sub>,...,c<sub>n</sub> }并获取训练样本；
 
-* 应用阶段：对每个类别计算后验概率p(c<sub>k</sub>)p(x<sub>i</sub>|c<sub>k</sub>)，选取后验概率的最大值所对应的类作为X的分类结果。
+* 分类器训练阶段:
+  
+  对每个类别计算类先验概率p(c<sub>k</sub>)，对每个特征属性计算所有划分的条件概率密度p(x<sub>1</sub>,x<sub>2</sub>,···,x<sub>n</sub>|c<sub>k</sub>)
+
+* 应用阶段:
+
+  对每个类别计算后验概率p(c<sub>k</sub>)p(x<sub>i</sub>|c<sub>k</sub>)，选取后验概率的最大值所对应的类作为X的分类结果。
 
 ## （五）常见模型及应用
 
