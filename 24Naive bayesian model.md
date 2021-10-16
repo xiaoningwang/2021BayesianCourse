@@ -52,10 +52,13 @@ x<sub>i</sub>是某个样本向量的第i项特征
  &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;<img src="https://latex.codecogs.com/svg.image?p(x_{i}|c_{k})=\frac{N_{c_{k}},x_{i}&plus;\alpha&space;}{N_{c_{k}}&plus;n\alpha&space;}" title="p(x_{i}|c_{k})=\frac{N_{c_{k}},x_{i}+\alpha }{N_{c_{k}}+n\alpha }" />
  
 &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; N<sub>c<sub>k</sub></sub>:类别为y<sub>k</sub>的样本个数  n:特征的维数  N<sub>y<sub>k</sub>,xi</sub>:类别为y<sub>k</sub>的样本中，第i维特征的值是xi的样本个数    α:平滑值
- 
+
+&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;  当α=1时，称作Laplace平滑，当0<α<1时，称作Lidstone平滑，α=0时,称作不做平滑，通常α取值为1.
+
+
 * 伯努利朴素贝叶斯（Bernoulli Naive Bayes）：预测变量通常是二分变量或布尔变量。
 
-
+  
 
 
 
