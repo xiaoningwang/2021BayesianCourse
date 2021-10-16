@@ -58,8 +58,12 @@ x<sub>i</sub>是某个样本向量的第i项特征
 
 * 伯努利朴素贝叶斯（Bernoulli Naive Bayes）：
   使用伯努利贝叶斯方法的预测变量通常是二分变量或布尔变量，符合0-1分布。在计算p(x<sub>i</sub>|y）的时候可以直接使用伯努利分布的概率公式：
-
   
+&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; <img src="https://latex.codecogs.com/svg.image?p(x_{i}|y)=p(1|y)x_{i}&plus;(1-p(1|y))(1-x_{i})" title="p(x_{i}|y)=p(1|y)x_{i}+(1-p(1|y))(1-x_{i})" />
+
+&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; 1表示成功，其成功的概率为p;0表示失败，失败的概率为1-p
+
+
 
 
 
