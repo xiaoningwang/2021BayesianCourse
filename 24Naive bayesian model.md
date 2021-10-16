@@ -31,10 +31,13 @@ x<sub>i</sub>是某个样本向量的第i项特征
 * 高斯朴素贝叶斯（Gaussian Naive Bayes）：
 
   适用于连续变量，其假定各个特征 𝑥<sub>i</sub> 在各个类c<sub>k</sub>下是服从正态分布的，那么在计算P(x<sub>i</sub>|y)的时候可以直接使用高斯分布的概率密度公式,即：
-<img src="https://latex.codecogs.com/svg.image?P(x_{i}|y)=\frac{1}{\sqrt{2\pi&space;}\sigma_{y}&space;}e^{-\frac{(x-\mu_{y}&space;)^{2}}{2\sigma_{y}&space;^{2}}}" title="P(x_{i}|y)=\frac{1}{\sqrt{2\pi }\sigma_{y} }e^{-\frac{(x-\mu_{y} )^{2}}{2\sigma_{y} ^{2}}}" />
-&nbsp &nbsp 𝜇<sub>𝑦</sub>：在类别为𝑦的样本中，特征𝑥<sub>𝑖</sub>的均值
+  
+&nbsp; &nbsp; <img src="https://latex.codecogs.com/svg.image?P(x_{i}|y)=\frac{1}{\sqrt{2\pi&space;}\sigma_{y}&space;}e^{-\frac{(x-\mu_{y}&space;)^{2}}{2\sigma_{y}&space;^{2}}}" title="P(x_{i}|y)=\frac{1}{\sqrt{2\pi }\sigma_{y} }e^{-\frac{(x-\mu_{y} )^{2}}{2\sigma_{y} ^{2}}}" />
+
+&nbsp; &nbsp; 𝜇<sub>𝑦</sub>：在类别为𝑦的样本中，特征𝑥<sub>𝑖</sub>的均值
   
 &nbsp; &nbsp; 𝜎<sub>𝑦</sub>：在类别为𝑦的样本中，特征𝑥<sub>𝑖</sub>的标准差
+
 * 多项式朴素贝叶斯（Multinomial Naive Bayes）：
 
 
