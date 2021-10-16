@@ -32,20 +32,27 @@ x<sub>i</sub>是某个样本向量的第i项特征
 
   适用于连续变量，并且其各个特征 𝑥<sub>i</sub> 在各个类c<sub>k</sub>下是服从正态分布的，那么在计算P(x<sub>i</sub>|y)的时候可以直接使用高斯分布的概率密度公式,即：
   
-&nbsp; &nbsp; <img src="https://latex.codecogs.com/svg.image?P(x_{i}|y)=\frac{1}{\sqrt{2\pi&space;}\sigma_{y}&space;}e^{-\frac{(x-\mu_{y}&space;)^{2}}{2\sigma_{y}&space;^{2}}}" title="P(x_{i}|y)=\frac{1}{\sqrt{2\pi }\sigma_{y} }e^{-\frac{(x-\mu_{y} )^{2}}{2\sigma_{y} ^{2}}}" />
+&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<img src="https://latex.codecogs.com/svg.image?P(x_{i}|y)=\frac{1}{\sqrt{2\pi&space;}\sigma_{y}&space;}e^{-\frac{(x-\mu_{y}&space;)^{2}}{2\sigma_{y}&space;^{2}}}" title="P(x_{i}|y)=\frac{1}{\sqrt{2\pi }\sigma_{y} }e^{-\frac{(x-\mu_{y} )^{2}}{2\sigma_{y} ^{2}}}" />
 
-&nbsp; &nbsp; 𝜇<sub>𝑦</sub>：在类别为𝑦的样本中，特征𝑥<sub>𝑖</sub>的均值
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;𝜇<sub>𝑦</sub>：在类别为𝑦的样本中，特征𝑥<sub>𝑖</sub>的均值
   
-&nbsp; &nbsp; 𝜎<sub>𝑦</sub>：在类别为𝑦的样本中，特征𝑥<sub>𝑖</sub>的标准差
+&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;𝜎<sub>𝑦</sub>：在类别为𝑦的样本中，特征𝑥<sub>𝑖</sub>的标准差
 
-因此只需要计算出各个类别中此特征项划分的各个均值和标准差，使用高斯朴素贝叶斯对样本类别进行预测。
+因此只需要计算出各个类别中此特征项划分的各个均值和标准差，就能使用高斯朴素贝叶斯对样本类别进行预测。
 
 * 多项式朴素贝叶斯（Multinomial Naive Bayes）：
 
   多项朴素贝叶斯实现了对多项式分布数据的朴素贝叶斯算法，可用于属性分类的问题。比如一个评论是正面、负面还是中性等；一个文档是属于体育、科技、民生、新闻等，可以计算出一篇文档为某些类别的概率，最大概率的类型就是该文档的类别，预测变量多为某种特征的频数。
+  多项式模型在计算先验概率P(c<sub>k</sub>)和条件概率P(x<sub>i</sub>|c<sub>k</sub>)时，会做一些平滑处理，具体公式为：
   
-  
-  
+ &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;<img src="https://latex.codecogs.com/svg.image?p(c_{k})=\frac{N_{c_{k}}&plus;\alpha&space;}{N&plus;k&space;\alpha&space;}" title="p(c_{k})=\frac{N_{c_{k}}+\alpha }{N+k \alpha }" />
+ 
+ &nbsp; &nbsp; &nbsp;&nbsp;N:总的样本个数 k:总的类别个数 N<sub>c<sub>k</sub></sub>:类别为y<sub>k</sub>的样本个数 α:平滑值
+ 
+ &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;<img src="https://latex.codecogs.com/svg.image?p(x_{i}|c_{k})=\frac{N_{c_{k}},x_{i}&plus;\alpha&space;}{N_{c_{k}}&plus;n\alpha&space;}" title="p(x_{i}|c_{k})=\frac{N_{c_{k}},x_{i}+\alpha }{N_{c_{k}}+n\alpha }" />
+ 
+&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; N<sub>c<sub>k</sub></sub>:类别为y<sub>k</sub>的样本个数  n:特征的维数  N<sub>y<sub>k</sub>,xi</sub>:类别为y<sub>k</sub>的样本中，第i维特征的值是xi的样本个数    α:平滑值
+ 
 * 伯努利朴素贝叶斯（Bernoulli Naive Bayes）：预测变量通常是二分变量或布尔变量。
 
 
