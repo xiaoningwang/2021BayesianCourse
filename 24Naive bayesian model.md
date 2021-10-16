@@ -17,10 +17,11 @@ $$
 x_i是某个样本向量的第i项特征
 
 ## （三）算法原理
-朴素贝叶斯基于“特征之间是独立的”这一朴素假设，计算在给定数据x的条件下属于类c~k~的概率，即后验概率p(c~k~),并且求使后验概率最大的类c~k~。
+朴素贝叶斯基于“特征之间是独立的”这一朴素假设，计算在给定数据x的条件下属于类$I_i$的概率，即后验概率p(c<sub>k</sub>),并且求使后验概率最大的类c~k~。
 根据贝叶斯定理，后验分布（给定数据x的条件下属于类c~k~的概率）
 
 $$
 
 <img src="https://latex.codecogs.com/svg.image?p(c_{k}|x)=\frac{p(c_{k})p(x|c_{k})}{p(x)}\\&space;\indent&space;\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\propto&space;p(c_{k})p(x|c_{k})=p(c_{k})p(x_{1},x_{2},\cdots&space;,x_{n}|c_{k})\\\indent\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,=p(c_{k})p(x_{1}|c_{k})p(x_{2}|c_{k})\cdots&space;p(x_{n}|c_{k})=p(c_{k})\coprod_{i=1}^{n}p(x_{i}|c_{k})" title="p(c_{k}|x)=\frac{p(c_{k})p(x|c_{k})}{p(x)}\\ \indent \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\propto p(c_{k})p(x|c_{k})=p(c_{k})p(x_{1},x_{2},\cdots ,x_{n}|c_{k})\\\indent\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,=p(c_{k})p(x_{1}|c_{k})p(x_{2}|c_{k})\cdots p(x_{n}|c_{k})=p(c_{k})\coprod_{i=1}^{n}p(x_{i}|c_{k})" />
 $$
+
