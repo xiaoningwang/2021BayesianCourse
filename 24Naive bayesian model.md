@@ -19,19 +19,18 @@ x<sub>i</sub>是某个样本向量的第i项特征
 朴素贝叶斯基于“特征之间是独立的”这一朴素假设，计算在给定数据x的条件下属于类c<sub>k</sub>的概率，即后验概率p(c<sub>k</sub>|x),并且求使后验概率最大的类c<sub>k</sub>。
 根据贝叶斯定理，后验分布（给定数据x的条件下属于类c<sub>k</sub>的概率）
 
-
 <img src="https://latex.codecogs.com/svg.image?p(c_{k}|x)=\frac{p(c_{k})p(x|c_{k})}{p(x)}\\&space;\indent&space;\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\propto&space;p(c_{k})p(x|c_{k})=p(c_{k})p(x_{1},x_{2},\cdots&space;,x_{n}|c_{k})\\\indent\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,=p(c_{k})p(x_{1}|c_{k})p(x_{2}|c_{k})\cdots&space;p(x_{n}|c_{k})=p(c_{k})\coprod_{i=1}^{n}p(x_{i}|c_{k})" title="p(c_{k}|x)=\frac{p(c_{k})p(x|c_{k})}{p(x)}\\ \indent \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\propto p(c_{k})p(x|c_{k})=p(c_{k})p(x_{1},x_{2},\cdots ,x_{n}|c_{k})\\\indent\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,=p(c_{k})p(x_{1}|c_{k})p(x_{2}|c_{k})\cdots p(x_{n}|c_{k})=p(c_{k})\coprod_{i=1}^{n}p(x_{i}|c_{k})" />
 
-
-有了上面的式子及假定的p(x<sub>i</sub>|c<sub>k</sub>)的条件分布,给定数据x<sub>1</sub>,x<sub>2</sub>,···,x<sub>n</sub>之后，我们就可以寻求使得<img src="https://latex.codecogs.com/svg.image?p(c_{k})\coprod_{i=1}^{n}p(x_{i}|c_{k})" title="p(c_{k})\coprod_{i=1}^{n}p(x_{i}|c_{k})" />最大的类c<sub>k</sub>。
+有了上面的式子及假定的p(x<sub>i</sub>|c<sub>k</sub>)的条件分布,给定数据x<sub>1</sub>,x<sub>2</sub>,···,x<sub>n</sub>之后，我们就可以寻求使<img src="https://latex.codecogs.com/svg.image?p(c_{k})\coprod_{i=1}^{n}p(x_{i}|c_{k})" title="p(c_{k})\coprod_{i=1}^{n}p(x_{i}|c_{k})" />达到最大的类c<sub>k</sub>。
 
 ## （四）常见模型及应用
 
 朴素贝叶斯方法通常在给定类别（比如c<sub>k</sub>)之后假定了它们的条件分布p(x<sub>i</sub>|c<sub>k</sub>)的类型，比如正态分布、多项分布或Bernoulli分布等。
 
+
 * 高斯朴素贝叶斯（Gaussian Naive Bayes）：
 
-是指当特征属性为连续值时，而且分布服从高斯分布，那么在计算P(x|y)的时候可以直接使用高斯分布的概率公式：
+  高斯朴素贝叶斯是指当特征属性为连续值时，而且分布服从高斯分布，那么在计算P(x|y)的时候可以直接使用高斯分布的概率公式：<img src="https://latex.codecogs.com/svg.image?g(x,\eta&space;,\sigma&space;)=\frac{1}{\sqrt{2\pi&space;}\sigma&space;}e^{-\frac{(x-\eta&space;)^{2}}{2\sigma&space;^{2}}}" title="g(x,\eta ,\sigma )=\frac{1}{\sqrt{2\pi }\sigma }e^{-\frac{(x-\eta )^{2}}{2\sigma ^{2}}}" />
 
 * 多项式朴素贝叶斯（Multinomial Naive Bayes）：
 
