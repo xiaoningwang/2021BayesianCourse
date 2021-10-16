@@ -9,10 +9,9 @@ NBM，是Naive Bayesian Model的缩写，即朴素贝叶斯模型。朴素贝叶
 
 朴素贝叶斯分类器基于一个简单假定：假定给定目标值时属性之间相互条件独立-朴素贝叶斯假定(Naive Bayes Assumption)，也叫类条件独立性假定（Class Conditional Independence),即特征向量中一个特征的取值并不影响其他特征的取值。
 
-$$
 
   <img src="https://latex.codecogs.com/svg.image?p(x_{i}|y)=p(x_{i}|y,\forall&space;x_{j})(i\neq&space;j)" title="p(x_{i}|y)=p(x_{i}|y,\forall x_{j})(i\neq j)" />
-$$
+
 
 x<sub>i</sub>是某个样本向量的第i项特征
 
@@ -20,9 +19,8 @@ x<sub>i</sub>是某个样本向量的第i项特征
 朴素贝叶斯基于“特征之间是独立的”这一朴素假设，计算在给定数据x的条件下属于类c<sub>k</sub>的概率，即后验概率p(c<sub>k</sub>|x),并且求使后验概率最大的类c<sub>k</sub>。
 根据贝叶斯定理，后验分布（给定数据x的条件下属于类c<sub>k</sub>的概率）
 
-$$
 
 <img src="https://latex.codecogs.com/svg.image?p(c_{k}|x)=\frac{p(c_{k})p(x|c_{k})}{p(x)}\\&space;\indent&space;\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\propto&space;p(c_{k})p(x|c_{k})=p(c_{k})p(x_{1},x_{2},\cdots&space;,x_{n}|c_{k})\\\indent\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,=p(c_{k})p(x_{1}|c_{k})p(x_{2}|c_{k})\cdots&space;p(x_{n}|c_{k})=p(c_{k})\coprod_{i=1}^{n}p(x_{i}|c_{k})" title="p(c_{k}|x)=\frac{p(c_{k})p(x|c_{k})}{p(x)}\\ \indent \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\propto p(c_{k})p(x|c_{k})=p(c_{k})p(x_{1},x_{2},\cdots ,x_{n}|c_{k})\\\indent\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,=p(c_{k})p(x_{1}|c_{k})p(x_{2}|c_{k})\cdots p(x_{n}|c_{k})=p(c_{k})\coprod_{i=1}^{n}p(x_{i}|c_{k})" />
-$$
 
 
+有了上面的式子及假定的p(x<sub>i</sub>|c<sub>k</sub>)的条件分布,给定数据x<sub>1</sub>,x<sub>2</sub>,···,x<sub>n</sub>之后，我们就可以寻求使得<img src="https://latex.codecogs.com/svg.image?p(c_{k})\coprod_{i=1}^{n}p(x_{i}|c_{k})" title="p(c_{k})\coprod_{i=1}^{n}p(x_{i}|c_{k})" />最大的类c<sub>k</sub>。
