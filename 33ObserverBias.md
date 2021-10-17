@@ -13,57 +13,352 @@
 
 随机对照试验旨在提供最公平的干预测试。然而，如果数据收集过程的任何部分涉及到了观察，那么研究中的测量就会被观察者偏差影响。
 
-Observer bias is a type of detection bias that can affect assessment in observational and interventional studies. It occurs in research when the beliefs or expectations of an observer (or investigator) can influence the data that’s collected in a study. It is in the process of observing and recording information which includes systematic discrepancies from the truth.
 
-Many healthcare observations are open to systematic variation. For example, in the assessment of medical images, one observer might record an abnormality but another might not. Different observers might tend to round up or round down a measurement scale. Colour change tests can be interpreted differently by different observers. Where subjective judgement is part of the observation, there is great potential for variability between observers, and some of these differences might be systematic and lead to bias. Observation of objective data, such as death, is at much lower risk of observer bias.
+## 二、案例 Example
 
-Biases in recording objective data may result from inadequate training in the use of measurement devices or data sources or unchecked bad habits. By recording subjective data, predispositions of the observer are likely to underpin observer biases. Observers might be somewhat conscious of their own biases about a study or may be unaware of factors influencing their decisions when recording study information.
+### （一）红线问题
 
-Randomized controlled trials are designed to provide the fairest test of an intervention. However, if any part of the data collection process involves observation, observer bias can affect the measurement in the study.
+在马萨诸塞州，“红线”是连接剑桥和波士顿的地铁线路。上下班高峰期，红线列车发车间隔为平均7-8分钟运行一趟。
 
-## 二、案例 Examples
+当乘客到达车站时，可以根据站台上的乘客人数估算下一班车到达的时间。如果只有几个人，就推测刚刚错过了地铁，下一班地铁预计要等约7分钟。如果站台上有较多乘客，就估计地铁会很快到达。但是如果有相当多的乘客，则要怀疑列车未能如期运行, 没有按时发车。
 
-### （一）水银血压仪 Mercury Sphygmomanometers
+接下来将通过贝叶斯估计来预测乘客的等待时间。
 
-观察者偏差已经在血压研究中被反复证实。临床医生使用水银血压计来测量参与者的血压，这种方法将读数上下调整来接近一个整数。如果研究人员因为对血压地标准值是多少有先入为主的想法，从而对读数的任意调整，那么也会导致观察者偏差。
+### （二）模型
 
-Observer bias has been repeatedly been documented in studies of blood pressure. Clinicians measuring participants blood pressure using mercury sphygmomanometers have been found to round up, or down, readings to the nearest whole number. Observer bias may also occur if the researcher has a preconceived idea of what the blood pressure ought to be, leading to arbitrary adjustments of the readings.
+在分析前，需要定一些建模细节。首先将旅客抵达车站视作泊松过程，这意味着假设乘客可能在任何时间等概率到达，乘客有一个未知的到达率$\lambda$，以每分钟到达的乘客计量。因为在很短且相同的时间段内观察乘客，所以假设$\lambda$为常数。
 
-### （二）聪明的汉斯 Clever Hans
+另一方面，列车的到达过程不是泊松的。高峰时间从终点（灰西鲜站）去波士顿的列车每隔7-8分钟发出，但到Kendall广场的时候，列车间隔在3-12分钟内变化。
+计算每个工作日下午4点到下午6点Kendall广场站前后到站列车的时间间隔，持续记录5天，每天记录了15 次列车到达。这些分布的差别如下图所示, 标为z。
 
-在20世纪初，有一匹名叫克莱尔 · 汉斯的马，据说它的算术能力极其出色。它的主人，威廉 · 冯 · 奥尔森会问克莱尔 · 汉斯各种各样的问题，包括加法、减法、乘法和其他算术运算。汉斯会轻敲它的蹄子来告诉答案。
+Figure1
 
-![CleverHans](https://bkimg.cdn.bcebos.com/pic/bba1cd11728b471041ce0ba3cfcec3fdfd0323f8 "Clever Hans in 1904")
 
-心理学家 Oskar pfunst对此感到惊讶。于是他调查了这件事，发现克莱尔 · 汉斯只有在它主人知道问题的正确答案时才能提供正确答案。事实证明，当 Clever Hans 接近正确的敲击次数时，它的主人威廉 · 冯 · 奥尔森会开始以某种方式做出反应，表示汉斯应该停止敲击。
 
-主人会下意识给汉斯一些微妙的提示，告诉它正确的敲击次数。但是，当主人自己也不知道他问的问题的答案时，汉斯就无法给出正确的答案，因为主人没有给出任何微妙的提示，告诉它什么时候停止敲击。
+根据收集到的数据绘制的列车间隔的PMF,以KDE平滑处理（z为实际分布；zb是由乘客看到列车间隔的偏差分布）。
 
-这是观察者偏差的一个例子，因为主人的期望导致克莱尔·汉斯以某种方式行动，从而导致错误的数据。
+这是下午4点到下午6点在站台记录的列车间隔时间的分布。但是如果随机到达站台（不管列车时刻表），会看到一个与此不同的分布，随机到达的乘客所看到的列车间隔的平均值，比实际的平均值要高一些。这是因为乘客到达的时间间隔更可能是一个较大的区间。考虑一个简单的例子： 假设列车间隔是5分钟或者10分钟（相等的概率）。在这种情况下，列车之间的平 时间是7.5分钟。但乘客更可能在10分钟的时段内到达而不是在5分钟内，事实上前者是后者的两倍。如果对到站旅客进行调查会发现，其中2/3在10分钟的时段内到达，5分钟时段内到达的只有1/3。所以到站乘客观察到的列车间隔平均值是8.33分钟。
 
-In the early 1900’s there was a horse named Clever Hans that was claimed to have the ability to do arithmetic extremely well. The owner, Wilhelm Von Olson, would ask Clever Hans different questions that involved adding, subtracting, multiplying, and other arithmetic operations and Clever Hans would provide an answer by tapping his hoof a certain number of times.
+这种观察者偏差在许多情况下出现。学生们认为班级比实际的要大是因为他们经常上大课，飞机上的乘客认为飞机比实际更满是因为他们常常乘坐满员的航班。
 
-Amazed by this, psychologist Oskar Pfungst investigated this situation and found that Clever Hans could only provide the correct answer when the owner actually knew the correct answer to the question. It turns out that when Clever Hans would approach the correct number of taps to make, the owner Wilhelm Von Olson would start to react in a certain way which signaled that Hans should stop tapping.
+在每种情况下，实际分布中的值都按照比例被过采样了。例如，在红线上，差距就是两倍大。所以，有了列车间隔的实际分布，就可以计算得到乘客看到的列车间隔分布。BiasPmf进行这个计算：
 
-Without realizing it, the owner was giving subtle cues to Hans about the correct number of taps to make. But when the owner himself didn’t know the answer to the questions he was asking, 
+```python
+    def BiasPmf(pmf):
+        new_pmf = pmf.Copy()
+    
+        for x, p in pmf.Items():
+          new_pmf.Mult(x, x)
+ 
+        new_pmf.Normalize()
+        return new_pmf
+```
 
-Hans was unable to produce the correct answer because the owner didn’t make any subtle cues on when to stop tapping.
+pmf是实际的分布；new_pmf是偏分布。在循环中，将每个值的概率x乘以观测到的似然度，其正比于x，然后对结果归一化。
 
-This is an example of observer bias because the expectations of the owner caused Clever Hans to act in a certain way, which resulted in faulty data. 
+### （三）等待时间
 
-### （三）聪明和愚笨的老鼠 Smart&Dull Rats
+等待时间设为y，是乘客到达时刻和下一趟列车到达时刻之间的时间。经过时间设为x，是乘客到达时刻和上一趟列车到达时刻之间的时间。使得zb = x +y。给定zb的分布，可以计算出y的分布。首先先从一个简单的情况开始，然后再一般化。假设如前面的例子，zb为5分钟的概率是1/3, 10分钟的概率就是2/3。如果乘客在5分钟间隔内随机到达，y均匀分布于0至5分钟内。如果乘客在10分钟的间隔到达，y均匀分布于0到10分钟内。所以整体分布是根据每一个间隔的概率加权了的均匀分布的混合分布。
 
-1963年，心理学家罗伯特·罗森塔尔让两组学生测试老鼠。尽管这些老鼠事实上都是同一类型的标准实验室老鼠，它们在完成迷宫的能力上被划分为两类：“聪明”或“迟钝”。
+下面的函数将计算Zb的分布和y的分布：
 
-研究结果表明，那些认为自己在对付“聪明”的老鼠的学生们以某种方式表现自己的老鼠有更大的可能完成迷宫。然而，认为自己在对付“迟钝”的老鼠的学生的行为方式降低了老鼠完成迷宫的机会。
+```python
+    def PmfOfWaitTime(pmf_zb):
+        metapmf = thinkbayes.Pmf()
+        for gap, prob in pmf_zb.Items():
+            uniform = MakeUniformPmf(0, gap)
+            metapmf.Set(uniform, prob)
+          
+        pmf_y = thinkbayes.MakeMixture(metapmf)
+        return pmf_y
+```
 
-事实证明，学生的期望影响了不同组的老鼠的表现。
+PmfOfWaitTime通过映射每个均匀分布和其概率来构建一个元Pmf。使用 “混合分布”中的MakeMixture,计算混合分布。
 
-In 1963, psychologist Robert Rosenthal had two groups of students test rats. The rats were categorized as being "bright" or "dull" in their ability to complete mazes, even though in reality they were all the same type of standard lab rat.
+PmfOfWaitTime 还使用了 MakeUniformPmf,定义为：
 
-The results of the study showed that the students who thought they were handling “bright” rats behaved in certain ways to make sure that the rats had a better chance of completing the maze while the students who thought they were handling “dull”rats behaved in ways that reduced the rats chances of completing the mazes.
+```python
+    def MakeUniformPmf(low, high):
+        pmf = thinkbayes.Pmf()
+        for x in MakeRange(low=low, high=high):
+            pmf.Set(x, 1)
+        pmf.Normalize()
+        return pmf
+```
 
-It turns out that the expectations of the students influenced how well the different groups of rats performed.
+low和high决定了均匀分布的范围(含两端)。最后，MakeUniformPmf使用了 MakeRange,此处定义为：
+
+```python
+    def MakeRange(low, high, skip=10):
+        return range(low, high+skip, skip)
+```
+
+MakeRange定义了一组等待时间(以秒表示)的可能值。默认情况下，它将范围划分为10秒的时间间隔。
+
+为了封装这些分布的计算过程，创建一个类WaitTimeCalculator：
+
+```python
+    class WaitTimeCalculator(object):
+    
+        def __init__(self, pmf_z):
+            self.pmf_z = pmf_z
+            self.pmf_zb = BiasPmf(pmf)
+            
+            self.pmf_y = self.PmfOfWaitTime(self.pmf_zb)
+            self.pmf_x = self.pmf_y
+```
+
+参数pmf_z是z的非偏差分布。pmf_zb是乘客看到的列车间隔的偏差分布。pmf_y 是等待时间的分布。pmf_x是经过的时间的分布，它和等待时间分布是一样的。想知 道为什么？记得对于一个zp的一个特定值，y的分布是从0到zp均匀的，再考虑到 x = zp - y,因此x的分布也是从0到zp均匀的。
+
+下图显示了 z、zb和y的分布——基于Red Line网站上收集的数据。
+为了解释这些分布，将从Pmfs切换到Cdfs。可知，z的平均值为7.8分钟。zb的平均值为8.8分钟，高出z约13%。 y均值为4.4分钟，是zb均值的一半。
+
+Figure2 z, zb,乘客等待时间y的CDF
+
+### （四）预测等待时间
+假设给定Z的实际分布，已知乘客到达率$\lambda$是每分钟2名乘客。
+
+在这种情况下可以：
+
+- 1.用z的分布来计算zp的先验分布，乘客所看到的列车间隔分布。
+
+- 2.然后，可以使用乘客数量来估计x的分布，即上一趟火车离开后经过的时间。
+
+- 3.最后，使用关系y = zp - x可得y的分布。
+
+第一步是创建一个WaitTimeCalculator,封装zp, x和y的分布——在考虑乘客的数目之前。
+
+```python
+    wtc = WaitTimeCalculator(pmf_z)
+```
+
+pmf_z是给定的间隔时间的分布。
+接下来的步骤是创建一个ElapsedTimeEstimator，它封装了x的后验分布和y的预测分布。
+
+```python
+    ete = ElapsedTimeEstimator (wtc,
+                                lam=2.0/60,
+                                num_passengers=15)
+```
+
+参数是WaitTimeCalculator,乘客到达率lam (表示为乘客人数/秒)和站台上看到的乘客数量(假设是15)。
+ElapsedTimeEstimator 的定义：
+
+```python
+    def __init__(self, wtc, lam, num_passengers):
+        self.prior_x = Elapsed(wtc.pmf_x)
+        
+        self.post_x = self.prior_x.Copy()
+        self.post_x.Update((lam, num_passengers))
+        
+        self.pmf_y = PredictWaitTime(wtc.pmf_zb, self.post_x)
+```
+
+prior_x和posterior_x是经过时间的先验和后验分布。pmf_y是等待时间的预测分布。
+
+ElapsedTimeEstimator 使用 Elapsed 和 PredictWaitTime, 定义如下。
+
+Elapsed是表示x的假想分布的Suite对象。x的先验分布直接由WaitTimeCalculator 得到。然后使用这些数据，包括到达率，lam和站台上乘客的数量计算后验分布。
+
+下面是Elapsed的定义：
+
+```python
+    class Elapsed(thinkbayes.Suite):
+    
+        def Likelihood(self, data, hypo):
+            x = hypo
+            lam, k = data
+            like = thinkbayes.EvalPoissonPmf(lam * x, k)
+            return like
+```
+
+Likelihood接受一个假设和数据，并计算该假设下数据的似然度。在这个例子里面hypo是上一趟列车后经过的时间，data是一个包括lam和乘客数量元组。
+数据的似然度是给定到达率lam下，x时间内k次列车抵达的概率。利用一个泊松分布的PMF来计算它。
+最后，PredictWaitTime的定义是：
+
+```python
+    def PredictWaitTime(pmf_zb, pmf_x):
+        pmf_y = pmf_zb - pmf_x
+        RemoveNegatives(pmf_y)    
+        return pmf_y
+```
+
+pmf_zb是列车间隔的分布情况；pmf_x是经过时间的分布(根据对乘客数量的观察得到)。由于y = zb - x，可以计算：
+
+```python
+    pmf_y = pmf_zb - pmf_x
+```
+
+减法运算符调用Pmf._sub_,其中列举了所有zb和x对，计算其差，将结果加总到pmf_y。
+
+由此产生的Pmf包括一些显然不可能的负值。例如，如果乘客是在5分钟的间隔期间到达的，乘客的等待时间不可能超过5分钟。RemoveNegatives会移除这些不可能的值并重新归一化。
+
+```python
+    def RemoveNegatives(pmf):
+        for val in pmf.Values():
+            if val < 0:
+                pmf.Remove(val)
+        pmf.Normalize()
+```
+
+图3显示了结果。x的先验分布和y一样。x的后验分布表明，看到站台上的15名乘客后，考虑到自上一趟车过后的时间大概是5-10分钟，所以预计下一班列车会在5分钟内到达，置信度为80%。
+
+Figure3
+
+### （五）估计到达率
+到目前为止的分析基于已知(1)列车间隔的分布(2)乘客到达率的假设。现在,开始处理第二个假设。
+
+假设一个人刚搬到波士顿，他不了解红线地铁的乘客到达率。利用几天上下班时间，就可以做至少是可量化的猜测。只要再花一点心思，他甚至可以定量的估计$\lambda$。每一天他到达站台时，他应该注意时间和到达乘客的数量(如果站台太大，他可以选择一个样本区域)。然后记录自己的等待时间，以及在他等待期间新到站的乘客数量。
+
+5天后，可能得到这样的数据：
+
+| k1 |  y  | k2 |
+| -- | --- | -- |
+| 17 | 4.6 |  9 |
+| 22 | 1.0 |  0 |
+| 23 | 1.4 |  4 |
+| 18 | 5.4 | 12 |
+|  4 | 5.8 | 11 |
+
+其中k1是当他到达时，正在等候的乘客数;y是他的等待时间;k2为等待期间到达的乘客数量。
+
+一个多星期的记录中，他等待时间是18分钟，看到36名乘客到达，因此可以估计，到达率是每分钟2名乘客。就实验来说，这一估计足够了，但为了完整起见，应该计算人的后验分布，然后演示怎么样在后面的分析中利用该分布。
+
+ArrivalRate是个代表人假设的Suite对象。Likelihood接收假设和数据，计算出假设下的数据似然度。
+
+在例子里面，假设是人的取值。数据是y、k数据对，其中y是一个等待时间，k是到达的乘客人数。
+
+```python
+    class ArrivalRate(thinkbayes.Suite):
+    
+        def Likelihood(self, data, hypo):
+            lam = hypo
+            y, k = data
+            like = thinkbayes.EvalPoissonPmf(lam * y, k)
+            return like
+ ```
+
+ArrivalRateEstimator封装估算$\lambda$的过程。参数passenger_data，是一个包括k1, y, k2元素的元组，具体数据如前文”预测等待时间“所示。
+
+```python
+    class ArrivalRateEstimator(object):
+    
+        def __init__(self, passenger_data):
+            low, high = 0, 5
+            n = 51
+            hypos = numpy.linspace(low, high, n) / 60
+            
+            self.prior_lam = ArrivalRate(hypos)
+            self.post_lam = self.prior_lam.Copy()
+            for k1, y, k2 in passenger_data:
+            self.post_lam.Update((y, k2))
+```
+
+__init__构建假设，这是lam假设值的序列，然后生成先验分布prior_lam。for 循环以数据更新前验概率，产生后验分布post_lam。
+
+图4给出了先验和后验分布。正如预期的那样，均值和中位值都在观察得到的值附近，每分钟2名乘客。但不确定后验分布的范围是否是由于$\lambda$基于小样本的原因。
+
+Figure4
+
+### （六）消除不确定性
+无论何时，分析中总有一些输入量带来的不确定性，可以通过下面这个步骤将这一因素考虑进来：
+
+- 1.实现基于不确定参数的确定值分析(在本例中是$\lambda$)。
+
+- 2.计算不确定参数的分布。
+
+- 3.对参数的每个值进行分析，并生成一组预测分布。
+
+- 4.使用参数分布所对应的权值计算出预测分布的混合分布。
+
+步骤1和步骤2已经完成。创建一个类WaitMixtureEstimator处理步骤3和步骤4。
+
+```python
+    class WaitMixtureEstimator(object):
+    
+        def __init__(self, wtc, are, num_passengers=15):
+            self.metapmf = thinkbayes.Pmf()
+            
+            for lam, prob in sorted(are.post_lam.Items()):
+                ete = ElapsedTimeEstimator(wtc, lam, num_passengers)
+                self.metapmf.Set(ete.pmf_y, prob)
+                
+            self.mixture = thinkbayes.MakeMixture(self.metapmf)
+```
+
+wtc是包含zb分布的WaitTimeCalculator实例。are则是包含了lam分布的 ArrivalTimeEstimator实例。第一行创建了一个元Pmf来映射y的可能分布和其概率。对于lam的每一个值，用ElapsedTimeEstimator计算y的相应分布，并将其存储在元Pmf。然后用MakeMixture来计算混合分布。
+
+图5显示了结果。背景中的阴影线表示了 y对应于lam每个值的分布，细线表示似然度。粗线是这些分布的混合分布。
+
+在这种情况下，可以用lam的单点估计得到一个非常类似的结果。因此就实用而言，将估计的不确定性包含进来不是必需的。
+
+在一般情况下，如果系统响应是非线性的，那么包括可变性就很重要了。此时，输入的微小变化都会引起输出的较大变化，而本例中，lam的后验变化很小，对于小的扰动，系统的响应近似线性。
+
+Figure5
+
+### （七）决策分析
+建设如果预测乘客等待时间会超过15分钟，则建议乘客乘坐出租车离开。
+
+在这种情况下计算“y超过15分钟”作为num_passengers的函数的概率。在num_passengers的区间上运行“预测等待时间”里的分析方法。但该分析对长时间延误的频次敏感，而由于长时间延误罕见，因此很难估计其时间延误发生频次。
+
+由于只有一周的数据，观察到的最长延误是15分钟，故无法准确估计长时间延误的频次，但可以使用以前的观察来进行至少是粗略的估计。
+
+有一名乘客在一年中看到过由于信号问题、停电、其他车站的警察行动造成的3个长时间延误，所以估计大约每年有3次长时间延误。
+
+但这种看法是偏颇的，应该更倾向于观察长时间延误是因为它们影响了大批乘客。所以，应该把个人的意见作为zb的样本，而不是z的。
+
+通过在一年时间中乘坐红线的220次观察到的间隔时间gap_times 产生了220个列车间隔的样本，并计算它们的Pmf：
+
+```python
+    n = 220
+    cdf_z = thinkbayes.MakeCdfFromList(gap_times)
+    sample_z = cdf_z.Sample(n)
+    pmf_z = thinkbayes.MakePmfFromList(sample_z)
+```
+
+接下来，偏置pmf_z得到zb的分布情况，抽取样本，然后添加了30分钟、40分钟和50分钟的三次延误(以秒表示)：
+
+```python
+    cdf_zp = BiasPmf(pmf_z).MakeCdf()
+    sample_zb = cdf_zp.Sample(n) + [1800, 2400, 3000]
+```
+
+Cdf.Sample比Pmf.Sample更高效，因而一般会更快地将Pmf转换成Cdf。
+
+接下来，以zb的样本用KDE来估计Pdf，然后将Pdf转换为Pmf：
+
+```python
+    pdf_zb = thinkbayes.EstimatedPdf(sample_zb)
+    xs = MakeRange(low= 60)
+    pmf_zb = pdf_zb.MakePmf(xs)
+```
+
+最后，反偏置zb的分布来获得z的分布，用z创建WaitTimeCalculator：
+
+```python
+    pmf_z = UnbiasPmf(pmf_zb)
+    wtc = WaitTimeCalculator(pmf_z)
+```
+
+现在准备进行计算一个长时间等待的概率。
+
+```python
+    def ProbLongWait(num_passengers, minutes):
+        ete = ElapsedTimeEstimator(wtc, lam, num_passengers)
+        cdf_y = ete.pmf_y.MakeCdf()
+        prob = 1 - cdf_y.Prob(minutes * 60)
+```
+
+根据平台上的乘客人数，ProbLongWait用ElapsedTimeEstimator提取等待时间的分布，并计算等待时间超过minutes的概率。
+
+图6显示了结果。当乘客的数目小于20，推断系统运行正常，此时长时间延迟的概率很小。如果有30名乘客，估计自上趟火车已经过了15分钟，这比正常延迟时间长，因此推断出了某些问题，并预期会有更长的延迟。
+
+如果能接受有10%的概率会错过南站列车，又当有不到30名乘客的时候，新到站的乘客应留下来继续等待。但如果发现乘客更多的话，应选择乘坐出租车赶往目的地。
+
+或者，进一步分析可以量化错过南站列车的成本和乘坐出租车的费用，然后选择最小化预期成本的阈值。
+
+Figure6
+
 
 ## 三、影响 Impact
 
@@ -71,9 +366,7 @@ Hróbjartsson 和他的同事们通过比较结果评估员不知道干预措施
 
 这些研究包括了从心绞痛到伤口治疗再到精神疾病的一系列情况。对于二元结果的随机对照试验，不使用盲法的结果评估者产生的优势比平均被夸大了36%。对于使用测量尺度结果的临床试验，不使用盲法的结果评估夸大了68%。对于使用事件发生时间结果的随机对照试验，不使用盲法的评估将风险率夸大了约27%。
 
-Hróbjartsson and colleagues produced three systematic reviews estimating the size of the impact of observer bias, by comparing estimates from studies in which outcome assessors were blinded to the intervention with those in which outcome assessors were not blinded. Three types of RCTs were investigated: those with binary outcomes; RCTs with measurement scale outcomes and RCTs with time-to-event outcomes.
 
-The studies included a range of conditions from angina to wound treatment to psychiatric disorders. For RCTs with binary outcomes, non-blinded outcome assessors generated odds ratios that, on average, were exaggerated by 36%. For clinical trials that used measurement scale outcomes, non-blinded outcome assessment exaggerated effect size by 68% . For RCTs using time-to-event outcomes, non-blinded assessment overstated the hazard ratio by approximately 27%.
 
 ## 四、预防措施 Preventive steps
 
@@ -84,14 +377,6 @@ The studies included a range of conditions from angina to wound treatment to psy
 另一个预防方面包括培训研究观察员，使其意识到自己的偏见和习惯，以提高准确性。有一项关于血压的研究着眼于减少观察者偏见的训练程序，以及它们能持续多久。研究表明，护士在报告血压时有偏见，要么少报，要么多报；培训确实减少了护士之间的差异，但差异仍然存在，而且也没有因不同的时间点上培训而改变。
 
 虽然观察者的偏见可以减少，但是观察者的偏见很可能会一直存在，研究人员在分析和评估数据时应该意识到这一点。
-
-A key method is to ensure that outcome assessors are blinded to the exposure status of study participants. This can apply to randomized controlled trials, in which an individual has been allocated a particular intervention, and also to observational studies, which track the progress of study participants with different exposures. Achieving blinding might mean separating access for data on exposures from data on outcomes; in a blinded trial the allocation should remain unknown throughout the study (unless it must be revealed for safety reasons).
-
-Strategies can also include adequate training for observers in how to record findings, identifying any potential conflicts before recordings commence and clearly defining the methods, tools and time frames for collecting data.
-
-Another preventive aspect includes training study observers to become aware of their prejudices and habits, in order to improve accuracy. One study on blood pressure looked at training procedures designed to reduce observer bias and how long they lasted. The study showed nurses had biases in either under or over reporting blood pressure; training did reduce the between-nurse variation but differences remained and were not changed by training at various time points.
-
-Whilst observer bias can be reduced, it is likely that observer bias will always remain, and researchers should be aware of this when analysing and evaluating data.
 
 
 
