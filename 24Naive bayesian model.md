@@ -96,7 +96,37 @@ x<sub>i</sub>是某个样本向量的第i项特征
 
 ## （六）案例及Python实践
 
+下面为卷尾花数据集构建高斯朴素贝叶斯分类模型，进行模型训练以及对训练模型进行预测的Python代码如下所示：
 
+from sklearn import datasets
+
+from sklearn import naive_bayes
+
+from sklearn.metrics import classification_report
+
+from sklearn.model_selection import train_test_split
+
+bayes = naive_bayes.GaussianNB()
+
+iris = datasets.load_iris()
+
+X = iris.data
+
+Y = iris.target
+
+x_train,x_test,y_train,y_test = train_test_split(X,Y,test_size = 0.3)
+
+bayes.fit(x_train,y_train)
+
+print("贝叶斯模型训练集的准确率：%.3f"%bayes.score(x_train,y_train))
+
+print("贝叶斯模型测试集的准确率：%.3f"%bayes.score(x_test,y_test))
+
+target_names = ['setosa','versicolor','virginica']
+
+y_hat = bayes.predict(x_test)
+
+print(classification_report(y_test,y_hat,target_names = target_names))
 ### 参考文献
 [1]石川，王啸，胡琳梅.数据科学导论。清华大学出版社，2021
 
