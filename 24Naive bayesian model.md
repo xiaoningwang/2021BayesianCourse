@@ -4,23 +4,29 @@
 ## （一）简介
 
 
-NBM，是Naive Bayesian Model的缩写，即朴素贝叶斯模型。朴素贝叶斯模型，是一种基于贝叶斯定理与特征条件独立假设的分类方法，在贝叶斯算法的基础上进行了相应的简化，即假定给定目标值时属性之间相互条件独立。朴素贝叶斯模型易于构建，没有复杂的迭代参数估计，可以很容易编码，并且能够非常快地预测，这使得它对于大的数据集特别有用，尽管简单但通常表现出色，并且由于它通常优于更复杂的分类方法而被广泛使用，与决策树模型（Decision Tree Model）同为目前使用最广泛的分类模型之一。
+NBM，是Naive Bayesian Model的缩写，即朴素贝叶斯模型。朴素贝叶斯模型，是一种基于贝叶斯定理与特征条件独立假设的分类方法，在贝叶斯算法的基础上进行了相应的简化，即假定给定目标值时属性之间相互条件独立。朴素贝叶斯分类器是一种流行多年的技术，尽管它也被称作“傻瓜贝叶斯”。朴素贝叶斯分类器适用于特征空间的维数较高而不能使用密度估计时，朴素贝叶斯模型易于构建，没有复杂的迭代参数估计，可以很容易编码，并且能够非常快地预测，这使得它对于大的数据集特别有用，尽管简单但通常表现出色，并且由于它通常优于更复杂的分类方法而被广泛使用，与决策树模型（Decision Tree Model）同为目前使用最广泛的分类模型之一。
   
   
 ## （二）前提假设
 
+朴素贝叶斯模型假设给定一个类G=j,特征变量X<sub>k</sub>是独立的：
 
-朴素贝叶斯分类器基于一个简单假定：假定给定目标值时属性之间相互条件独立-朴素贝叶斯假定(Naive Bayes Assumption)，也叫类条件独立性假定（Class Conditional Independence),即特征向量中一个特征的取值并不影响其他特征的取值。
+<img src="https://latex.codecogs.com/svg.image?f_{j}(X)=\prod_{k=1}^{p}f_{jk}(X_{k})" title="f_{j}(X)=\prod_{k=1}^{p}f_{jk}(X_{k})" />
 
+虽然这个假定通常不正确，但是它确实能显著地简化估计：
 
+* 各个类条件边际密度 f<sub>jk</sub> 可以分别使用一维核密度估计单独估计,这实际上是原始朴素贝叶斯过程的推广，它使用一元高斯来表示这些边缘。
 
-  <img src="https://latex.codecogs.com/svg.image?p(x_{i}|y)=p(x_{i}|y,\forall&space;x_{j})(i\neq&space;j)" title="p(x_{i}|y)=p(x_{i}|y,\forall x_{j})(i\neq j)" />
+* 如果X的分量X<sub>j</sub>是离散的，则适当使用直方图估计，这提供了一种混合变量的无缝方式输入特征向量。
 
-
-
-x<sub>i</sub>是某个样本向量的第i项特征
 
 ## （三）算法原理
+
+尽管这些假设相当乐观，但是朴素贝叶斯分类器经常优于更复杂的分类方法。原因与下图 1.1有关：虽然个别类别密度估计可能有偏差，但是这种偏差可能不会对后验概率造成太大影响，尤其是靠近决策区域。事实上，这个问题可能能够经受住较大的偏差，这是通过这样一个 "天真 "的假设可以节省方差赢得的。
+
+从假设开始，我们可以推导出对数变换（以类J为基础）。
+
+<img src="https://latex.codecogs.com/svg.image?log\frac{Pr(G=l|X)}{Pr(G=J|X)}=log\frac{\pi&space;_{l}f_{l}(X)}{\pi&space;_{J}f_{J}(X)}=log\frac{\pi&space;_{l}\prod_{k=1}^{p}f_{lk}(X_{k})}{\pi&space;_{J}\prod_{k=1}^{p}f_{Jk}(X_{k})}=log\frac{\pi&space;_{l}}{\pi&space;_{J}}&plus;\sum_{k=1}^{p}log\frac{f_{lk}(X_{k})}{f_{Jk}(X_{k})}=\alpha&space;_{l}&plus;\sum_{k=1}^{p}(X_{k})&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;" title="log\frac{Pr(G=l|X)}{Pr(G=J|X)}=log\frac{\pi _{l}f_{l}(X)}{\pi _{J}f_{J}(X)}=log\frac{\pi _{l}\prod_{k=1}^{p}f_{lk}(X_{k})}{\pi _{J}\prod_{k=1}^{p}f_{Jk}(X_{k})}=log\frac{\pi _{l}}{\pi _{J}}+\sum_{k=1}^{p}log\frac{f_{lk}(X_{k})}{f_{Jk}(X_{k})}=\alpha _{l}+\sum_{k=1}^{p}(X_{k}) " />
 
 朴素贝叶斯基于“特征之间是独立的”这一朴素假设，计算在给定数据x的条件下属于类c<sub>k</sub>的概率，即后验概率p(c<sub>k</sub>|x),并且求使后验概率最大的类c<sub>k</sub>。
 根据贝叶斯定理，后验分布（给定数据x的条件下属于类c<sub>k</sub>的概率）
@@ -97,6 +103,7 @@ x<sub>i</sub>是某个样本向量的第i项特征
 ## （六）案例及Python实践
 
 * 下面为卷尾花数据集构建高斯朴素贝叶斯分类模型，进行模型训练以及对训练模型进行预测的Python代码如下所示：
+```python
 
   from sklearn import datasets
 
@@ -127,8 +134,7 @@ x<sub>i</sub>是某个样本向量的第i项特征
   y_hat = bayes.predict(x_test)
 
   print(classification_report(y_test,y_hat,target_names = target_names))
-
-
+```
 * 运行及结果如图所示
 
 ![image](https://github.com/luxinyu-xg/2021BayesianCourse/blob/main/figure/%E5%9B%BE%E7%89%871.png)
@@ -138,4 +144,4 @@ x<sub>i</sub>是某个样本向量的第i项特征
 
 [2]吴喜之，贝叶斯数据分析，中国人民大学出版社，2020
 
-[3]https://www.jianshu.com/p/8893aabcc4d4
+[3]
