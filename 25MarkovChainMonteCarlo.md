@@ -43,8 +43,35 @@ $$p(x^{(i)}|x^{(i-1)},x^{(i-2)},...x^{(1)})=p(x^{(i)}|x^{(i-1)}), \forall i$$
     式子中，$gcd$表示最大公约数。如果$k=1$，则状态$x_i$称为非周期性的。  
     如果每个状态都是非周期性的，那么马尔可夫链是非周期性的，一个不可约的马尔可夫链需要是非周期性的。
  
-3. 平稳概率
-4. 遍历原理（erigodic theorem）
+3. 平稳概率(stationary distribution)  
+对于任意初始分布$\pmb \pi_0 = (\pi_1^{(0)},\pi_2^{(0)},...\pi_s^{(0)})$，在$t$次转换之后在各个状态的概率为向量  $$\pmb \pi_0\overbrace{PP...P}^t = \pmb \pi_0P^t$$
+很容易验证，当$t$很大时，概率向量$\pi_0P^t$收敛到一个稳定的值$\pi$，而且该值和初始概率$\pi_0$无关，即  $$\lim_{t\rightarrow \infty}\pmb \pi_0P^t = \pmb \pi$$
+乘积矩阵$\pmb P^t$的元素$P_{ij}^t$为从状态$x_i$经过$x$步转移到状态$x_j$的概率，显然有如下关系式：  $$\pmb \pi = \pmb \pi \pmb P$$
+概率$\pmb \pi$称为平稳概率（stationary distribution或者equilibrium distribution），求解平稳概率即是求解$\pmb P^\mathsf{T}$特征值问题，这也是转移矩阵必须满足两大条件的一个原因。  
+R的伪代码如下：
+    ```R 
+    状态转移矩阵P = matrix(矩阵数据)
+    初始概率p0 = c(数据)
+    p1 = p0  # 进行到下一步
+    for(i in 1:迭代次数)
+    P1 = P1%*%P
+    P1  # 返回结果
+    ```
+    Python的伪代码如下：  
+    ```Python
+    状态转移矩阵A=[数据]
+    阶段n步=状态转移矩阵A
+    阶段n1步=np.dot(状态转移矩阵A,状态转移矩阵A)
+    while not (阶段n步 == 阶段n1步).all():
+        阶段n步 = 阶段n1步
+        阶段n1步 = np.dot(阶段n1步,状态转移矩阵A)
+    print(阶段n步)
+    ```
+    结合转移矩阵的非周期性和平稳概率，可以发现，如果从状态$x_i$总是可以到达$x_j$的概率为$\pi_j$对于所有$j$成立，或当$n\rightarrow \infty$  $$P_{ij}^n \rightarrow \pi_j,\forall j$$
+    那么$\pmb \pi = (\pi_1,\pi_2,...\pi_s)$为不变的。除此之外，如果不可约的链有一个平稳的分布，那么该平衡分布是唯一的。
+4. 遍历原理（erigodic theorem）  
+所谓遍历原理，即指如果马尔可夫链  $$x^{(1)},x^{(2)},...x^{(n)}\sim \pmb \pi$$
+是非周期性和不可约的，而且$\pmb \pi$是平稳分布，那么，当$n\rightarrow \infty$时，有  $$\frac{1}{n} \sum_n^{t=1}h(x^{(t)}) \rightarrow E_{\pmb \pi}[h(x)]=\int h(\pmb x)\pmb\pi(\pmb x)d\pmb x$$
 
 ## MCMC理论的主要性质
 ## MCMC的方法
