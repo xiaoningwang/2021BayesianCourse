@@ -28,8 +28,8 @@ $$p(x^{(i)}|x^{(i-1)},x^{(i-2)},...x^{(1)})=p(x^{(i)}|x^{(i-1)}), \forall i$$
 称$p_{ij}(m,m+n)$为链在$m$时刻处于$i$状态,再经$n$步转移到$j$状态的转移概率,简称$n$步转移概率。  
 如果以$p_{ij}(m,m+n)$ 作为矩阵$\pmb P(m,m+n)$的第$i$行第$j$列元素,则$\pmb P(m,m+n)$称为马氏链的$n$步转移阵。值得注意的是,当$n=1$时，一步转移概率为$p_{ij}(m,m+1)$。其组成的是一步转移概率矩阵，记为$\pmb P_{ij}(m)$。  
     1. 转移概率性质  
-    *对一$\forall m,n,i,j$，有$p_{ij}(m,m+n)\geq 0$
-    *对$\forall m,n,i$，有$\sum_{j\in E}p_{ij}(m,m+n)=1$
+    * 对一$\forall m,n,i,j$，有$p_{ij}(m,m+n)\geq 0$
+    * 对$\forall m,n,i$，有$\sum_{j\in E}p_{ij}(m,m+n)=1$
     2. 一步转移概率矩阵性质
     * $0\leq \pmb P_{ij}(m) \geq 1,i\in I$
     * $\sum_{j\in I}\pmb P_{ij}(m)\leq 1$
