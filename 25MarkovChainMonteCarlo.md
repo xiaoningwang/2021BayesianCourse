@@ -9,7 +9,7 @@ $$E_\pi[h(x)]=\int h(x)\pi(x)dx$$
 $$x^(1),x^(2),...,x^(n)~\pi,$$  
 然后可以得到积分的近似  
 $$E_\pi[h(x)]\approx \frac{1}{n} \sum_{i=1}^{n} h(w^{(i)})$$  
-
+这就是蒙特卡洛积分
 ## 马尔可夫链（Markov chain）
 ## MCMC理论的主要性质
 ## MCMC的方法
