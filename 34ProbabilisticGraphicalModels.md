@@ -32,7 +32,7 @@
 
 ##### 3.推断问题：在已知部分变量时，计算其他变量的条件概率分布
 
-![c](/Users/wangyiyi/Desktop/大三/贝叶斯/img/c.png)
+![1](https://github.com/WangYiyi0326/2021BayesianCourse/blob/main/1.png)
 
 ### 三、概率图模型的表示方式：有向图/无向图
 
