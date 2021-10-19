@@ -47,7 +47,7 @@ $$**
 
 &emsp;&emsp;接下来考虑先验分布（1.2）。考虑极限情况下的$a=b=-1$，并通过以下两个主要论据来证明这一选择。在许多情况下，0的先验知识是很小的，考虑对标准先验的分析有一些好处，它可以用于大多数没有明显先验知识的应用中。如果要使用对数，那么最初的贝叶斯假设将建议把它的所有值都视为同等可能。注意到试验的结果不能减少$\beta$分布中$\theta$和$(1-\theta)$的权值，并且推测不能减少关于$\theta$的信息量，就可以看出这是合理的。由此产生的分布是不恰当的，但这并不影响我们，因为我们将使用$F$的自由度很大且后验分布是恰当的近似值。
 
-&emsp;&emsp;将注意力限制在$a=b=-1$上的第二个原因是，这种特殊情况可以被视为属于$\beta$族的所有先验分布的典型形式（1.2）。我们的意思是，任何贝塔分布都可以简化为$a=b=-1$的典型形式。为了说明这一点，我们注意到，如果先验分布是由（1.2）给出的，它可以被视为由$(a+1)$成功和$(b+1)$失败组成的数据的后验分布，这些数据的先验分布为$a=b=-1$。因此，如果实际数据产生了$n$个成功和$(N-n)$个失败，我们可以把$\theta$的总知识看作是由$(n+a+1)$个成功和$(N-n+b+1)$个失败组成的，对于这些数据，先验具有典型形式。因此，通过在实际观察到的成功和失败的数量上分别加上$(a+1)$和$(b+1)$，$\beta$分布可以被经典形式所取代。当然，该方法不适用于非$\beta$分布的先验分布：见下文第8节的讨论。
+&emsp;&emsp;关注$a=b=-1$的第二个原因是，这种特殊情况可以被视为属于$\beta$族的所有先验分布的典型形式（1.2）也就是任何贝塔分布都可以简化为$a=b=-1$的典型形式。为了说明这一点，我们注意到，如果先验分布是由（1.2）给出的，它可以被视为由$(a+1)$成功和$(b+1)$失败组成的数据的后验分布，这些数据的先验分布为$a=b=-1$。因此，如果实际数据产生了$n$个成功和$(N-n)$个失败，我们可以把$\theta$的总知识看作是由$(n+a+1)$个成功和$(N-n+b+1)$个失败组成的，对于这些数据，先验具有典型形式。因此，通过在实际观察到的成功和失败的数量上分别加上$(a+1)$和$(b+1)$，$\beta$分布可以被经典形式所取代。当然，该方法不适用于非$\beta$分布的先验分布：见下文第8节的讨论。
 
 &emsp;&emsp;在许多应用中，先验分布的$a$和$b$的值可能确实很小。如果样本值$n$和$(N-n)$成功和失败的数量都很大，从（1.5）和（1.6）中我们可以看出，$a$和$b$的实际小值并不重要。因此，采取$a=b=-1$是合理的。在$a=b=-1$的情况下，$\ln \{\theta /(1-\theta)\}$的后验分布近似于正态分布，其均值为：
 
@@ -105,7 +105,7 @@ $$**
 \sum a_{i} \ln \Psi_{i}=\sum a_{i} \ln \left(\theta \theta_{i}\right)=\sum a_{i} \ln \theta_{i}
 $$**
 
-&emsp;&emsp;因为$\sum a_{i}=0$，因此，对于$\ln \Psi_{i}$的对比与对于$\ln \theta_{i}$的对比是一致的。但$\ln \Psi_{i}$的对比是近似正态分布的，它们的任何一组都是近似联合正态分布的。根据前面给出的论据，$\ln \theta_{i}$的这些分布适用于多项式分布。因此，我们有以下情况
+&emsp;&emsp;因为$\sum a_{i}=0$，因此，对于$\ln \Psi_{i}$的对比与对于$\ln \theta_{i}$的对比是一致的。但$\ln \Psi_{i}$的对比是近似正态分布的，它们的任何一组都是近似联合正态分布的。根据前面给出的论据，$\ln \theta_{i}$的这些分布适用于多项式分布。因此，我们有以下情况
 * ### 定理1
 
 &emsp;&emsp;如果随机变量$n_{1}, n_{2}, \cdots, n_{k}$服从参数为$\theta_{1}, \theta_{2}, \cdots, \theta_{k}的多项式分布；同时如果我们的先验分布在区域$\theta_{i} \geqq 0, \sum \theta_{i}=1$内具有密度比例$\left(\prod \theta_{i}\right)^{-1}$，那么，当常数$a_{p i}(p=1,2, \cdots, m ; i=1,2, \cdots, k ; m<k)$满足 $\sum_{i} a_{p i}=0$，则对比度的联合后验分布$\underline{ }_{i} a_{p i} \ln \theta_{i}(p=1,2, \cdots, m)$近似正态，均值为
@@ -421,3 +421,52 @@ $$**
 $$**
 
 &emsp;&emsp;其中，$i<r, k<t$。对于每个$j$来说，有$(r - l)(i - 1)$个不独立的对数，但二次形式产生了一个自由度为$(r - 1) 0 - 1)$的%2$\chi^{2}$统计量。因此，总体的自由度是$(r-1) s(t-1)$。
+
+## 拓展
+&emsp;&emsp;本文中使用的先验分布是与矿成正比的特殊分布。但正如第一节所解释的那样，只要先验分布在其包含的形成量上与从与要分析的相同类型的列联表中获得的数据相当，并具有特殊先验，就可以得到结果。假设和真实的两个表可以进行合并，并能够根据合并后的表和特殊先验进行相关分析。
+
+&emsp;&emsp;如果能将分析扩展到更普遍的先验条件，那将是非常理想的。例如，可能存在一个$2 \times 2$的列联表，并且对于$\theta_{i}$的先验知识很少，但对 $\phi_{i j}$的先验知识足够多，这样的知识与在$2 \times 2$表中较少的边缘知识以及较多的内部知识来选择一组边缘总数相差不大。另一个例子是存在$A_{1}, A_{2}$和$A_{3}$的三分类情况时，人们在不清楚$\theta_{2}$和$\theta_{3}$的情况下，认为$\theta_{1}$接近0.20时是可信的。
+
+&emsp;&emsp;另一种需要考虑的先验类型是对$\ln \theta_{i}$之间的关联性进行考虑的先验。本文的所有分析都取决于它们的独立性。例如，在一个$2 \times 2$的表格中，人们可能有先验知识，即两个概率$p\left(A_{1} \mid B_{j}\right)(j=1,2)$的值很接近，那么将其纳入分析中是比较好的方式，比如在社会调查中可能存在两个分类，其中B1对应于 "在家"，B2对应于 "不在家"，在这种情况下对考虑关联性的先验知识的考虑是非常重要的。相关先验的第二个例子是，多叉分布是从分组频率分布（比如柱状图）中产生的，而底层密度的平滑性在相邻的组之间产生了关联性。 
+&emsp;&emsp;希望在未来的文章中能够通过log-odds和多变量正态分布对这种情况进行处理。
+
+## 参考文献
+[1] BARTLETT, M. S. (1935). Contingency table interactions. J. Roy. Statist. Soc. Suppl. 2 248-252.
+
+[2] BARTLETT, M. S. and KendalL, D. G. (1946). The statistical analysis of varianceheterogeneity and the logarithmic transformation. . Roy. Statist. Soc. Suppl. 
+
+[3] BircH, M. W. (1963). Maximum likelihood in three-way contingency tables. . Roy. Statist. Soc. Ser. B 25 220-233.
+
+[4] DARROCH, J. N. (1962). Interactions in multi-factor contingency tables. . Roy. Statist. Soc. Ser. B 24 251-263.
+
+[5] EDwARDs, A. W. F. (1963). The measure of association for  tables. . Roy. Statist. Soc. Ser. A  109-113.
+
+[6] Good, I. J. (1957). Saddle-point methods for the multinomial distributions. Ann. Math. Statist. 28 861-881.
+
+[7] Good, I. J. (1956). On the estimation of small frequencies in contingency tables. . Roy. Statist. Soc. Ser. B 18 113-124.
+
+[8] Good, I. J. (1963). Maximum entropy for hypothesis formulation, especially for multidimensional contingency tables. Ann. Math. Statist. 34 911-934.
+
+[9] Goodman, L. A. (1963). On Plackett's test for contingency table interactions. J. Roy. Statist. Soc. Ser. B 25 179-188.
+
+[10] JEFFREYs, H. (1961). Theory of Probability. Oxford: Clarendon Press.
+
+[11] KULLBACK, S. (1959). Information Theory and Statistics. Wiley, New York.
+
+[12] KULLBACK, S., KUPPERMAN, M. and Kण, Н. H. (1962). Tests for contingency tables and Markov chains. Technometrics .
+
+[13] LANCASTER, H. O. (1951). Complex contingency tables treated by the partition of . J. Roy. Statist. Soc. Ser. B 13 242-249.
+
+[14] LINDLEY, D. V. (1961). The robustness of interval estimates. Bull. Inst. Internat. Stat. 38 209-220.
+
+[15] LINDLEY, D. V. (1964). Introduction to Probability and Statistics. Cambridge Univ. Press.
+
+[16] PLackETT, R. L. (1962). A note on interactions in contingency tables. . Roy. Statist. Soc. Ser. B  162-166.
+
+[17] Ror, S. N. and KastenBatm, M. A. (1956). On the hypothesis of no 'interaction' in a multi-way contingency table. Ann. Math. Statist. 
+
+[18] ScHerfé, H. (1959). Analysis of Variance. Wiley, New York.
+
+[19] Simpson, E. H. (1951). The interpretation of interaction in contingency tables. . Roy. Statist. Soc. Ser. B 13 238-241.
+
+[20] WoolF, B. (1955). On estimating the relation between blood group and disease. Ann. Human Genetics 19 251-253.
