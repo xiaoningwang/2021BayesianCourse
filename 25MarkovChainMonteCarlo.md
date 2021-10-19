@@ -399,13 +399,13 @@ $$\mu=(\mu_1,\mu_2)=(5,−1)$$
 $$\Sigma = \left(
     \begin{matrix}
     \sigma_1^2 & \rho\sigma_1\sigma_2 \\
-    \rho\sigma_1\sigma_2 & \sigma_2^2 \\
+    \rho\sigma_1\sigma_2 & \sigma_2^2 
     \end{matrix}
     \right)$$
 $$\Sigma=\left(
     \begin{matrix}
     1 & 1\\
-    1 & 4\\
+    1 & 4
     \end{matrix}
     \right)
     $$
