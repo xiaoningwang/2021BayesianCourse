@@ -22,7 +22,7 @@
 
 
 
-![image-20211009164649276](C:\Users\李二妞\AppData\Roaming\Typora\typora-user-images\image-20211009164649276.png)
+![1](https://github.com/Eristiano/2021BayesianCourse/blob/main/1.png)
 
 
 
@@ -32,7 +32,7 @@
 
 
 
-![image-20211009164743452](C:\Users\李二妞\AppData\Roaming\Typora\typora-user-images\image-20211009164743452.png)
+![2](https://github.com/Eristiano/2021BayesianCourse/blob/main/2.png)
 
 
 
@@ -96,7 +96,7 @@ $$
 
 
 
-![一种基于AM嵌套抽样算法的地下水模型评价方法与制造工艺](img/91935208557898.gif)
+![3](https://github.com/Eristiano/2021BayesianCourse/blob/main/3.gif)
 
 
 
@@ -156,9 +156,9 @@ $$
 
 
 
-![image-20211017182902497](img/image-20211017182902497.png)
+![4](https://github.com/Eristiano/2021BayesianCourse/blob/main/4.png)
 
-![image-20211017182957600](img/image-20211017182957600.png)
+![5](https://github.com/Eristiano/2021BayesianCourse/blob/main/5.png)
 
 
 
