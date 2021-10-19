@@ -2,13 +2,14 @@
 ## 一、简介
 MCMC，全称Markov chain Monte Carlo，马尔可夫链蒙特卡洛，是一种使用随机抽样来近似复杂积分的方法，在机器学习，深度学习以及自然语言处理等领域都有广泛的应用，是很多复杂算法求解的基础。MCMC由马尔可夫链和蒙特卡洛积分两部分组成。核心思想是通过构造马尔可夫链从想做积分的分布中抽样，然后利用蒙特卡洛积分来近似求解积分。  
 * 解决问题：使用随机抽样来近似复杂积分  
+* 贝叶斯中可解决问题：可用于求解参数的后验分布  
 * 核心思想：构造马尔可夫链从目标积分的分布中抽样，然后利用蒙特卡洛积分来近似求解   
 * 组成部分：蒙特卡洛积分（Monte Carlo integration）、马尔可夫链（Markov chain）  
 本文将按照下面的思路介绍MCMC：
 1. 蒙特卡洛积分——对应第二小节
 2. 马尔可夫链——对于第三小节
-3. MCMC采样原理——对应第四小节
-4. MCMC采样具体方法——对应第五小节
+3. MCMC采样原理、方法及实践——对应第四小节
+4. MCMC采样方法——对应第五小节
 
 ## 二、蒙特卡洛积分（Monte Carlo integration）
 最早的蒙特卡洛方法都是为了求解一些不太好求解的求和或者积分问题。比如积分：  
@@ -16,6 +17,7 @@ $$\theta =\int_a^bf(x)dx$$
 如果不知道$f(x)$的原函数，那么这个积分就比较难求解。  
 常用的思路是通过模拟求解近似值。假设函数图像如下:  
 【图像】
+
 则一个简单的近似求解方法是在$[a,b]$之间随机的采样一个点。比如$x_0$，然后用$f(x_0)$代表在$[a,b]$区间上所有的$f(x)$的值。那么定积分的近似求解为:  
 $$(b-a)f(x_0)$$
 然而选择一个数来近似太过粗糙。我们可以采样$[a,b]$区间的n个值：$x_0,x_1,...x_{n-1}$,用它们的均值来代表$[a,b]$区间上所有的$f(x)$的值。这样上面定积分的近似求解为:  
@@ -150,11 +152,30 @@ R的伪代码如下：
 假设我们任意初始的概率分布是$\pi_0(x)$, 经过第一轮马尔科夫链状态转移后的概率分布是$\pi_1(x)$，...第i轮的概率分布是$\pi_i(x)$。假设经过$n$轮后马尔科夫链收敛到平稳分布$\pi(x)$，即：
 $$\pi_n(x)=\pi_{n+1}(x)=\pi_{n+2}(x)=...\pi(x)$$
 对于每个分布$\pi_i(x)$，我们有：
-$$\pi(x)=\pi_{i-1}(x)\pmb P=\pi_{i-2}(x)\pb P^2=\pi_0(x)\pmb P^i$$
+$$\pi(x)=\pi_{i-1}(x)\pmb P=\pi_{i-2}(x)\pmb P^2=\pi_0(x)\pmb P^i$$
 基于此采样步骤如下：  
 首先，基于初始任意简单概率分布比如高斯分布\pi_0(x)采样得到状态值$x_0$，基于条件概率分布$p(x|x_0)$采样状态值$x_1$，一直进行下去；当状态转移进行到一定的次数$n$时，可以认为此时的采样集$(x_n,x_{n+1},x_{n+2},...)$即是符合所求平稳分布并可以用来做蒙特卡罗模拟求和的对应样本集。
 
-## 四、MCMC采样原理  
+## 四、MCMC采样框架  
+1. 输入目标平稳分布$\pi(x)$，设定需要的样本个数$n_2$
+2. 从任意简单概率分布采样得到初始状态值$x_0$
+3. 从$t=0$到$n_1+n_2−1$: 
+    * 从条件概率分布$Q(x|x_t)$中采样得到样本$x_∗$
+    * 从已有分布中采样
+    * 设定规则，接受或拒绝候补样本
+
+最终样本集$(x_{n1},x_{n1+1},...,x_{n1+n2−1})$为我们需要的平稳分布对应的样本集。  
+
+
+## 五、MCMC采样方法
+### 方法综述  
+使用马尔可夫链从特定的目标分布中进行抽样，关键是必须设计合适的转移矩阵（算子），以便生成的链达到与目标分布相匹配的稳定分布，这也是所有MCMC方法的核心目标。 
+下面简要介绍三个MCMC采样的算法：  
+* Metropolis 算法
+* M-H算法
+* Gibbs Samper
+
+### Metropolis算法
 根据第2、3小节，可以知道如果假定可以得到目标采样样本的平稳分布所对应的马尔科夫链状态转移矩阵，那么就可以使用马尔科夫链采样得到需要的样本集，进而进行蒙特卡罗模拟。  
 
 但是一个重要的问题是，面对任意的平稳分布$\pi$，如何能得到它所对应的马尔科夫链状态转移矩阵$P$？
@@ -174,35 +195,375 @@ $\alpha(i,j)$和$\alpha(j,i)$需要满足下两式：
 $$P(i,j)=Q(i,j)\alpha(i,j)$$
 $\alpha(i,j)$一般称为接受率,取值在$[0,1]$之间，可以理解为一个概率值,即目标矩阵$\pmb P$可以通过任意一个马尔科夫链状态转移矩阵$\pmb Q$以一定的接受率获得。  
 
-由此得到MCMC的采样过程  
+Metropolis算法就是使用简单的启发式方法来实现这样的过渡算子，使链的平稳分布于目标分布相匹配。  
 
-**MCMC的采样过程：**  
-1. 输入我们任意选定的马尔科夫链状态转移矩阵$\pmb Q$，平稳分布$\pi(x)$，设定状态转移次数阈值$n_1$，需要的样本个数$n_2$
-2. 从任意简单概率分布采样得到初始状态值$x_0$
-3. 从$t=0$到$n_1+n_2−1$: 
-* 从条件概率分布$Q(x|x_t)$中采样得到样本$x_∗$
-* 从均匀分布采样$u\sim uniform[0,1]$
-* 如果$u<α(x_t,x_∗)=π(x_∗)Q(x_∗,x_t)$, 则接受转移$x_t\rightarrow x∗$，即$x_{t+1}=x_∗$
-* 否则不接受转移，即$x_{t+1}=x_t$
-样本集$(x_{n1},x_{n1+1},...,x_{n1+n2−1})$为我们需要的平稳分布对应的样本集。
+Metropolis方法从一些随机初始状态$x^{(0)}\sim \pi^{(0)}$开始，该算法首先从类似于马尔可夫链转移概率的分布$q(x|x^{(t-1)})$中提取可能的候选样本$x^*$，该候选样本收到Metropolis方法的一个额外步骤的评估，看目标分布在其附件是否有足够大的密度，以确定是否接受其作为链的下一个状态，如果$p(x^*)$的密度低于建议的状态，则它可能被拒绝。接受或拒绝候补状态的标准由以下直观方法定义：  
+1. 如果$p(x^*)\geq p(x^{(t-1)})$,则保留候补状态$x^*$作为链的下一个状态，也就是马氏链的$p(x)$不能减少  
+2. 如果$p(x^*) < p(x^{(t-1)})$，这就说明在$x^*$附近密度$p(x)$较小，候选状态仅仅以概率$p(x^*)/p(x^{(t-1)})$保留
+为了说明，设置接受概率  
+$$\alpha = min(1,\frac{p(x^*)}{p(x^{(t-1)})})$$
+有了接受概率，Metropolis算法的转移运算符则运行如下：如果均匀随机数$\mu$小于等于$\alpha$，则接受状态$x^*$，否则拒绝$x^*$并建议下一个候选状态。  
+下面是收集M个样本的伪代码：  
+```
+set t = 0
+从初始状态上的先验分布生成初始状态
+repeat,until t = M
+    set t = t + 1
+    从转移概率生成候补状态
+    计算接受概率
+    从Unif(0,1)中抽取随机数μ
+        if μ小于等于α，接受候补状态
+        else 不接受
+```
 
-## 五、MCMC采样具体方法
-### 方法综述  
-对于贝叶斯推断，MCMC模拟一个自选初始点$\theta^{(0)}$的离散时间马尔可夫链，产生一串相依的随机变量${\{\theta^{(i)}}\}_{i=1}^M$，有近似分布  $$p(\theta^{(i)})\approx p(\theta |x)$$
-由于马尔可夫性，$\theta^{(i)}$的分布仅仅和$\theta^{(i-1)}$有关  
-MCMC在状态空间$\theta\in\Theta$产生了一个马尔可夫链${\{\theta^{(1)},\theta^{(2)},...\theta^{(M)}}\}$，其每个样本都假定来自稳定分布$p(\theta|x)$，即后验分布。  
-使用马尔可夫链从特定的目标分布中进行抽样，关键是必须设计合适的转移矩阵（算子），以便生成的链达到与目标分布相匹配的稳定分布，这也是所有MCMC方法的核心目标。
-#### Gibb抽样   
+**Metropolis采样算法实例**
+下面给出利用Metropolis采样算法对t分布进行采样的一个例子。t分布的概率密度函数为：  
+$$f(x,n)=\frac{\Gamma(\frac{n+1}{2})}{\sqrt{n\pi}\Gamma(\frac{n}{2})}(1+\frac{x^2}{n})^{-\frac{n+1}{2}}$$  
+其中$n$是$t$分布的自由度。下图是自由度为3的$t$分布的概率密度函数分布图。  
+【图像】  
+下面的例子中自由度取3，样本序列的初始值从均匀分布中随机选取，从正态分布中采集候选样本，迭代次数为10000次，取样本序列的第9001到第10000个样本作为从t分布中采集的样本的近似，并画出选取的1000个样本的分布直方图，与标准分布进行比较。  
+以python为例实现  
+```Python
+import numpy as np
+from scipy.stats import uniform
+from scipy.stats import norm
+from scipy.stats import t
+import matplotlib.pyplot as plt
+
+# 自由度为3的t分布
+def t_distribution(x):    # n=3
+    p = 2/(np.sqrt(3)*np.pi*np.square(1+np.square(x)/3))
+    return p
+
+T = 10000   # 迭代次数
+sigma = 1.  # 正态分布标准差
+sample_x = np.zeros(T+1)
+sample_x[0] = uniform.rvs(size=1)[0]   # 初始化马尔科夫链初值
+for i in range (1, T+1):
+    hat_x = norm.rvs(loc = sample_x[i-1], scale=sigma, size=1, random_state=None)   # 从正态分布中生成候选值
+    alpha = min(1, t_distribution(hat_x[0])/t_distribution(sample_x[i-1]))  # 计算接受概率
+    alpha_t = uniform.rvs(size=1)[0]  # 生成接受概率判定值
+    if alpha_t <= alpha :      # 若判定值小于接受概率则接受候选值，否则拒绝候选值
+        sample_x[i] = hat_x[0]
+    else:
+        sample_x[i] = sample_x[i-1]
+
+fig, ax = plt.subplots(1, 1)
+df = 3   # t分布的自由度为3
+mean, var, skew, kurt = t.stats(df, moments='mvsk')
+x = np.linspace(t.ppf(0.01, df), t.ppf(0.99, df), 100)
+p1 = ax.plot(x, t.pdf(x, df), 'k-', lw=5, alpha=0.6, label='t')     # pdf: Probability density function；画自由度为3的标准t分布曲线
+p2 = plt.hist(sample_x[9001:], 100,density=True,alpha=0.5, histtype='stepfilled', facecolor='red', label='sample_t')   # 画生成的马尔科夫链的标准化柱状图
+plt.legend()
+plt.show()
+```
+【图像】  
+由结果图可以看到，通过Metropolis采样算法采集到的样本序列可以近似地看做自由度为3的t分布的样本。  
+
+### M-H算法
+Metropolis算法的一个约束是，建议转移概率分布$q(x|x^{(t-1)})$必须是对称的，为了能够使用非对称的转移概率分布，Metropolis-Hastings算法（简称M-H算法）增加一个基于建议的转移概率分布额外的校正因子$c$:
+$$c=\frac{q(x^{(t-1)|x^*})}{q(x^*|x^{(t-1)})}$$
+校正因子调整转移算子，以确保$x^{(t-1)}\rightarrow x^{(t)}$的转移概率等于$x^{(t)}\rightarrow x^{(t-1)}$的转移概率。  
+M-H算法的实现过程于Metropolis算法基本相同，只是在接受概率的评估中使用了校正因子。  
+具体收集$M$个样本的伪代码如下：  
+```
+set t = 0
+从初始状态上的先验分布生成初始状态
+repeat,until t = M
+    set t = t + 1
+    从转移概率生成候补状态
+    计算接受概率[注意这里的与Metropolis的区别]
+    从Unif(0,1)中抽取随机数μ
+        if μ小于等于α，接受候补状态
+        else 不接受
+```
+这里接受概率为：  
+$$\alpha = min(1,\frac{p(x^*)}{p(x^{(t-1)})}*c)$$
+显然，在对称分布时，$c=1$，就是Metropolis算法。  
+
+Python案例实现  
+目标平稳分布是一个均值3，标准差2的正态分布，而选择的马尔可夫链状态转移矩阵$Q(i,j)$的条件转移概率是以$i$为均值,方差1的正态分布在位置$j$的值。
+```Python
+import random
+import math
+from scipy.stats import norm
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+def norm_dist_prob(theta):
+    y = norm.pdf(theta, loc=3, scale=2)
+    return y
+
+T = 5000
+pi = [0 for i in range(T)]
+sigma = 1
+t = 0
+while t < T-1:
+    t = t + 1
+    pi_star = norm.rvs(loc=pi[t - 1], scale=sigma, size=1, random_state=None)
+    alpha = min(1, (norm_dist_prob(pi_star[0]) / norm_dist_prob(pi[t - 1])))
+
+    u = random.uniform(0, 1)
+    if u < alpha:
+        pi[t] = pi_star[0]
+    else:
+        pi[t] = pi[t - 1]
+
+
+plt.scatter(pi, norm.pdf(pi, loc=3, scale=2),label='target')
+num_bins = 50
+plt.hist(pi, num_bins, density=True, facecolor='red', alpha=0.7,label='sample')
+plt.legend()
+plt.show()
+```
+输出的图中可以看到采样值的分布与真实的分布之间的关系如下，采样集还是比较拟合对应分布的。  
+
+### Gibbs抽样   
  **理论**  
 已发现在许多多维问题中有用的特定马尔可夫链算法是Gibbs采样器，也称为altering conditional sampling。  
 根据《Bayesian Data Analysis》，Gibbo抽样由$\theta$子向量定义。假设参数向量$θ$已被划分为$d$个分量或子向量，$\theta=(\theta_1,...\theta_d)$。Gibbs采样器的每次迭代循环都遍历$\theta$的子向量，根据所有其他子集的值绘制每个子集。
 在每次迭代时，选择$θ$的$d$个子向量的顺序，然后，每个$\theta_j$从给定所有$\theta$的其他分量的条件分布$$p(\theta_j|\theta_{-j},y)$$中采样。  
 其中$\theta_{-j}$表示$\theta$除了$\theta_j$外的所有分量，公式如下：  $$\theta_{-j}=(\theta_1,...,\theta_{j-1},\theta_{j+1},...,\theta_d)$$
-因此，每个子向量$\theta_j$依据$θ$的其他分量的最新值更新。
-简单来说，
+因此，每个子向量$\theta_j$依据$θ$的其他分量的最新值更新。  
+简单来说，Gibbs抽样是MCMC采样的一个特例，它交替的固定某一维度$x_i$，然后通过其他维度$x_{-i}$的值来抽样该维度的值。因此，Gibbs采样针对的是高维对象（2维以上）。其抽样工作方式与M-H方法大同小异，但需要从变量的相应条件部分的一维中抽样，并接受抽到的所有值。接着序贯地对每个变量进行抽样，同时保持所有其他变量固定。因此Gibbs适用于容易得到条件分布，而且都是熟悉的分布形式情况。  
+Gibbs采样的伪代码如下：  
+```
+set t=0
+生成初始状态矩阵
+repeat,until t = M
+    set t=t+1
+    对于i=1,2,...,D的每一维
+    从条件分布中抽样
+```
 
-#### Metropolis算法
+Python案例实现
+【案例】假设我们要采样的是一个二维正态分布$Norm(\mu,\Sigma)$,其中：  
+$$\mu=(\mu_1,\mu_2)=(5,−1)$$
+$$\Sigma = \left(
+\begin{matrix}
+\sigma_1^2 & \rho\sigma_1\sigma_2\\
+\rho\sigma_1\sigma_2 & \sigma_2^2 \\
+\end{matrix}
+\right)
 
-#### M-H算法
-#### Hamiltonmian蒙特卡罗算法
-## 六、参考文献
+=\left(
+\begin{matrix}
+1 & 1\\
+1 & 4\\
+\end{matrix}
+\right)
+\tag{2}
+$$
+而采样过程中的需要的状态转移条件分布为：  
+$$P(x_1|x_2)=Norm(\mu_1+\rho\sigma_1 / \sigma_2(x_2-\mu_2),(1-\rho^2)\sigma_1^2)$$
+$$P(x_2|x_1)=Norm(\mu_2+\rho\sigma_2 / \sigma_1(x_1-\mu_1),(1-\rho^2)\sigma_2^2)$$
+具体实现代码如下：  
+```Python
+from mpl_toolkits.mplot3d import Axes3D
+from scipy.stats import multivariate_normal
+samplesource = multivariate_normal(mean=[5,-1], cov=[[1,1],[1,4]])
+
+def p_ygivenx(x, m1, m2, s1, s2):
+    return (random.normalvariate(m2 + rho * s2 / s1 * (x - m1), math.sqrt((1 - rho ** 2) * (s2**2))))
+
+def p_xgiveny(y, m1, m2, s1, s2):
+    return (random.normalvariate(m1 + rho * s1 / s2 * (y - m2), math.sqrt((1 - rho ** 2) * (s1**2))))
+
+N = 5000
+K = 20
+x_res = []
+y_res = []
+z_res = []
+m1 = 5
+m2 = -1
+s1 = 1
+s2 = 2
+
+rho = 0.5
+y = m2
+
+for i in range(N):
+    for j in range(K):
+        x = p_xgiveny(y, m1, m2, s1, s2)
+        y = p_ygivenx(x, m1, m2, s1, s2)
+        z = samplesource.pdf([x,y])
+        x_res.append(x)
+        y_res.append(y)
+        z_res.append(z)
+
+num_bins = 50
+plt.hist(x_res, num_bins, density=True, facecolor='green', alpha=0.5,label='feature1')
+plt.hist(y_res, num_bins, density=True, facecolor='red', alpha=0.5,label='feature2')
+plt.title('Histogram')
+plt.legend()
+plt.show()
+```
+输出的两个特征各自的分布如下：  
+【图像】  
+查看样本集生成的二维正态分布，代码如下：  
+```Python
+fig = plt.figure()
+ax = Axes3D(fig, rect=[0, 0, 1, 1], elev=30, azim=20)
+ax.scatter(x_res, y_res, z_res,marker='o',color='pink')
+plt.show()
+```
+输出的正态分布图如下：  
+【图像】  
+可以看出，Gibbs抽样得到的采样集还是比较拟合对应分布的。  
+
+## 六、MCMC案例应用
+**前提知识：**
+对于贝叶斯推断，MCMC模拟一个自选初始点$\theta^{(0)}$的离散时间马尔可夫链，产生一串相依的随机变量${\{\theta^{(i)}}\}_{i=1}^M$，有近似分布  $$p(\theta^{(i)})\approx p(\theta |x)$$
+由于马尔可夫性，$\theta^{(i)}$的分布仅仅和$\theta^{(i-1)}$有关。MCMC在状态空间$\theta\in\Theta$产生了一个马尔可夫链${\{\theta^{(1)},\theta^{(2)},...\theta^{(M)}}\}$，其每个样本都假定来自稳定分布$p(\theta|x)$，即后验分布。因此通过MCMC，能够获取参数的后验分布。  
+
+**MCMC案例实践**   
+在上述基础上，下面展示一个MCMC的案例实践，在本案例中使用MCMC求参数的后验分布。  
+
+【案例】本数据时关于对8所学校的短期训练效果的研究，来自Gelman et al.（2003）并且倍Sturtz et al.（2005）使用。学术能力检测（scholoastic aptitude test，SAT）测量高中生能力，以帮助大学做出录取决定。它分为两部分：口头（SAT-V）和数学（SAT-M）。这个数据来自8所不同高中的SAT-V（SAT-Verbal），源于20世纪70年代后期的一项实验。在8所不同的学校中，每所学校约有60个对象，他们都已经参加了PSAT（Preliminary SAT），结果被用作协变量。对于每所学校，给出了估计的短期训练效果（处理效应）和他们的标准误差。数据中的这些结果是通过适用于完全随机化实验的协方差调整的线性回归分析来计算的。  
+
+下表为该案例数据：  
+|   学校   | A | B | C | D | E | F | G | H |
+|  ----  | ----  |----  |----  |----  |----  |----  |----  |----  |
+| 处理效应$({\{y_i}\})$ | 28.39 | 7.94| -2.75| 6.82|-.064|0.63|18.01|12.16
+| 标准误差$({\sigma_i})$  | 14.90|10.20|16.30|11.00|9.40|11.40|10.40|17.60|
+
+利用R/Stan实现R
+```R
+# 输入list形式的数据
+schools.data<- list(
+  J = 8,
+  y = c(28.39,7.94,-2.75,6.82,-.064,0.63,18.01,12.16),
+  sigma = c(14.90,10.20,16.30,11.00,9.40,11.40,10.40,17.60)
+)
+
+# 建立Stan模型SNC_model
+SNC_model =" 
+data{
+  int<lower=0> J;
+  real y[J];
+  real<lower=0> sigma[J];
+}
+
+parameters{
+  real mu;
+  real<lower=0> tau;
+  real theta_tilde[J];
+}
+
+transformed parameters{
+  real theta[J];
+  for (j in 1:J)
+    theta[j] = mu + tau * theta_tilde[j];
+}
+model{
+  mu ~ normal(0,5);
+  tau ~ cauchy(0,5);
+  theta_tilde~normal(0,1);
+  y~normal(theta,sigma);
+}"
+
+# 利用程序包rstan来运行Stan模型（需提前安装好rstan）
+library(rstan)
+library(StanHeaders)
+library(ggplot2)
+fit<- stan(
+  model_code = SNC_model,  # Stan程序
+  data = schools.data,     # 数据（变量名）
+  chains = 2,              # 用2条马尔可夫链
+  warmup = 1000,           # 每条链的热身次数
+  iter = 2000,             # 每条链的迭代总次数
+  refresh = 1000           # 每1000次迭代显示过程
+)
+
+# 输出结果
+print(fit)
+```
+得到各个参数后验分布的汇总：一共19个参数，包括模型18个以及一“lp__”，它是所有MCMC抽样得到的参数代入模型中变量y的后验分布所得到的对数似然向量。  
+```bochs
+> # 输出结果
+> print(fit)
+Inference for Stan model: 77ceca9ec6e72da9312fe4b4b96a677d.
+2 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=2000.
+
+                mean  se_mean sd    2.5%  25%   50%   75%  97.5%  n_eff  Rhat
+mu              4.54    0.06 3.34  -1.89  2.31  4.56  6.79 11.16  2722    1
+tau             3.54    0.08 3.10   0.15  1.28  2.82  4.89 11.42  1437    1
+theta_tilde[1]  0.34    0.02 0.95  -1.58 -0.30  0.36  0.95  2.15  2336    1
+theta_tilde[2]  0.09    0.02 0.96  -1.76 -0.53  0.08  0.74  2.01  2546    1
+theta_tilde[3] -0.09    0.02 0.94  -1.88 -0.75 -0.10  0.54  1.66  2197    1
+theta_tilde[4]  0.07    0.02 0.94  -1.87 -0.53  0.09  0.70  1.94  2305    1
+theta_tilde[5] -0.11    0.02 0.93  -1.96 -0.71 -0.12  0.49  1.78  2838    1
+theta_tilde[6] -0.08    0.02 0.98  -1.93 -0.77 -0.10  0.57  1.82  2745    1
+theta_tilde[7]  0.33    0.02 0.99  -1.66 -0.33  0.32  1.03  2.23  2369    1
+theta_tilde[8]  0.07    0.02 1.00  -1.87 -0.61  0.09  0.72  2.03  2412    1
+theta[1]        6.31    0.12 5.45  -2.66  2.91  5.89  9.04 18.84  1923    1
+theta[2]        5.00    0.10 4.74  -3.96  1.91  4.85  7.96 14.90  2290    1
+theta[3]        3.98    0.12 5.48  -7.89  1.20  4.36  7.43 14.10  1934    1
+theta[4]        4.97    0.11 4.91  -4.54  2.03  4.85  7.97 14.80  1926    1
+theta[5]        4.14    0.09 4.63  -5.86  1.45  4.29  7.08 12.45  2399    1
+theta[6]        4.09    0.11 4.87  -6.85  1.27  4.26  7.32 12.72  2032    1
+theta[7]        6.19    0.11 5.02  -2.97  2.97  5.74  9.12 17.27  2039    1
+theta[8]        5.00    0.12 5.35  -5.31  1.86  4.89  7.97 16.09  2049    1
+lp__           -6.92    0.08 2.29 -12.26 -8.26 -6.65 -5.23 -3.45   787    1
+
+Samples were drawn using NUTS(diag_e) at Tue Oct 19 19:30:30 2021.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+```
+
+利用Python/PyMC3实现
+```Python
+import pymc3 as pm
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from collections import defaultdict
+
+plt.style.use('seaborn-darkgrid')
+
+# 输入数据
+J = 8
+y = np.array([28.39,7.94,-2.75,6.82,-.064,0.63,18.01,12.16])
+sigma = np.array([14.90,10.20,16.30,11.00,9.40,11.40,10.40,17.60])
+
+# 定义模型
+with pm.Model() as NC:
+    mu = pm.Normal('mu',mu=0,sd=5)
+    tau = pm.HalfCauchy('tau',beta=5)
+    theta_tilde = pm.Normal('theta_t',mu=0,sd=1,shape=J)
+    theta = pm.Deterministic('theta',mu+tau*theta_tilde)
+    obs = pm.Normal('obs',mu=theta,sd=sigma,observed=y)
+
+# MCMC抽样
+with NC:
+    fit = pm.sample(5000,chains=2,tune=1000,random_seed=[20190818,20191010],target_accept=.90)
+
+# 查看后验分布的汇总
+pm.summary(fit).round(2)
+```
+查看各个后验分布的汇总如下：
+```bochs
+	mean	sd	hdi_3%	hdi_97%	mcse_mean	mcse_sd	ess_bulk	ess_tail	r_hat
+mu	4.46	3.33	-1.78	10.85	0.03	0.02	11373.0	6727.0	1.0
+theta_t[0]	0.33	0.98	-1.42	2.22	0.01	0.01	11232.0	7815.0	1.0
+theta_t[1]	0.09	0.92	-1.69	1.74	0.01	0.01	10052.0	6972.0	1.0
+theta_t[2]	-0.09	0.99	-1.91	1.80	0.01	0.01	11300.0	7258.0	1.0
+theta_t[3]	0.05	0.94	-1.71	1.83	0.01	0.01	16072.0	7414.0	1.0
+theta_t[4]	-0.14	0.93	-1.89	1.58	0.01	0.01	12465.0	6921.0	1.0
+theta_t[5]	-0.07	0.95	-1.84	1.73	0.01	0.01	11263.0	7355.0	1.0
+theta_t[6]	0.33	0.97	-1.50	2.15	0.01	0.01	11102.0	7737.0	1.0
+theta_t[7]	0.10	0.97	-1.74	1.90	0.01	0.01	13802.0	7902.0	1.0
+tau	3.59	3.21	0.00	9.32	0.04	0.03	5308.0	3783.0	1.0
+theta[0]	6.34	5.62	-3.56	17.05	0.06	0.05	9002.0	7987.0	1.0
+theta[1]	4.93	4.70	-3.75	14.08	0.04	0.04	11273.0	8178.0	1.0
+theta[2]	3.97	5.26	-5.40	14.66	0.05	0.04	10483.0	7841.0	1.0
+theta[3]	4.76	4.87	-4.79	13.67	0.04	0.04	12917.0	8017.0	1.0
+theta[4]	3.87	4.70	-5.11	12.77	0.04	0.04	11946.0	7867.0	1.0
+theta[5]	4.04	4.91	-4.93	13.64	0.05	0.04	10794.0	8105.0	1.0
+theta[6]	6.26	5.23	-3.20	16.45	0.05	0.04	11056.0	7647.0	1.0
+theta[7]	5.01	5.25	-5.32	14.47	0.05	0.04	11439.0	7908.0	1.0
+```
+## 七、参考文献
+1. 吴喜之，贝叶斯数据分析——基于R与Python的实现
