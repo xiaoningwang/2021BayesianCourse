@@ -398,7 +398,7 @@ repeat,until t = M
 $$\mu=(\mu_1,\mu_2)=(5,−1)$$
 $$\Sigma = \left(
     \begin{matrix}
-    \sigma_1^2 & \rho\sigma_1\sigma_2\\
+    \sigma_1^2 & \rho\sigma_1\sigma_2 \\
     \rho\sigma_1\sigma_2 & \sigma_2^2 \\
     \end{matrix}
     \right)$$
