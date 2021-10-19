@@ -210,3 +210,5 @@ Metropolis算法的实现一次改变一个人的参数(因此，在每个迭代
 (3和4)多室生理模型的参数不能仅靠数据或先验信息来准确确定。
 (5)贝叶斯推断得到的参数分布与先验信息和数据一致，如果这种一致性是可能的。因为它自动包括推断不确定性和总体变异性，层次贝叶斯方法产生的后验分布可以直接用于风险评估过程的不确定性分析。
 
+## 3. 参考文献
+Andrew Gelman,John B. Carlin,Hal S. Stern,David B. Dunson,Aki Vehtari,Donald B. Rubin.Bayesian Data Analysis, Third Edition[M].Chapman and Hall/CRC,2013
