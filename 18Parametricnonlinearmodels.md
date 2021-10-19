@@ -191,7 +191,6 @@ Metropolis算法的实现一次改变一个人的参数(因此，在每个迭代
 <div align=center>
 <img src="https://github.com/wangchangxinserena/2021BayesianCourse/blob/main/figure/%E5%9B%BE%E7%89%872.4.png">
 </div>
-
 图2.4显示了我们所有观测数据(即观测数据除以模型的预测)与模型预测的相对预测误差的散点图。(由于分析是贝叶斯的，我们有许多参数向量的模拟绘制，每一个都产生略有不同的预测数据。图2.4为简单起见，仅显示了从这些随机选择的模拟图中的一个预测。)与此类数据的其他拟合相比，这些误差的大小是相当低的。
 <div align=center>
 <img src="https://github.com/wangchangxinserena/2021BayesianCourse/blob/main/figure/%E5%9B%BE%E7%89%872.5.png">
