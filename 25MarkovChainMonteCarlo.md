@@ -396,19 +396,19 @@ repeat,until t = M
 **Gibbs——Python案例实践**  
 【案例】假设我们要采样的是一个二维正态分布$Norm(\mu,\Sigma)$,其中：  
 $$\mu=(\mu_1,\mu_2)=(5,−1)$$
-$$\Sigma = \left(
+$$\Sigma=\left(
     \begin{matrix}
-    \sigma_1^2 & \rho\sigma_1\sigma_2 \\
+    \sigma_1^2 & \rho\sigma_1\sigma_2\\
     \rho\sigma_1\sigma_2 & \sigma_2^2 
     \end{matrix}
     \right)$$
 $$\Sigma=\left(
     \begin{matrix}
     1 & 1\\
-    1 & 4
+    1 & 4 
     \end{matrix}
-    \right)
-    $$
+    \right)$$
+    
 而采样过程中的需要的状态转移条件分布为：  
 $$P(x_1|x_2)=Norm(\mu_1+\rho\sigma_1 / \sigma_2(x_2-\mu_2),(1-\rho^2)\sigma_1^2)$$
 $$P(x_2|x_1)=Norm(\mu_2+\rho\sigma_2 / \sigma_1(x_1-\mu_1),(1-\rho^2)\sigma_2^2)$$
