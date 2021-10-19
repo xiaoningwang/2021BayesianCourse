@@ -170,6 +170,7 @@ $$
 
 (3)根据4个模型计算得到的边缘似然值，从小到大的顺序依次为：M1＜M2＜M4＜M3，说明模型M3和M4明显优于模型M1和M2。这表明在考虑相同参数不确定性的情况下，模型的边缘似然值与模型结构概化的合理程度有关，即模型的边缘似然值越大，模型结构概化越合理，概念模型越接近于真实模型。
 
+
 ## 参考文献
 
 [1]Pártay, Livia B.,Csányi, Gábor,Bernstein, Noam. Nested sampling for materials[J]. The European Physical Journal B,2021,94(8):
