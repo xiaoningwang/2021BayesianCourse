@@ -397,16 +397,16 @@ repeat,until t = M
 【案例】假设我们要采样的是一个二维正态分布$Norm(\mu,\Sigma)$,其中：  
 $$\mu=(\mu_1,\mu_2)=(5,−1)$$
 $$\Sigma=\left(
-    \begin{matrix}
+    \begin{pmatrix}
     \sigma_1^2 & \rho\sigma_1\sigma_2\\
     \rho\sigma_1\sigma_2 & \sigma_2^2 
-    \end{matrix}
+    \end{pmatrix}
     \right)$$
 $$\Sigma=\left(
-    \begin{matrix}
+    \begin{pmatrix}
     1 & 1\\
     1 & 4 
-    \end{matrix}
+    \end{pmatrix}
     \right)$$
     
 而采样过程中的需要的状态转移条件分布为：  
