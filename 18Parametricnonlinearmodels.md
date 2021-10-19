@@ -29,7 +29,7 @@
 
 图1.2显示了哮喘患者家中蟑螂过敏原研究的单一板的连续稀释试验数据。大图显示标准数据，十个小图显示未知化合物的数据。每个图显示了单个化合物的光学测量y、稀释度（dilution）以及描述二者关系的估计曲线。下面描述与测量值有关的稀释曲线的估计。
 
-![image]()
+![image](https://github.com/wangchangxinserena/2021BayesianCourse/blob/main/figure/%E5%9B%BE%E7%89%871.2.png)
 
 ![image]()
 
