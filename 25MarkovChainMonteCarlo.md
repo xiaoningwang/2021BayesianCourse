@@ -197,9 +197,10 @@ $\alpha(i,j)$一般称为接受率,取值在$[0,1]$之间，可以理解为一�
 
 Metropolis算法就是使用简单的启发式方法来实现这样的过渡算子，使链的平稳分布于目标分布相匹配。  
 
-Metropolis方法从一些随机初始状态$x^{(0)}\sim \pi^{(0)}$开始，该算法首先从类似于马尔可夫链转移概率的分布$q(x|x^{(t-1)})$中提取可能的候选样本$x^*$，该候选样本收到Metropolis方法的一个额外步骤的评估，看目标分布在其附件是否有足够大的密度，以确定是否接受其作为链的下一个状态，如果$p(x^*)$的密度低于建议的状态，则它可能被拒绝。接受或拒绝候补状态的标准由以下直观方法定义：  
+Metropolis方法从一些随机初始状态$x^{(0)}\sim \pi^{(0)}$开始，该算法首先从类似于马尔可夫链转移概率的分布$q(x|x^{(t-1)})$中提取可能的候选样本$x^{*}$，该候选样本收到Metropolis方法的一个额外步骤的评估，看目标分布在其附件是否有足够大的密度，以确定是否接受其作为链的下一个状态，如果$p(x^*)$的密度低于建议的状态，则它可能被拒绝。接受或拒绝候补状态的标准由以下直观方法定义：  
 1. 如果$p(x^*)\geq p(x^{(t-1)})$,则保留候补状态$x^*$作为链的下一个状态，也就是马氏链的$p(x)$不能减少  
 2. 如果$p(x^*) < p(x^{(t-1)})$，这就说明在$x^*$附近密度$p(x)$较小，候选状态仅仅以概率$p(x^*)/p(x^{(t-1)})$保留
+
 为了说明，设置接受概率  
 $$\alpha = min(1,\frac{p(x^*)}{p(x^{(t-1)})})$$
 有了接受概率，Metropolis算法的转移运算符则运行如下：如果均匀随机数$\mu$小于等于$\alpha$，则接受状态$x^*$，否则拒绝$x^*$并建议下一个候选状态。  
@@ -216,7 +217,7 @@ repeat,until t = M
         else 不接受
 ```
 
-**Metropolis采样算法实例**
+**Metropolis——Python案例实践**  
 下面给出利用Metropolis采样算法对t分布进行采样的一个例子。t分布的概率密度函数为：  
 $$f(x,n)=\frac{\Gamma(\frac{n+1}{2})}{\sqrt{n\pi}\Gamma(\frac{n}{2})}(1+\frac{x^2}{n})^{-\frac{n+1}{2}}$$  
 其中$n$是$t$分布的自由度。下图是自由度为3的$t$分布的概率密度函数分布图。  
@@ -260,6 +261,34 @@ plt.show()
 【图像】  
 由结果图可以看到，通过Metropolis采样算法采集到的样本序列可以近似地看做自由度为3的t分布的样本。  
 
+**Metropolis——R案例实践**  
+考虑形状参数为$\alpha$，尺度参数为$s$的Gamma分布
+$$p(x)=\frac{1}{s^a\Gamma(a)}x^{a-1}e^{-\frac{x}{s}}$$
+下面是Gamma分布（取$a=s=5$）的Metropolis抽样的R代码。其中转移概率取正态分布$N(0，4)$，前面一半的抽样值算是用于热身（burn-in）最终舍弃：  
+```R
+M=20000;
+k=floor(M/2)
+X=NULL
+x=1
+set.seed(1010)
+for (i in 1:M){
+  u = rnorm(1,0,4)
+  alpha = dgamma(u,5,5)/dgamma(x,5,5)
+  if (runif(1) < min(alpha,1)) x=u
+  X[i]=x
+}
+layout(t(1:2))
+hist(X[-(1:k)],20,prob=TRUE,xlim = c(0,8),xlab = 'X',ylab = '',main="")
+curve(dgamma(x,5,5),from=0,to=8,add=TRUE,col=2,lwd=3)
+
+plot(1:k,X[1:k],type = 'l',col=2,lty=2,ylab = 'X',xlab = "index",xlim = c(1,M),ylim = range(X))
+lines((k+1):M,X[(k+1):M])
+```
+【图像】
+左图为样本的直方图和真实分布，可以看出其符合较好。
+右图为马尔可夫链（粉色为热身部分）。 
+
+
 ### M-H算法
 Metropolis算法的一个约束是，建议转移概率分布$q(x|x^{(t-1)})$必须是对称的，为了能够使用非对称的转移概率分布，Metropolis-Hastings算法（简称M-H算法）增加一个基于建议的转移概率分布额外的校正因子$c$:
 $$c=\frac{q(x^{(t-1)|x^*})}{q(x^*|x^{(t-1)})}$$
@@ -281,7 +310,7 @@ repeat,until t = M
 $$\alpha = min(1,\frac{p(x^*)}{p(x^{(t-1)})}*c)$$
 显然，在对称分布时，$c=1$，就是Metropolis算法。  
 
-Python案例实现  
+**M-H算法——Python案例实践**  
 目标平稳分布是一个均值3，标准差2的正态分布，而选择的马尔可夫链状态转移矩阵$Q(i,j)$的条件转移概率是以$i$为均值,方差1的正态分布在位置$j$的值。
 ```Python
 import random
@@ -318,6 +347,32 @@ plt.show()
 ```
 输出的图中可以看到采样值的分布与真实的分布之间的关系如下，采样集还是比较拟合对应分布的。  
 
+**M-H算法——R案例实践**  
+考虑形状参数为$\alpha$，尺度参数为$s$的Gamma分布
+$$p(x)=\frac{1}{s^a\Gamma(a)}x^{a-1}e^{-\frac{x}{s}}$$  
+下面是Gamma分布的M-H抽样的R代码：
+```R
+M=20000;
+k=floor(M/2)
+X=vector()
+x=1
+set.seed(1010)
+for (i in 1:M){
+  ch<-rchisq(1,3)
+  alpha = dgamma(ch,5,5)/dgamma(x,5,5)*(dchisq(ch,3)/dchisq(x,3))
+  if (runif(1) < min(alpha,1)) x=ch
+  X[i]=x
+}
+hist(X[-(1:k)],15,prob=TRUE,xlim = c(0,8),ylim=c(0,1),xlab = 'X',ylab = '',main="")
+curve(dgamma(x,5,5),from=0,to=8,add=TRUE,col=2,lwd=3)
+
+plot(1:k,X[1:k],type = 'l',col=2,lty=2,ylab = 'X',xlab = "index",xlim = c(1,M),ylim = range(X))
+lines((k+1):M,X[(k+1):M])
+```
+【图像】
+左图为样本的直方图和真实分布，可以看出其符合较好。 
+右图为马尔可夫链（粉色为热身部分）。 
+
 ### Gibbs抽样   
  **理论**  
 已发现在许多多维问题中有用的特定马尔可夫链算法是Gibbs采样器，也称为altering conditional sampling。  
@@ -336,24 +391,10 @@ repeat,until t = M
     从条件分布中抽样
 ```
 
-Python案例实现
+**Gibbs——Python案例实践**  
 【案例】假设我们要采样的是一个二维正态分布$Norm(\mu,\Sigma)$,其中：  
 $$\mu=(\mu_1,\mu_2)=(5,−1)$$
-$$\Sigma = \left(
-\begin{matrix}
-\sigma_1^2 & \rho\sigma_1\sigma_2\\
-\rho\sigma_1\sigma_2 & \sigma_2^2 \\
-\end{matrix}
-\right)
-
-=\left(
-\begin{matrix}
-1 & 1\\
-1 & 4\\
-\end{matrix}
-\right)
-\tag{2}
-$$
+$$\Sigma = \left(\begin{matrix}\sigma_1^2 & \rho\sigma_1\sigma_2\\\rho\sigma_1\sigma_2 & \sigma_2^2 \\\end{matrix}\right)=\left(\begin{matrix}1 & 1\\1 & 4\\\end{matrix}\right)$$
 而采样过程中的需要的状态转移条件分布为：  
 $$P(x_1|x_2)=Norm(\mu_1+\rho\sigma_1 / \sigma_2(x_2-\mu_2),(1-\rho^2)\sigma_1^2)$$
 $$P(x_2|x_1)=Norm(\mu_2+\rho\sigma_2 / \sigma_1(x_1-\mu_1),(1-\rho^2)\sigma_2^2)$$
@@ -410,6 +451,34 @@ plt.show()
 输出的正态分布图如下：  
 【图像】  
 可以看出，Gibbs抽样得到的采样集还是比较拟合对应分布的。  
+
+**Gibbs——R案例实践**  
+考虑均值为$\mu$，精度为$\tau=1/\sigma^2$的正态分布$N(\mu,\tau)$。这里的维数$D=2$，假定数据$\pmb x=(x_1,x_2,...x_n)$的样本量为$n=70$，样本均值和样本标准差分别为$\bar{x}=8$，以及$s=2$  
+重复抽样，在第$i$步，从$f(\mu|\tau^{(t-1)})$抽取$\mu^{(i)}$，从$f(\tau|\mu^{(i)})$抽取$\tau^{(i)}$，为此需要分别得到有关条件分布的解析表达式。假定先验分布为：  
+$$p(\mu,\tau)=p(\mu)p(\tau),\;p(\mu)\propto 1 / \tau$$  
+需要的条件分布为：  
+$$(\mu|\tau,\pmb x)\sim N(\bar{x},\frac{1}{n\tau})$$
+$$(\tau|\mu,\pmb x)\sim Gamma(\frac{n}{2},\frac{2}{(n-1)s^2+n(\mu-\bar{x})^2})$$  
+下面是关于该情况的Gibbs抽样R代码。
+```R
+n = 70;
+xbar = 8;
+s2 = 4
+N = 99999;
+k=5000
+mu = vector()->tau
+tau[1] = 1
+set.seed(1010)
+for (i in 2:M){
+  mu[i] = rnorm(n=1,mean = xbar,sd=sqrt(1/n*tau[i-1]))
+  tau[i] = rgamma(n=1,shape = n/2,scale = 2/((n-1)*s2+n*(mu[i]-xbar)^2))
+}
+par(mfrow=c(1,2))
+hist(mu[-(1:k)])
+hist(tau[-(1:k)])
+```
+【图像】  
+左右图分别是$\mu$和$\tau$后验分布去掉热身部分后的直方图  
 
 ## 六、MCMC案例应用
 **前提知识：**
@@ -566,4 +635,5 @@ theta[6]	6.26	5.23	-3.20	16.45	0.05	0.04	11056.0	7647.0	1.0
 theta[7]	5.01	5.25	-5.32	14.47	0.05	0.04	11439.0	7908.0	1.0
 ```
 ## 七、参考文献
-1. 吴喜之，贝叶斯数据分析——基于R与Python的实现
+1. 吴喜之(2020),《贝叶斯数据分析——基于R与Python的实现》,中国人民大学出版社
+2. Anrew Geiman(2013),_Bayesian Data Analysis_,CRC Press
