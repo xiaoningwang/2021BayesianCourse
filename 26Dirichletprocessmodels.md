@@ -401,7 +401,7 @@ $$
 
 ​		假设我们有一个实验研究，在一个连续反应变量上对不同组的“受试者”进行观察。令$y_i$表示对主体i的响应，$x_i\in \{1,...,T\}$表示组。例如，在基因研究中，使用单细胞凝胶电泳(也被称为“彗星实验”)来测量DNA损失，$y_i$表示在细胞i中DNA的损伤量，$x_i$表示潜在的基因毒性暴露的剂量组。这类研究的重点是评估细胞间DNA损失的密度如何随剂量而变化。图26.2显示了暴露于不同水平的过氧化氢、已知的基因毒性化学物质的剂量组的直方图和核平滑密度估计，并且使用彗星实验在单个细胞水平上测试DNA损伤。从图中可以看出，响应密度较低的分位数并不随暴露水平变化而变化很大，而较高的分位数则随着剂量的增加而明显增加。这与预期的，由于细胞之间的可变性，实验中不可能对所有细胞获得相同的剂量。
 
-<img src="https://github.com/DCeline/2021BayesianCourse/blob/main/image-20211019101927920.png" alt="image-20211019101927920" style="zoom:80%;" />
+<img src="https://github.com/DCeline/2021BayesianCourse/blob/main/figure/image-20211019101927920.png" alt="image-20211019101927920" style="zoom:80%;" />
 
 <font color="#778899" > 图26.2 在基因毒性案例中，每个过氧化氢剂量组细胞间DNA损伤的直方图和核平滑密度估计</font>
 
@@ -409,7 +409,7 @@ $$
 
 ​		该研究的目的是评估彗星实验对检测已知基因毒性药物-过氧化氢引起的损伤的敏感性，同时也研究损伤修复的速度。设xi∈{1，……，K}是一个组指数，表示细胞i的过氧化氢水平和修复时间。每个剂量×修复时间值的xi值，以及组间已知的随机排序限制如图26.2所示。随着剂量组内修复时间的增加，DNA损伤密度会随机降低，而修复时间为零、剂量组增加，DNA损伤密度会增加。样本量为1400个，除第9组和第13组有50个细胞外，每组有100个细胞。
 
-<img src="https://github.com/DCeline/2021BayesianCourse/blob/main/image-20211019103138998.png" style="zoom:80%;" />
+<img src="https://github.com/DCeline/2021BayesianCourse/blob/main/figure/image-20211019103138998.png" style="zoom:80%;" />
 
 <font color="#778899" > 图26.3 有向图说明了遗传毒性模型中的顺序限制。箭头指向随机上更大的组。$H_{1k}$的后验概率也展示了出来。</font>
 
@@ -427,11 +427,11 @@ $$
 
 ​		各预测因子的边际后验概率分别为1.0、1.0、0.03、0.02、0.03、0.03，说明IS和年龄是葡萄糖分布变化的重要因素，其他预测因子可以丢弃。图26.5显示了估计的条件密度p(y|x)，IS和年龄在其第5、50和95个经验百分位数中发生变化。葡萄糖密度有一个沉重的右尾。但是，随着IS的增加，右尾就消失了。右尾是2小时血糖水平超过200mg/dl的人群（参考线为0.2，标准化）。随着年龄的增长，右尾变得更重，特别是对于那些IS较低的受试者，这意味着衰老也与GT较差有关。
 
-<img src="https://github.com/DCeline/2021BayesianCourse/blob/main/image-20211018224507087.png" style="zoom:80%;" />
+<img src="https://github.com/DCeline/2021BayesianCourse/blob/main/figure/image-20211018224507087.png" style="zoom:80%;" />
 
 <font color="#778899" >图26.4 糖耐量研究数据：y=2小时血糖水平（mg/dl）x1=胰岛素敏感性x2=年龄x3=腰臀比x4=体重指数x5=舒张压；x6=收缩压。 </font>
 
-<img src="https://github.com/DCeline/2021BayesianCourse/blob/main/image-20211019095308938.png" alt="image-20211019095308938" style="zoom:80%;" />
+<img src="https://github.com/DCeline/2021BayesianCourse/blob/main/figure/image-20211019095308938.png" alt="image-20211019095308938" style="zoom:80%;" />
 
 <font color="#778899" >图26.5 预测（虚线）条件反应密度p(y|x)和95%可信区间（虚线），归一化x1（胰岛素敏感性）和x2（年龄）在第5、50、95个经验百分位数之间发生变化。 </font>
 
