@@ -93,3 +93,6 @@ $$prob(x_k|\epsilon_k,\mu,\sigma,I)=\int prob(x_k,hat{x}_k|\epsilon_k,\mu,\sigma
 
 $$ prob(x_k,hat{x}_k|\epsilon_k,\mu,\sigma,I)=\frac{1}{\sqrt{2\pi(\epsilon_k^2+\sigma^2)}}exp[-\frac{(x_k-\mu)^2}{2(\epsilon_k^2+\sigma^2)}] $$
 一整套独立测量的似然函数将是这些项的乘积；当$\epsilon_k<<\sigma$。通过这种修改，分析的其余部分将像以前一样继续进行。这个问题可以很容易地用数字来解决，或者如果所有的误差条都是相同大小的话，甚至可以用解析的方法来近似($\epsilon_k=\epsilon$,对于所有的k)。
+
+#### 参考文献
+[1]D.S.Sivia,Data Analysis A Bayesian Tutorial
