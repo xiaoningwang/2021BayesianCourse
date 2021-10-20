@@ -164,7 +164,9 @@ $$ \theta_i = \log(R_i) $$
 决策树由三个分支组成。在每个分支，我们以美元为单位评估预期损失，使用$ D_r = 2000/(R_{action}−R_{remed}) $作为额外家庭氡暴露的每pCi/L等效成本，将氡暴露(超过30年)换算成美元价值。在下面的表达式中，我们设$ R = e^\theta $为所考虑的家中未知的氡暴露水平；先验分布和后验分布为$ \theta = \logR $的正态分布。
 
 1.  在没有监控的情况下进行补救。预期损失为修复成本+修复后氡暴露的等值美元成本:
-$$ L_1 = 2000 + D_rE(min(R,R_{remed})) = 2000 + D_r[R_{remed}Pr(R\geqR_{remed} + E(R|R<R_{remed}Pr(R<R_{remed}))] = 2000 + D_r[R_{remed}\Phi(\frac{M-\log(R_{remed})}{S})+e^{M+\frac{1}{2}S^2}(1-\Phi(\frac{M+S^2-\log(R_{remed})}{}))] $$
+$$ L_1 = 2000 + D_rE(min(R,R_{remed})) $$
+$$ = 2000 + D_r[R_{remed}Pr(R\geqR_{remed} + E(R|R<R_{remed}Pr(R<R_{remed}))] $$
+$$ = 2000 + D_r[R_{remed}\Phi(\frac{M-\log(R_{remed})}{S})+e^{M+\frac{1}{2}S^2}(1-\Phi(\frac{M+S^2-\log(R_{remed})}{}))] $$
 
 2.  不监测或补救。预期损失是氡暴露的等值美元成本:
 $$ L_2 = D_rE(R) = D_re^{M+\frac{1}{2}S^2} $$
