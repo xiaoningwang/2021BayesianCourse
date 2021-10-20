@@ -135,10 +135,10 @@ $Gibbs$ 采样 的起始值可通过对后验的近似（位于 $t_4$ 分布的�
 
 > 受试者共17人，其中11名为非精神分裂症患者，6名为精神分裂症患者。设计一个有关反应时间的测试，对每名受试者测试30次。测试统计数据见**图1、图2**。
 
-![图1](https://github.com/yestbon/2021BayesianCourse/blob/main/figure/%E5%9B%BE1.png)
+![图1](https://github.com/yestbon/2021BayesianCourse/blob/main/figure/wy_figure1.png)
 <center>图 1.11名非精神分裂症患者的反应时间对数（毫秒）</center>
 
-![图1](https://github.com/yestbon/2021BayesianCourse/blob/main/figure/%E5%9B%BE2.png)
+![图2](https://github.com/yestbon/2021BayesianCourse/blob/main/figure/wy_figure2.png)
 
 <center>图 2.6名精神分裂症患者的反应时间对数（毫秒）</center>
 
@@ -300,11 +300,11 @@ $Gibbs$ 采样很容易应用，因为完整的条件后验分布 $-p(\theta|\al
 
 在上述混合模型示例中，我们计算了几个单变量的估计值：17个随机效应 $\alpha_j$ 及其标准偏差 $\sigma_{\alpha}$、移位参数 $\tau$ 和 $\beta$ 、观测值的标准偏差 $\sigma_y$ 、混合参数$\lambda$、标准偏差比率 $\sigma_{\alpha}/\sigma_y$ 以及对数后验密度。运行10个序列的200次模拟后计算所有标量估计的潜在缩减规模 $\hat{R}$，发现均小于1.1,因此，模拟结果较好。
 
-<img src="img/表1.png" alt="表1" style="zoom: 67%;" />
+![表1](https://github.com/yestbon/2021BayesianCourse/blob/main/figure/wy_figure5.png)
 
-<center>图 2.反应时间实验——新旧混合模型下相关参数的后分位数。</center>
+<center>表 1.反应时间实验——新旧混合模型下相关参数的后分位数。</center>
 
-**图2**中的前三列显示了 $Gibbs$ 取样模拟参数的后验中位数和95%区间，其中，
+**表1**中的前三列显示了 $Gibbs$ 取样模拟参数的后验中位数和95%区间，其中，
 
 $\lambda$ 表示反应延迟的精神分裂症患者观察延迟的概率； $\tau$ 表示*对数化* 的注意力延迟； $\beta$ 表示反应未延迟的患者观察的平均*对数* 响应时间减去非精神分裂症患者的平均*对数* 响应时间；$\omega$表示有注意延迟的精神分裂症患者的比例。
 
@@ -321,13 +321,13 @@ $\lambda$ 表示反应延迟的精神分裂症患者观察延迟的概率； $\t
 
 #### *3.17 模型检验*
 
-**确定测试数量以评估拟合不良的情况**  选择该模型是为了准确地拟合研究中两组受试者的均值和方差，但在对个体的拟合方面仍然存在问题——**图1**精神分裂症患者的反应时间直方图表明，个体间反应时间方差存在显著差异，现检验该模型是否能够反映释该特征，计算每个患者的30个对数反应时间 $y_{ij}$ 的标准偏差 $s_j(j=12,..,17)$ ，定义$T_{min}=min(s_j)$和 $T_{max}=(s_j)$。
+**确定测试数量以评估拟合不良的情况**  选择该模型是为了准确地拟合研究中两组受试者的均值和方差，但在对个体的拟合方面仍然存在问题——**图2**精神分裂症患者的反应时间直方图表明，个体间反应时间方差存在显著差异，现检验该模型是否能够反映释该特征，计算每个患者的30个对数反应时间 $y_{ij}$ 的标准偏差 $s_j(j=12,..,17)$ ，定义$T_{min}=min(s_j)$和 $T_{max}=(s_j)$。
 
 从正态混合模型中模拟预测数据集，得到 $T_{min}$和 $T_{max}$的后验预测分布，对后验分布的参数进行1000次模拟抽样。对于1000个模拟数据集中的每一个 $y^{rep}$，定义两个测试量$T_{min}=min(y^{rep})$和 $T_{max}=(y^{rep})$。
 
 **图形法比较后验预测分布和观测值**  1000个模拟值的散点图如**图3**所示，***X*** 表示数据集中测试量的观测值。观测值 $y$ 不符合后验预测分布（$T_{min}$ 太小，$T_{max}$ 太大）。
 
-![图3](https://github.com/yestbon/2021BayesianCourse/blob/main/figure/%E5%9B%BE3.png)
+![图3](https://github.com/yestbon/2021BayesianCourse/blob/main/figure/wy_figure3.png)
 
 <center>图 3.模拟值的散点图</center>
 
@@ -350,13 +350,13 @@ $$
 
 拟合新模型，在$Gibbs$采样中添加三个新步骤来更新$\omega、\sigma_y^2$ 和 $W$，使用从之前的后验模拟中随机选择的十个抽样作为$Gibbs$采样十次平行运行的起点。在新模型中，长度为500的10个模拟序列近似收敛，所有模型参数的估计潜在规模缩减小于1.1。
 
-**图2**的最后三列显示了新模型的测试结果，显示出与旧模型的显著差异：精神分裂症患者的观察延迟的比例更大，但平均延迟更短。
+**表1**的最后三列显示了新模型的测试结果，显示出与旧模型的显著差异：精神分裂症患者的观察延迟的比例更大，但平均延迟更短。
 
 ##### 改进后的模型检验
 
 使用新的后验分布下相同测试量的后验预测模拟来检查模型改进后的拟合效果，结果如**图4**所示,与**图3**相比，后验预测分布更接近 ***X***。
 
-![图4](https://github.com/yestbon/2021BayesianCourse/blob/main/figure/%E5%9B%BE4.png)
+![图4](https://github.com/yestbon/2021BayesianCourse/blob/main/figure/wy_figure4.png)
 
 <center>图 4.模型改进后的模拟值散点图</center>
 
