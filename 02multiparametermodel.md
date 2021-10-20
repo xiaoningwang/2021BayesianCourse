@@ -210,7 +210,7 @@ $$
 
 对于多参数模型的一个简单例子，我们考虑一个有三种可能回答的样本调查问题。1988年10月底，CBS新闻公司对美国1447名成年人进行了一项调查，以了解他们在即将到来的总统选举中的偏好。在1447人中，y1=727人支持乔治-布什，y2=583人支持迈克尔-杜卡基斯，y3=137人支持其他候选人或表示没有意见。假设没有关于受访者的其他信息，这1447个观察值是可以交换的。如果我们也假设是简单的随机抽样（也就是说，1447个名字是 "从帽子里抽出来的"），那么数据$(y_1,y_2,y_3)$遵循一个多项分布，参数$(\theta_1,\theta_2,\theta_3)$是布什支持者、杜卡基斯支持者和没有意见者在调查人群中的比例。一个感兴趣的估计值是$\theta_1-\theta_2$，即两个主要候选人的人口支持率的差异。
 
-
+![image](https://github.com/hemiaorong/2021BayesianCourse/blob/main/figure/2.2.png)
 
 图2.2 来自选举投票实例的后验分布的1000次模拟的$(\theta_1-\theta_2)$值的直方图。
 
@@ -279,7 +279,6 @@ $$
 $$
 \begin{align}var(\tilde{y}\lvert y)&=E(var(\tilde{y}\lvert \mu,y)\lvert y)+var(E(\tilde{y}\lvert \mu,y)\lvert y)\\&=E(\Sigma\lvert y)+var(\mu\lvert y)=\Sigma+\Lambda_n.\end{align}
 $$
-要从后验分布或后验预测分布中取样，请参阅附录A，了解从具有指定均值和方差矩阵的多变量正态分布中生成随机抽样的方法。
 
 $\mu$的无信息先验密度。$\mu$的无信息统一先验密度是$p(\mu)\propto$常数，在先验精度趋于零的极限中得到$\left|\Lambda_{0}^{-1}\right|\rightarrow0$；在先验方差无限大（先验精度为零）的情况下，先验平均数是不相关的。后验密度与似然（2.11）成正比。只有在n≥d的情况下，也就是说，如果样本量大于或等于多元正态的维数，这才是一个合适的后验分布；否则，矩阵$S_0$就不是全等级的。如果n≥d，鉴于统一的先验密度，$\mu$的后验分布为$\mu\lvert \Sigma,y\sim N(\bar{y},\Sigma/n)$。
 
@@ -288,38 +287,57 @@ $\mu$的无信息先验密度。$\mu$的无信息统一先验密度是$p(\mu)\pr
 #### 2.6.1先验分布的共轭逆-维沙特族
 
 回顾一下，具有未知均值和方差的一元正态分布的共轭分布是正态逆$\chi^2$分布（2.6）。我们可以使用逆Wishart分布，即比例逆$\chi^2$的多元泛化，来描述矩阵$\Sigma$的先验分布。$(\mu,\Sigma)$的共轭先验分布，即正态逆威沙特分布，可以方便地用超参数$(\mu_0,\Lambda_0/\kappa_0; \nu_0, \Lambda_0)$进行参数化：
+
 $$
 \begin{align}  \Sigma&\sim \mathrm{Inv-Wishart}_{\nu_n}(\Lambda_n^{-1})\\ \mu\lvert \Sigma&\sim N(\mu_0,\Sigma/\kappa_n)\\ \end{align}
 $$
+
 这对应于联合先验密度
+
 $$
 p(\mu,\Sigma)\propto \lvert\Sigma\rvert^{-((\nu_0+d)/2+1)}\exp\left\{-\frac{1}{2}\mathrm{tr}(\Sigma^{-1}\Lambda_0)-\frac{\kappa_0}{2}(\mu-\mu_0)^\intercal\Sigma^{-1}(\mu-\mu_0)\right\}.
 $$
+
 参数$\nu_0$和$\Lambda_0$描述了自由度和$\Sigma$上的逆Wishart分布的尺度矩阵。剩下的参数是在$\Sigma$尺度上的先验平均数$\mu_0$和先验测量数$\kappa_0$。将先验密度乘以正态似然得到具有参数的同一族的后验密度
+
 $$
 \begin{align} \mu_n&=\frac{\kappa_0}{\kappa_0+n}\mu_0+\frac{n}{\kappa_0+n}\bar{y}\\ \kappa_n&=\kappa_0+n\\ \nu_n&=\nu_0+n\\ \Lambda_n&=\Lambda_0+S+\frac{\kappa_0n}{\kappa_0+n}(\bar{y}-\mu_0)(\bar{y}-\mu_0)^\intercal\\ \end{align}
 $$
+
 其中S是关于样本平均数的平方和矩阵。
+
 $$
 S=\sum_{i=1}^{n}(y_i-\bar{y})(y_i-\bar{y})^\intercal.
 $$
-一元正态的其他结果很容易被推广到多元的情况。$\mu$的边际后验分布是多变量的$t_{\nu_n-d+1}(\mu_n,\Lambda_n/(\kappa_n(\nu_n-d+1)))$。新观察值$\tilde{y}$的后验预测分布也是多变量的t，在尺度矩阵的分子中增加了$\kappa_n+1$的系数。使用以下程序可以很容易地得到$(\mu,\Sigma)$联合后验分布的样本：首先，绘制$\Sigma\sim \mathrm{Inv-Wishart}_{\nu_n}(\Lambda_n^{-1}) $，然后绘制$\mu\lvert \Sigma\sim N(\mu_n,\Sigma/\kappa_n)$。为了从新观察的后验预测分布中抽出，鉴于已经抽出的$\mu$和$\Sigma$的值，抽出$\bar{y}\lvert \mu，\Sigma,y\sim N(\mu,\Sigma)$。
+
+一元正态的其他结果很容易被推广到多元的情况。$\mu$的边际后验分布是多变量的$t_{\nu_n-d+1}(\mu_n,\Lambda_n/(\kappa_n(\nu_n-d+1)))$。新观察值$\tilde{y}$的后验预测分布也是多变量的t，在尺度矩阵的分子中增加了$\kappa_n+1$的系数。使用以下程序可以很容易地得到$(\mu,\Sigma)$联合后验分布的样本：首先，抽取$\Sigma\sim \mathrm{Inv-Wishart}_{\nu_n}(\Lambda_n^{-1}) $，然后抽取$\mu\lvert \Sigma\sim N(\mu_n,\Sigma/\kappa_n)$。为了从新观察的后验预测分布中抽出，鉴于已经抽出的$\mu$和$\Sigma$的值，抽出$\bar{y}\lvert \mu，\Sigma,y\sim N(\mu,\Sigma)$。
 
 #### 2.6.2不同的无信息先验分布
 
-具有d+1个自由度的逆-Wishart分布。设置$\Sigma\sim \mathrm{Inv-Wishart}_{d+1}(I)$有一个吸引人的特征，即$\Sigma$中的每一个相关关系都有边际均匀先验分布。(然而，联合分布不是均匀的， 因为相关矩阵的约束是正定的。）
+具有d+1个自由度的逆-Wishart分布。设置$\Sigma\sim \mathrm{Inv-Wishart}_{d+1}(I)$有一个特别的特征，即$\Sigma$中的每一个相关关系都有边际均匀先验分布。（然而，联合分布不是均匀的， 因为相关矩阵的约束是正定的。）
 
 具有d-1个自由度的逆-Wishart分布。另一个假设的无信息先验分布是多元Jeffreys先验密度，
+
 $$
 p(\mu,\Sigma)\propto\lvert\Sigma\rvert^{-(d+1)/2}，
 $$
+
 这是共轭先验密度的极限，因为$\kappa_n\to0,\nu_0\to{-1},\left|\Lambda_{0}^{-1}\right|\rightarrow0$。相应的后验分布可以写成
+
 $$
 \begin{align}  \Sigma\lvert y&\sim \mathrm{Inv-Wishart}_{n-1}(S^{-1})\\ \mu\lvert \Sigma,y&\sim N(\bar{y},\Sigma/n)\\ \end{align}
 $$
+
 假设后验分布是正确的，那么$\mu$的边际分布和$\tilde{y}$的后验预测分布的结果就来自于上一段的内容。例如，$\mu$的边际后验分布是多变量的$t_{n-d}(\bar{y},S/(n(n-d)))$。
 
-表3.1：Racine等人（1986）的生物测定数据。
+| Dose,$x_i$(log g/ml) | Number of animals,$n_i$ | Number of deaths,$y_i$ |
+| :------------------: | :---------------------: | :--------------------: |
+|        -0.86         |            5            |           0            |
+|        -0.30         |            5            |           1            |
+|        -0.05         |            5            |           3            |
+|         0.73         |            5            |           5            |
+
+表2.1：Racine等人（1986）的生物测定数据。
 
 #### 2.6.3按比例的逆威沙特模型
 
