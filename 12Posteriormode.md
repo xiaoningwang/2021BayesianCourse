@@ -10,7 +10,7 @@ $$
 $$
 
 
-p在贝叶斯统计学中，“最大后验概率估计”是后验概率分布的众数。   
+在贝叶斯统计学中，“最大后验概率估计”是后验概率分布的众数。   
 
  **2. 我们为什么关注后验分布的模？**
 
@@ -18,7 +18,7 @@ p在贝叶斯统计学中，“最大后验概率估计”是后验概率分布�
 
 
 
-在后续内容中将介绍如何寻找后验分布的模和边缘后验分布的模、如果用后验分布的模来summary整个分布应该如何选择合适的先验分布以及基于模的正态近似和混合近似等问题，并辅以实例帮助大家进行理解。
+在后续内容中将介绍如何寻找后验分布的模和边缘后验分布的模、如果用后验分布的模来总结整个分布应该如何选择合适的先验分布以及基于模的正态近似和混合近似等问题，并辅以实例帮助大家进行理解。
 
 
 ​    
@@ -56,7 +56,6 @@ $$
 ​	**2. 2 牛顿法**
 
 - 牛顿法，也被称为牛顿-拉夫森算法，是一种基于对数后验密度的二次泰勒级数近似的迭代方法。
-
 $$
 L(\theta) =logp(\theta\vert y)\tag{2.1}
 $$
@@ -101,13 +100,13 @@ $$
 
 - 牛顿法的优点
 
-  在二次近似准确处，一旦迭代接近解，收敛速度很快。如果迭代不收敛，它们通常会快速地向参数空间的边缘移动，下一步可能会再次尝试一个新的起点。
-
-  
-
-  **2.3 拟牛顿和共轭梯度方法**
-
-   $-L''$的计算和存储在牛顿法中开销很大。拟牛顿方法,如Broyden-Fletcher-Goldfarb-Shanno(BFGS)方法,迭代使用梯度信息形成$-L''$的近似。
+   在二次近似准确处，一旦迭代接近解，收敛速度很快。如果迭代不收敛，它们通常会快速地向参数空间的边缘移动，下一步可能会再次尝试一个新的起点。
+   
+   
+   
+   **2.3 拟牛顿和共轭梯度方法**
+   
+    $-L''$的计算和存储在牛顿法中开销很大。拟牛顿方法,如Broyden-Fletcher-Goldfarb-Shanno(BFGS)方法,迭代使用梯度信息形成$-L''$的近似。
 
 
 ​     	共轭梯度方法只使用梯度信息，但是，其使用共轭方向公式确定优化方向，而不是最速下降法。共轭梯度可能比牛顿和准牛顿方法需要更多的迭代，但每次迭代使用的计算量和存储空间更少。
@@ -126,7 +125,7 @@ $$
 
 - 例子1
 
-​		如图3.1所示,考虑8所学校例子中的组级尺度参数的后验分布。这个(边缘)后验分布的模是$\tau=0$,对应所有8所学校对大学招生考试指导的效用模型都相同。这一结论与数据一致，但从实际考虑，我们并不认为真正的变化完全是零：八所学校的辅导项目不同，所以效果应该变化 ，并且最好是少量变化。如图1所示，如果我们选择用它的模来总结这个分布，我们将处于$\hat{\tau}=0$的不理想位置，因为这是一个在参数空间边界的估计。
+​		如图3.1所示,考虑8所学校例子中的组级尺度参数的后验分布。这个(边缘)后验分布的模是$\tau=0$,对应所有8所学校对大学招生考试指导的效用模型都相同。这一结论与数据一致，但从实际考虑，我们并不认为真正的变化完全是零。八所学校的辅导项目不同，所以效果应该变化 ，并且最好是少量变化。如图1所示，如果我们选择用它的模来总结这个分布，我们将处于$\hat{\tau}=0$的不理想位置，因为这是一个在参数空间边界的估计。
 
 ![图3.1](https://github.com/Dodongxi/2021BayesianCourse/blob/main/figure/截屏2021-10-19%2021.35.44.png)
 
@@ -242,9 +241,9 @@ $$
 
 - 正态近似的一个简单例子
 
-​		$y_1,...,y_n$是$N(\mu,\sigma^2)$分布的独立观测，并且我们假定$(\mu,log\sigma)$有一个均匀先验密度。我们建立了$(\mu,log\sigma)$后验分布的正态近似，它可以将$\sigma$限制为正值。为了构造近似，我们需要对数后验密度的二阶导数，
+​		$y_1,...,y_n$是$N(\mu,\sigma^2)$分布的独立观测，并且我们假定$(\mu,\log\sigma)$有一个均匀先验密度。我们建立了$(\mu,\log\sigma)$后验分布的正态近似，它可以将$\sigma$限制为正值。为了构造近似，我们需要对数后验密度的二阶导数，
 $$
-\log p(\mu,log\sigma\vert y)=constant-n\log\sigma-\frac1{2\sigma^2}((n-1)s^2+n(\bar y-\mu))\tag{4.3}
+\log p(\mu,\log\sigma\vert y)=constant-n\log\sigma-\frac1{2\sigma^2}((n-1)s^2+n(\bar y-\mu))\tag{4.3}
 $$
 ​		一阶导数是：
 $$
@@ -278,7 +277,6 @@ $$
 $$
 \log p(\mu,\log\sigma\vert y) \approx N\begin{pmatrix}\begin{pmatrix}\mu\\\log\sigma \end{pmatrix}\begin{pmatrix}\bar y\\\log\hat\sigma\end{pmatrix}\begin{pmatrix}{\frac {\hat\sigma^2 }n,0\\0,\frac 1{2n}}\end{pmatrix}\end{pmatrix}\tag{4.10}
 $$
-
 - 渐近正态性和一致性
 
 ​		我们可以在（4.1）式的基础上对大样本下后验分布及其模的性质进行一个简单探索。
@@ -374,12 +372,12 @@ $$
 $$
 ​		取双边的期望,将$gamma$作为一个随机变量,服从分布$p(\gamma\vert \varphi^{old},y)$,其中$\varphi^{old}$是当前的猜测。上述方程的左侧不依赖于$\varphi$,因此对$\varphi$求平均得：
 $$
-\log p(\varphi \vert y)=E_{old}(\ logp(\gamma,\varphi\vert y))-E_{old}(\log p(\gamma\vert \varphi,y))\tag{5.1}
+\log p(\varphi \vert y)=E_{old}(\log p(\gamma,\varphi\vert y))-E_{old}(\log p(\gamma\vert \varphi,y))\tag{5.1}
 $$
 ​		$E_{old}$是$gamma$在分布$p(\gamma\vert \varphi^{old},y)$的平均值。（5.1）右侧最后一项的$E_{old}(\log p(\gamma\vert \varphi,y))$,在$\varphi=\varphi^{old}$时最大化。另一项,期望的对数联合后验密度,$E_{old}(\ logp(\gamma,\varphi\vert y))$,在计算中被重复使用。
 
 $$
-E_{old}(\ logp(\gamma,\varphi\vert y))=\int (\log p(\gamma,\varphi\vert y))p(\gamma \vert \varphi^{old},y)d\gamma\tag{5.2}
+E_{old}(\log p(\gamma,\varphi\vert y))=\int (\log p(\gamma,\varphi\vert y))p(\gamma \vert \varphi^{old},y)d\gamma\tag{5.2}
 $$
 ​		这个表达式为$Q(\varphi\vert\varphi^{old})$。
 
@@ -432,9 +430,9 @@ $\tau_0$已知）和 $\log \sigma$有标准非信息的均匀先验分布； 它
 $$
 \log p(\mu,\sigma \vert y)=-\frac 1{2\tau_0^2}(\mu-\mu_0)^2-(n+1)\log \sigma-\frac 1{2\sigma^2}\sum_{i=1}^n(y_i-\mu)^2+constant\tag{5.4}
 $$
-​		忽略与 µ 或 σ2 无关的项。
+​		忽略与$\mu$ 或 $\sigma^2$无关的项。
 
-​		E-步骤。 对于 EM 算法的 E 步，我们必须确定(5.4）的期望，对 σ 求平均值并以当前的猜测为条件，$\mu^{old}$，y：
+​		E-步骤。 对于 EM 算法的 E 步，我们必须确定(5.4）的期望，对 $\sigma$求平均值并以当前的猜测为条件，$\mu^{old}$，$y$：
 $$
 \begin{align}
 \log p(\mu,\sigma \vert y)=&-\frac 1{2\tau_0^2}(\mu-\mu_0)^2-(n+1)E_{old}(\log \sigma)\\
@@ -445,7 +443,7 @@ $$
 $$
 \sigma^2\vert\mu,y \sim Inv-\chi^2(n,\frac1n\sum_{i=1}n(y_i-\mu)^2)\tag{5.6}
 $$
-​		那么 1σ2 的条件后验分布是一个缩放的 χ2，并且
+​		那么 $\sigma^2$ 的条件后验分布是一个缩放的$\chi^2$，并且
 $$
 E_{old}(\frac 1{\sigma^2})=E(\frac1{\sigma^2}\vert u^{old},y)=(\frac1n\sum _{i=1}^n(y_i-\mu^{old})^2)^{-1}\sum_{i=1}^n(y_i-\mu)^2=const\tag{5.7}
 $$
@@ -458,7 +456,7 @@ M步是通过等效后验密度的模来实现的，即
 $$
 \mu^{new}=\frac{ \frac {1}{\tau_0^2}\mu_0+\frac n{\frac1n\sum _{i=1}^n(y_i-\mu^{old})^2}\bar y}{\frac1{\tau_0^2}+\frac n{\frac1n\sum _{i=1}^n}(y_i-\mu^{old})^2}\tag{5.8}
 $$
-​		如果我们迭代这个计算，μ 会收敛到 p(μ|y) 的边缘的模。
+​		如果我们迭代这个计算，$\mu$ 会收敛到 $p(\mu\vert y)$ 的边缘的模。
 
 
 
