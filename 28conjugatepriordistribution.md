@@ -165,7 +165,7 @@ $$
 
 **（2）先验信息的不同选取方式**
 
-![image](https://github.com/chenchen411/2021BayesianCourse/blob/main/figure/wc__figure1.png)
+![image]https://github.com/chenchen411/2021BayesianCourse/blob/main/figure/wc_figure1.png
 
 ​                                                        **图1 不同$α ，β$的值对$\theta$值的影响**
 
@@ -194,7 +194,8 @@ $$
 在$Gamma(α， β)$先验分布情况下，**θ的后验分布**为$Gamma(α + y， β + x)$。根据先验分布和所描述的数据，θ的后验分布为$Gamma(6.0, 7.0)，其均值为0.86 $，$\theta$的值从样本数据的1.5到0.86，向先验分布发生了重大收缩。从θ的后验分布进行1000次抽样得到的直方图如图2（a）所示，我市哮喘长期死亡率的后验概率较高。
 
  
-![image](https://github.com/chenchen411/2021BayesianCourse/blob/main/figure/wc_figure2.png)
+![image]https://github.com/chenchen411/2021BayesianCourse/blob/main/figure/wc_figure2.png
+
 
 
 **图2  θ的后验分布**，即每年每10万人的哮喘死亡率，在$Gamma(3.0, 5.0)$先验分布下：
