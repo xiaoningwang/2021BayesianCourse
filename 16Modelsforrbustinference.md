@@ -29,6 +29,7 @@
 
 所有这些分布的一个特点是，它们永远不可能是分散不足的。根据公式（2.7）和（2.8）以及混合解释，这是有道理的：广义分布的平均值与基础族的平均值相等，但方差更大。如果认为数据相对于标准分布来说是分散不足的，就应该使用不同的模型。
 
-![](http://latex.codecogs.com/gif.latex?\\\E\left ( \Theta  \right )= E\left ( E\left ( \Theta \mid y \right ) \right ))
+![](http://latex.codecogs.com/gif.latex?\\\E\left ( \Theta  \right )= E\left ( E\left ( \Theta \mid y \right ) \right )) &#8195 (2.7）
 
-![](http://latex.codecogs.com/gif.latex?\\frac{1}{1+sin(x)})
+
+
