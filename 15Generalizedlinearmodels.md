@@ -193,11 +193,11 @@ $$
 
 表1显示了在给定性别、种族和收入（编码为$−2.−1,0,1,2$），分别适用于一系列选举的选前投票。除了1964年的情况外，这些估计看起来不错，当时的情况完全不同：在那一年的调查中，87名非裔美国人中，没有一人表示对共和党候选人有偏好。我们在R中拟合模型，即使在1964年，该模型实际上也给出了黑人系数的有限估计，但该数字及其标准误差基本上没有意义，是迭代拟合过程在放弃之前需要多长时间的函数。当年黑人系数的最大似然估计为$-\infty$.
 
-![1](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/1.png)
+![1](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/fyy_figure1.png)
 
 在表1中，预测选前民意调查中共和党投票意向的logistic回归（具有统一的先验分布）估计值和标准误差分别适用于1960年至1972年四次总统选举的调查数据。这一估计是合理的，但1964年除外，当时完全分离（没有黑人受访者支持共和党候选人巴里·戈德沃特）。
 
-![2](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/2.png)
+![2](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/fyy_figure2.png)
 
 图1显示了投票示例中黑色系数的轮廓可能性，这一参数的可能性取决于其他参数设置为其最大似然估计值。最大似然估计（或等效地，均匀先验密度下的后验模式）位于$-\infty$ ,这在本应用程序中毫无意义。根据1964年共和党投票的logistic回归，以模型中其他系数的点估计为条件,最大值为$\beta$。
 
@@ -268,7 +268,7 @@ $$
 
 2. 将其他输入转化为平均值为0，并缩放至标准偏差为0.5。这种比例将连续变量置于与对称二进制输入相同的比例上（取±0.5的值，标准偏差为0.5）。
 
-![3](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/3.png)
+![3](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/fyy_figure3.png)
 
 <font size=2>图2:（实线）标度为2.5的Cauchy密度，（虚线）标度为2.5的$t_7$密度，（虚线）$\theta$对应于概率$logit^{-1}(\theta)$的单个二项试验的似然性（一半成功率，一半失败率）。所有这些曲线都有利于绝对值低于5的值；我们选择柯西模型作为默认模型，因为它允许偶尔出现较大值的概率。</font>
 
@@ -286,7 +286,7 @@ $$
 
 这意味着我们预计平均案例的成功概率在$10^{-9}$到$1-10^{-9}$之间。我们通常有更多关于截距的信息，而不是关于任何特定系数的信息，因此我们可以使用较弱的先验知识。
 
-![4](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/4.png)
+![4](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/fyy_figure4.png)
 
 <font size=2>图3：最大似然和贝叶斯逻辑回归的估计值，以及生物测定示例的推荐默认先验分布（第74页表3.1中的数据）。除了绘制拟合曲线（右侧），我们还展示了原始计算机输出，以说明我们的方法将如何在日常实践中使用。glm和bayesglm的估计系数的大变化一开始可能看起来很奇怪，但经过思考，我们更喜欢第二个估计，其系数x较低，这是基于对可能性所允许的最极端可能性进行降权。</font>
 
@@ -310,7 +310,7 @@ $$
 
 将默认先验分布应用于本节前面讨论的选举前民调，在这一部分中，我们可以很容易地拟合logistic回归，每个选举年（1964年除外）的先验不变，其中黑人的系数由于数据中的完全分离而爆炸。
 
-![5](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/5.png)
+![5](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/fyy_figure5.png)
 
 图4的左栏显示了估计系数的时间序列和logistic回归的四个系数的误差范围，这四个系数分别适用于1952年至2000年的每个选举年的投票数据。除了1964年黑人的截距和系数外，所有的估计都是合理的，当时最大似然估计是无限的。如前所述，我们不认为1964年的这些系数估计是合理的：在整个人口中，我们不认为人口中的非裔美国人投票给共和党的概率为零。然而，完全可以预测的是，在中等样本量的情况下，偶尔会出现分离，从而产生无限的估计。（如前所述，此处显示的1964年的估计值是有限的，因为R中的广义线性模型拟合例程在有限次迭代后停止。）
 
@@ -344,7 +344,7 @@ $$
 
 通过比较逮捕率，我们还可以分别分析与不同类型犯罪相关的拦截次数。我们对四种犯罪类型中的每一种进行了单独比较：暴力犯罪、武器犯罪、财产犯罪和毒品犯罪。对于每一种犯罪，我们根据种族$e$和辖区$p$对该犯罪类型的拦截次数进行了建模，并将上一年该犯罪类型的DCJS逮捕率$n_{ep}$作为基线。
 
-![6](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/6.png)
+![6](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/fyy_figure6.png)
 
 <font size=2>图5：以前一年的逮捕率为基线，控制辖区之间的差异，根据分层回归（12）估计的不同种族人群因不同类别犯罪而被拦截的估计比率$exp(\alpha_e)$。分别对黑人人口少于10%、10%–40%和超过40%的辖区进行分析。在暴力犯罪和武器犯罪中，拦截率最高，黑人和西班牙裔被拦截的频率约为白人的两倍。比率以对数标度绘制。</font>
 
@@ -368,7 +368,7 @@ $$
 对于共和党候选人的支持者，我们将调查结果$y
 _i$标注为1；对于民主党的支持者，我们将其标注为0（未决定者除外），并将其建模为独立的，且$Pr(y_i=1)=logit_(-1)(X_i\beta)$。设计矩阵$X$均为0和1，包含CBS在调查权重中使用的人口统计变量指标：性别、种族、年龄、教育以及性别$\times$种族和年龄$\times$教育的相互作用。我们还将50个州和全国4个地区（东北、中西部、南部和西部）的$X$指标包括在内。由于州嵌套在地区内，因此不需要对州产生主要影响。与我们对线性模型的一般方法一样，我们为每批回归系数提供一个以零为中心的独立正态分布，并在给定统一先验密度的情况下，按层次估计标准偏差。
 
-![7](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/7.png)
+![7](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/fyy_figure7.png)
 
 <font size=2>图6：方差分析显示了两个logistic回归模型，该模型基于七次哥伦比亚广播公司新闻调查的数据，表明调查对象倾向于共和党候选人参加1988年美国总统选举。点估计和误差条显示了有限总体标准偏差$s_m$的后中位、50%区间和95%区间。人口统计因素是CBS用来进行无回应调整的因素，之所以将州和地区包括在内，是因为我们想要按州估算平均意见。对种族、地区和州的巨大影响表明，将互动包括在内可能是有意义的，因此在第二个模型中包含了种族$\times$地区和种族$\times$州的效应。</font>
 
@@ -421,7 +421,7 @@ $$
 
 我们以基于连续近似的常规方法从后验分布中提取样本。（使用Stan可以很容易地拟合此模型，但我们使用此示例来说明如何直接构造此类计算。）就计算机时间而言，我们这里使用的计算方法几乎肯定不是最有效的，但它相对容易以通用方式编程并产生可信的推论。该模型根据$\beta$、$\beta$、$log(\Lambda_{11})$、$log(\Lambda_{22})$和相关的费歇尔的z转化$\frac{1}{2}log(^{1+\rho_{12}}_{1-\rho_{12}})$进行参数化，将参数范围转换为整条实线。我们从基于条件模式的近似中随机抽取样本，然后进行重要性重采样，以获得Metropolis算法十次并行运行的起点。我们使用了一个正常的跳跃核，其协方差来自模式的后验密度曲率，比例因子为$2.4/\sqrt{49}$（因为跳跃是在49维空间中）。模拟运行了40000次迭代，此时所有参数的估计缩尺$\widehat{R}$均低于1.2，且大多数都低于1.1。我们使用从模拟序列的后半部分得到的200000个$(\beta,\alpha,\Lambda)$模拟来总结表2中的后验分布。
 
-![8](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/8.png)
+![8](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/fyy_figure8.png)
 
 <font size=2>表2：表5.4中$\beta$受体阻滞剂试验元分析的双变量分析的后验推断总结。所有的影响都在对数赔率范围内。推论与第5.6节中logit差异的单变量分析结果相似：将个体研究效应与表5.4进行比较，将平均logit的平均值和标准偏差与表5.5进行比较。”Study1 avg logit&apos;作为22个参数$\beta_{1j}$的代表包含在上述研究中。（我们通常倾向于以图形方式显示所有这些推论，但使用此处的表格提供后验推论的更详细视图。）</font>
 
@@ -461,11 +461,11 @@ $$
 
 R中用glm(formula,family...)函数来做广义线性模型，不同分布族下的默认连接函数如下表3所示：
 
-![9](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/9.png)
+![9](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/fyy_figure9.png)
 
 与glm()函数经常连用的函数如下表4所示：
 
-![10](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/10.png)
+![10](https://github.com/fuballball/2021BayesianCourse/blob/main/figure/fyy_figure10.png)
 
 ***logistic回归的拓展***
 
