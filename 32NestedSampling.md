@@ -22,7 +22,7 @@
 
 
 
-![1](https://github.com/Eristiano/2021BayesianCourse/blob/main/1.png)
+![1](https://github.com/Eristiano/2021BayesianCourse/blob/main/figure/1.png)
 
 
 
@@ -32,7 +32,7 @@
 
 
 
-![2](https://github.com/Eristiano/2021BayesianCourse/blob/main/2.png)
+![2](https://github.com/Eristiano/2021BayesianCourse/blob/main/figure/2.png)
 
 
 
@@ -96,7 +96,7 @@ $$
 
 
 
-![3](https://github.com/Eristiano/2021BayesianCourse/blob/main/3.gif)
+![3](https://github.com/Eristiano/2021BayesianCourse/blob/main/figure/3.gif)
 
 
 
@@ -156,9 +156,9 @@ $$
 
 
 
-![4](https://github.com/Eristiano/2021BayesianCourse/blob/main/4.png)
+![4](https://github.com/Eristiano/2021BayesianCourse/blob/main/figure/4.png)
 
-![5](https://github.com/Eristiano/2021BayesianCourse/blob/main/5.png)
+![5](https://github.com/Eristiano/2021BayesianCourse/blob/main/figure/5.png)
 
 
 
