@@ -135,11 +135,10 @@ $Gibbs$ 采样 的起始值可通过对后验的近似（位于 $t_4$ 分布的�
 
 > 受试者共17人，其中11名为非精神分裂症患者，6名为精神分裂症患者。设计一个有关反应时间的测试，对每名受试者测试30次。测试统计数据见**图1、图2**。
 
-<img src="img/图1.png" alt="图1" style="zoom: 67%;" />
-
+![图1](https://github.com/yestbon/2021BayesianCourse/blob/main/figure/%E5%9B%BE1.png)
 <center>图 1.11名非精神分裂症患者的反应时间对数（毫秒）</center>
 
-<img src="img/图2.png" alt="图2" style="zoom: 67%;" />
+![图1](https://github.com/yestbon/2021BayesianCourse/blob/main/figure/%E5%9B%BE2.png)
 
 <center>图 2.6名精神分裂症患者的反应时间对数（毫秒）</center>
 
@@ -328,7 +327,7 @@ $\lambda$ 表示反应延迟的精神分裂症患者观察延迟的概率； $\t
 
 **图形法比较后验预测分布和观测值**  1000个模拟值的散点图如**图3**所示，***X*** 表示数据集中测试量的观测值。观测值 $y$ 不符合后验预测分布（$T_{min}$ 太小，$T_{max}$ 太大）。
 
-![图3](img/图3.png)
+![图3](https://github.com/yestbon/2021BayesianCourse/blob/main/figure/%E5%9B%BE3.png)
 
 <center>图 3.模拟值的散点图</center>
 
@@ -357,7 +356,7 @@ $$
 
 使用新的后验分布下相同测试量的后验预测模拟来检查模型改进后的拟合效果，结果如**图4**所示,与**图3**相比，后验预测分布更接近 ***X***。
 
-![图4](img/图4.png)
+![图4](https://github.com/yestbon/2021BayesianCourse/blob/main/figure/%E5%9B%BE4.png)
 
 <center>图 4.模型改进后的模拟值散点图</center>
 
