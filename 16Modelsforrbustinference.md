@@ -128,8 +128,7 @@ $\theta_{j}\mid\nu,\mu,\tau\sim t_{\nu}\left(\mu, \tau^{2}\right)$,for j=1,...,8
  
 #### _Gibbs抽样_	
 
-在ν=4的情况下，我们使用第12.1节中描述的方法进行Gibbs抽样。(有关在STAN中安装这样的模型或在R中执行Gibbs采样器的详细信息，请详见附录C。)
-
+在ν=4的情况下，我们使用第12.1节中描述的方法进行Gibbs抽样。
 <div align=center>
 <img src="https://github.com/sweewrr/2021BayesianCourse/blob/13eaf7c43f57d0bc84b3d6e3681837bb282e7084/figure/%E8%A1%A817.png" width= "50%" >
 </div>
@@ -170,7 +169,7 @@ $\frac{p(\theta, \mu, \tau \mid \nu, y)}{p_{0}(\theta, \mu, \tau \mid y)} \propt
 
 #### _后验推断_
 
-为了将ν视为未知参数，我们修改了稳健分析中使用的Gibbs抽样模拟，包括从$\frac{1}{v}$的条件分布中抽样的Metropolis步骤。这种方法的实现示例可在附录C中找到。 图17.2显示了$\frac{1}{v}$的模拟直方图。延伸模型的另一种方法是使用重要性抽样和（17.3）来近似计算边际后验密度。
+为了将ν视为未知参数，我们修改了稳健分析中使用的Gibbs抽样模拟，包括从$\frac{1}{v}$的条件分布中抽样的Metropolis步骤。图17.2显示了$\frac{1}{v}$的模拟直方图。延伸模型的另一种方法是使用重要性抽样和（17.3）来近似计算边际后验密度。
 
 <div align=center>
 <img src="https://github.com/sweewrr/2021BayesianCourse/blob/49e9956a08d5507b25536a9b49a92d67cb93c41f/figure/%E5%9B%BE17.2.jpg" width= "40%" >
@@ -215,8 +214,16 @@ $\hat{\beta}^{\text {new }}=\left(X^{T} W X\right)^{-1} X^{T} W y$ and $\left(\h
 
 如果自由度参数ν作为未知参数包含在模型中，那么每次迭代都需要额外的Metropolis步骤。在实践中，这些计算可能很难实现，因为在自由度ν较低的情况下，后验分布可能有很多模式，Gibbs采样器和Metropolis算法可能会卡住。对于这种形式的复杂模型，用过度分散的起点进行多次模拟是很重要的。
 
-## 17.6	
+## 17.6 文献综述
 
 Mosteller和Wallace(1964)使用负二项分布，而不是泊松分布，用于计数数据，并广泛研究了他们的结论对模型的灵敏度假设。
 
 Box和Tiao（1968）在正态模型中的异常值背景下提供了贝叶斯稳健性的另一个早期讨论。Smith（1983）扩展了Box的方法，并使用与我们相同的参数化（反自由度）讨论了这个族。安德森（Anderson，1988）从非贝叶斯的角度回顾了二项式数据中过度离散的模型，他引用了许多进一步的参考文献。Gaver和O'Muircheartaigh（1987）讨论了使用分层泊松模型进行稳健贝叶斯推理。O'Hagan（1979）和Gelman（1992a）讨论了层次模型的人口分布尾部与相关贝叶斯后验分布的收缩之间的联系。
+
+在一系列的论文中，Berger和同事们探索了贝叶斯稳健性的理论方面，例如， 研究了对异常观测的影响提供最大稳健性的先验分布系列；例如，参考Berger（1984，1990）以及Berger和Berliner（1986）。相关工作见Wasserman（1992）。Dempster(1975) 从接近我们的实用主义观点出发， 提供了一个早期的概述。Rubin(1983a)说明了在评估模型拟合度时数据的局限性，以及由此产生的一些结论对不可检验的假设的不可避免的灵敏度。
+
+随着最近计算技术的进步，用t分布建立模型在统计学中越来越普遍。Dempster, Laird和Rubin(1977)展示了如何将EM算法应用于t模型，Liu和Rubin(1995)以及Meng和 van Dyk(1997)讨论了使用EM扩展的快速计算方法。Lange, Little和Taylor(1989)讨论了t分布在各种统计背景下的使用。Raghunathan和Rubin（1990）介绍了一个使用重要性重采样的例子。Tipping和Lawrence(2005)应用了因子化变异近似法，Vanhatalo, Jylanki, Vehtari(2009)应用了Laplace方法，Jylanki, Vanhatalo,  and  Vehtari(2011)应用了期望传播t模型。 Liu（2004）提出了 "robit "模型，作为逻辑和probit回归的替代品。
+
+Rubin（1983b）和Lange和Sinsheimer（1993）回顾了稳健回归、t和相关分布以及迭代回归计算之间的联系。
+
+Taplin和Raftery（1994）介绍了一个应用有限混合模型对农业实验进行稳健贝 叶斯分析的例子。
