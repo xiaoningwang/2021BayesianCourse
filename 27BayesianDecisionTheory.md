@@ -480,7 +480,7 @@ class Pdf(object):
 <center>
     <img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-    src="C:\Users\86155\AppData\Roaming\Typora\typora-user-images\image-20211018112615892.png">
+    src="https://github.com/hexueqi0715/2021BayesianCourse/blob/main/figure/hxq_figure1.png">
     <br>
     <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
@@ -532,7 +532,7 @@ class Pdf(object):
 <center>
     <img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-    src="C:\Users\86155\AppData\Roaming\Typora\typora-user-images\image-20211018113400085.png">
+    src="https://github.com/hexueqi0715/2021BayesianCourse/blob/main/figure/hxq_figure2.png">
     <br>
     <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
@@ -610,7 +610,7 @@ class Player
 <center>   
     <img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-    src="C:\Users\86155\AppData\Roaming\Typora\typora-user-images\image-20211019174208936.png">
+    src="https://github.com/hexueqi0715/2021BayesianCourse/blob/main/figure/hxq_figure3.png">
     <br>
     <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
@@ -655,7 +655,7 @@ class GainCalculator(object):
 <center>
     <img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-    src="C:\Users\86155\AppData\Roaming\Typora\typora-user-images\image-20211019180840168.png">
+    src="https://github.com/hexueqi0715/2021BayesianCourse/blob/main/figure/hxq_figure4.png">
     <br>
     <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
