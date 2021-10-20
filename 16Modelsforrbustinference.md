@@ -29,10 +29,20 @@
 
 所有这些分布的一个特点是，它们永远不可能是分散不足的。根据公式（2.7）和（2.8）以及混合解释，这是有道理的：广义分布的平均值与基础族的平均值相等，但方差更大。如果认为数据相对于标准分布来说是分散不足的，就应该使用不同的模型。
 
-![](http://latex.codecogs.com/gif.latex?\\\E\left ( \Theta  \right )= E\left ( E\left ( \Theta \mid y \right ) \right )) &#8195; (2.7）
+![](http://latex.codecogs.com/gif.latex?\E\left ( \Theta  \right )= E\left ( E\left ( \Theta \mid y \right ) \right )) &#8195; (2.7）
 
-![](http://latex.codecogs.com/gif.latex?\\\E\left (var\left ( \Theta  \right )= E\left ( var\left ( \Theta |y \right ) \right )+var\left ( E\left ( \Theta |y \right ) \right )) &#8195; (2.8)
+![](http://latex.codecogs.com/gif.latex?\var\left (\Theta\right)= E\left(var\left(\Theta|y\right)\right)+var\left(E\left(\Theta|y\right)\right)) &#8195; (2.8)
 
 ### _用t分布代替正态分布_
 
-t分布的尾部比正态分布长，可用于容纳（1）数据分布中偶尔出现的不寻常的观测值，或（2）先验分布或层次模型中偶尔出现的极端参数。t系列分布-tν(µ, σ2)-有三个参数：中心µ、尺度σ和一个决定分布形状的 "自由度 "参数ν。t密度是对称的，ν必须落在（0，）范围内。在ν=1时，t相当于Cauchy分布，它的长尾    是无限的平均数和方差，当ν	时，t接近正态分布。 如果t分布是一个概率模型的一部分，试图根据合理的大量数据准确地拟合一个长  尾分布，那么一般来说，将自由度作为一个未知参数列入是合适的。在选择t作  为正态分布的稳健替代品的应用中，自由度可以固定在一个较小的数值上，以   允许异常值的存在，但不能小于先前的理解。  例如，有一个或两个自由度的t具有无限的方差，在远尾部通常不现实。
+t分布的尾部比正态分布长，可用于容纳（1）数据分布中偶尔出现的异常值，或（2）先验分布或分层模型中偶尔出现的极端参数。t系列分布
+![](http://latex.codecogs.com/gif.latex?\\t_{v}\left(\mu,\Theta^{2}\right)
+有三个参数：中心µ、尺度σ和一个决定分布形状的 "自由度 "参数ν。t密度是对称的，ν必须落在（0，∞）范围内。在ν=1时，t相当于柯西分布，它的长尾是无限的平均数和方差，当
+![](http://latex.codecogs.com/gif.latex\\v\to\propto)
+时，t接近正态分布。 如果t分布是一个概率模型的一部分，试图根据合理的大量数据准确地拟合一个长尾分布，那么一般来说，将自由度作为一个未知参数列入是合适的。在选择t作为正态分布的稳健替代的应用中，自由度可以固定在一个较小的数值上，以允许异常值的存在，但不能小于先前的要求。例如，有一个或两个自由度的t在远尾部具有无限的方差通常是不现实的。
+
+### _混杂解释_
+
+回顾第3.2节和第12.1节，
+![](http://latex.codecogs.com/gif.latex?\\t_{v}\left(\mu,\Theta^{2}\right)
+分布可以被解释为具有共同均值和方差的正态分布的混合分布，其分布方式为反比例χ2。例如，模型 yi ∼ tν(µ, σ2) 等于
