@@ -139,7 +139,7 @@ $$P(X_1,X_2,X_3,X_4,X_5)=P(X_1)P(X_2)P(X_3|X_1,X_2)P(X_4|X_3)P(X_5|X_3)$$
 
 &ensp;&ensp;&ensp;&ensp;此数据集中共有5000个样本 × 6项指标，所有数据均为0-1变量。其中Y表示是否年轻；D表示是否饮酒；A表示是否有过事故；V表示是否违规过；C表示是否收到过罚单；G表示是否为自动挡。现在基于上文中提到的四种计分规则，并利用爬山算法对此数据集进行贝叶斯网络的构建。
 ```{r warning=FALSE,fig.align='center'}
-data <- read.csv("driver.csv",sep=",",header=TRUE)
+data <- read.csv("zt_dataset1.csv",sep=",",header=TRUE)#driver.csv数据集
 for(i in 1:ncol(data)){data[,i] <- factor(data[,i])}
 names(data) <- c("Y","D","A","V","C","G")
 
@@ -158,7 +158,7 @@ graphviz.plot(data_hc_bde, main="贝叶斯Dirichlet等价对数计分规则的�
 &ensp;&ensp;&ensp;&ensp;可以看出，除了基于多项对数似然计分规则的算法，其他算法所得出的贝叶斯网络图形均一致。对于第二张贝叶斯网络，“年轻（Y）”、和“饮酒（D）”两个变量为条件均会影响“事故（A）”、“违规（V）”、“罚单（C）”三个变量的发生概率。下列一组刻面图（行为是否饮酒，列为是否年轻）显示“年轻”和“饮酒”将导致事故的概率增高，既年轻又饮酒的群体发生事故的概率是最高的，这和我们的常识是符合的。
 
 ```{r echo=TRUE, fig.align='center', warning=FALSE}
-data <- read.csv("driver.csv",sep=",",header=TRUE)
+data <- read.csv("zt_dataset1.csv",sep=",",header=TRUE)#driver.csv数据集
 names(data) <- c("Y","D","A","V","C","G")
 ggplot(data, aes(y=A)) + 
   geom_histogram(fill="cornflowerblue",stat="count",binwidth=1.0, bins=30) + 
@@ -171,7 +171,7 @@ ggplot(data, aes(y=A)) +
 &ensp;&ensp;&ensp;&ensp;在上一节例子生成的贝叶斯网络图模型中，我们并没有发现其中的箭头有什么明显的异常。这是因为driver.csv是一个设计好的数据集，基于算法恰好可以生成我们想要的图形。现在我们使用中国综合社会调查（CGSS2017)数据，在社会调查数据更为真实，其中没有任何人为涉及数据的行为。这里选取“年龄”，“教育”，“户口”，“收入”，“性别”五个变量。年龄大于25岁的记为1，小于25记为0；教育为从1至13递增的有序型数据；户口为农村的记为0，非农村的记为1；收入高于四分之三分位数的记为1，否则记为0；男性记为1；女性记为0。在删除了个别缺失数据后，剩余11371个样本。这里采用基于AIC计分的算法得出如下贝叶斯网络结构。
 
 ```{r warning=FALSE,echo=TRUE, fig.align='center', fig.height=4, fig.width=4.8}
-data <- read.csv("cgss2017.csv", header=TRUE, sep=",",na.strings = c(9999999,9999998,9999997,9999996,99,98,97,14,21,"#NULL!"))
+data <- read.csv("zt_dataset2.csv", header=TRUE, sep=",",na.strings = c(9999999,9999998,9999997,9999996,99,98,97,14,21,"#NULL!"))#cgss2017数据集
 data <- subset(data,select=c("a7a","a62","a18","a31","a2"))
 names(data) <- c("edu","income","hukou","old","sex")
 data <- na.omit(data)
