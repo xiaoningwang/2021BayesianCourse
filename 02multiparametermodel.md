@@ -330,6 +330,8 @@ $$
 
 假设后验分布是正确的，那么$\mu$的边际分布和$\tilde{y}$的后验预测分布的结果就来自于上一段的内容。例如，$\mu$的边际后验分布是多变量的$t_{n-d}(\bar{y},S/(n(n-d)))$。
 
+表2.1：Racine等人（1986）的生物测定数据。
+
 | Dose,$x_i$(log g/ml) | Number of animals,$n_i$ | Number of deaths,$y_i$ |
 | :------------------: | :---------------------: | :--------------------: |
 |        -0.86         |            5            |           0            |
@@ -337,7 +339,6 @@ $$
 |        -0.05         |            5            |           3            |
 |         0.73         |            5            |           5            |
 
-表2.1：Racine等人（1986）的生物测定数据。
 
 #### 2.6.3按比例的逆威沙特模型
 
@@ -353,7 +354,7 @@ $$
 
 除了正态分布，很少有多参数抽样模型可以简单明确地计算后验分布。这里我们介绍一个生物测定实验的非共轭模型的例子，它来自应用贝叶斯统计的文献。该模型是一个双参数的例子，来自广义线性模型。我们使用一种特别简单的模拟方法，用一个支持在二维网格上的离散分布来近似后验分布，为这个双参数的例子提供足够准确的推断。
 
-#### 2.7.1科学问题和数据
+### 2.7.1科学问题和数据
 
 在药物和其他化合物的开发中，通常在动物身上进行急性毒性试验或生物测定实验。这种实验通过对成批的动物施用不同剂量的化合物来进行。动物的反应通常以二分法的结果为特征：例如，活或死，肿瘤或无肿瘤。这类实验产生的数据形式为
 
@@ -475,12 +476,13 @@ $$
 
 Box和Tiao(1973)的第二章彻底处理了一元和多元正态分布问题，以及一些相关问题，如估计两个均值之间的差异和两个方差之间的比率。在写这本书的时候，计算机模拟方法远不如现在方便，因此Box和Tiao，以及当时的其他贝叶斯作者，把注意力限制在共轭族上，并花了很多精力来推导边际后验密度的分析形式。
 
+表3.1 1988年ABC新闻网辩论前后调查中各偏好类别的受访者人数。
+
 |   Survey    | Bush | Dukakis | No opinion/other | Total |
 | :---------: | :--: | :-----: | :--------------: | :---: |
 | pre-debate  | 294  |   307   |        38        |  639  |
 | post-debate | 288  |   332   |        19        |  639  |
 
-表3.1 1988年ABC新闻网辩论前后调查中各偏好类别的受访者人数。
 
 许多关于多元分析的教科书都讨论了多元正态分布的独特数学特征，例如多元正态向量的所有边际和条件分布都是正态的属性；例如，见Mardia, Kent, and Bibby（1979）。
 
@@ -490,3 +492,14 @@ Good(1965)和Fienberg(1977)讨论了多项式模型和相应的信息性和无�
 
 生物测定例子的数据和模型出现在Racine等人（1986年）的文章中，这篇文章介绍了几个简单的贝叶斯分析的例子，在制药业中很有用。
 
+## 4、参考文献
+
+[1]Box, G. E. P., and Tiao, G. C. (1973). Bayesian Inference in Statistical Analysis. New York: Wiley Classics.
+
+[2]Good, I. J. (1965). The Estimation of Probabilities: An Essay on Modern Bayesian Methods. Cambridge, Mass.: MIT Press.
+
+[3]Fienberg, S. E. (1977). The Analysis of Cross-Classified Categorical Data. Cambridge, Mass.: MIT Press.
+
+[4]Mardia, K. V., Kent, J. T., and Bibby, J. M. (1979). Multivariate Analysis. New York: Academic Press.
+
+[5]Racine, A., Grieve, A. P., Fluhler, H., and Smith, A. F. M. (1986). Bayesian methods in practice: experiences in the pharmaceutical industry (with discussion).
