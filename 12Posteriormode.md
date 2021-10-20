@@ -127,7 +127,7 @@ $$
 
 ​		如图3.1所示,考虑8所学校例子中的组级尺度参数的后验分布。这个(边缘)后验分布的模是$\tau=0$,对应所有8所学校对大学招生考试指导的效用模型都相同。这一结论与数据一致，但从实际考虑，我们并不认为真正的变化完全是零。八所学校的辅导项目不同，所以效果应该变化 ，并且最好是少量变化。如图1所示，如果我们选择用它的模来总结这个分布，我们将处于$\hat{\tau}=0$的不理想位置，因为这是一个在参数空间边界的估计。
 
-![图3.1](https://github.com/Dodongxi/2021BayesianCourse/blob/main/figure/截屏2021-10-19%2021.35.44.png)
+![图3.1](https://github.com/Dodongxi/2021BayesianCourse/blob/4de340b2b97591bcf8b4e271dda08b29f128a269/figure/wjq_%E5%9B%BE1.png)
 
 
 
@@ -149,9 +149,9 @@ $$
 
 ​		由图3.2和3.3可知，在几乎一半的模拟中， 边际似然在$\tau=0$时最大,但此处噪音多到数据无法得到精确估计，似然函数对$\tau$不能提供很多信息。
 
-![图3.2](https://github.com/Dodongxi/2021BayesianCourse/blob/main/figure/图2.png)
+![图3.2](https://github.com/Dodongxi/2021BayesianCourse/blob/4de340b2b97591bcf8b4e271dda08b29f128a269/figure/wjq_%E5%9B%BE2.png)
 
-![图3.3](https://github.com/Dodongxi/2021BayesianCourse/blob/main/figure/图3.png)
+![图3.3](https://github.com/Dodongxi/2021BayesianCourse/blob/4de340b2b97591bcf8b4e271dda08b29f128a269/figure/wjq_%E5%9B%BE3.png)
 
 ​		由此，就引出一个问题，选择什么合非信息先验分布,$p(\tau)$,可以避免8个学校中类似的问题?
 
@@ -201,9 +201,9 @@ $$
 
 ​		图3.4和图3.5显示，在1000次模拟中,群级相关性的最大边际似然估计超过10%的情况是在边界上$(\hat \rho=\pm1)$上,而$\rho$的边缘轮廓似然通常不提供很大的信息。在全贝叶斯的情况下,我们将对ρ进行平均;而在一个罚似然框架中,我们想要一个更稳定的点估计。
 
-![图3.4](https://github.com/Dodongxi/2021BayesianCourse/blob/main/figure/图4.png)
+![图3.4](https://github.com/Dodongxi/2021BayesianCourse/blob/4de340b2b97591bcf8b4e271dda08b29f128a269/figure/wjq_%E5%9B%BE4.png)
 
-![图3.5](https://github.com/Dodongxi/2021BayesianCourse/blob/main/figure/图5.png)
+![图3.5](https://github.com/Dodongxi/2021BayesianCourse/blob/4de340b2b97591bcf8b4e271dda08b29f128a269/figure/wjq_%E5%9B%BE5.png)
 
 ​		如果计划是通过ρ的后验的模来总结推断,我们将用$p(\rho)\propto( (1-\rho)(1+\rho))$替换$U(-1,1)$，它等价于一个$Beta(2,2)$。由此后验分布的模不会是-1或者1。$\rho$的先验密度在边界附近是线性的,因此不会与任何可能性相矛盾。
 
