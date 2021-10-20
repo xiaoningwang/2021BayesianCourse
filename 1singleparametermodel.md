@@ -25,7 +25,7 @@ $$
 
 对于这个例子，我们将参数 $\theta$ 定义为女性出生率的比例，但是解释这个参数的另一种方法是将其作为男女出生率的比例，$\phi=(1-\theta)/\theta$。 设$$y$$是$$n$$个出生记录中的女孩数。应用二项模型：
 
-![image-20211018104251428](C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20211018104251428.png)
+![lxy_1](https://github.com/XiyuanLi629/2021BayesianCourse/blob/main/figure/lxy_1.png)
 
 *==图 1==： 二项参数 $\theta$ 的未归一化后验密度，基于均匀的先验分布和 $n$ 次试验的成功，显示 $n$ 和 $y$ 的几个值的曲线。*
 
@@ -68,7 +68,7 @@ $$
 
 后验概率分布包含了当前关于参数 $\theta$ 的所有信息。理想情况下，可以报告整个后验概率$p(\theta|y)$; 如我们所见
 
-![image-20211018094356560](C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20211018094356560.png)
+![lxy_2](https://github.com/XiyuanLi629/2021BayesianCourse/blob/main/figure/lxy_2.png)
 
 *图 2假设 95% 的中心间隔和 95% 的最高后部密度区域有显著差异: (a)中心后部间隔，(b)最高后部密度区域。*
 
@@ -285,7 +285,7 @@ $\theta$ 的合理先验分布是什么？
 
 对世界各地哮喘死亡率的回顾表明，西方国家的死亡率高于每 10 万人 1.5 人的情况很少见，典型的哮喘死亡率约为每 10 万 人 0.6 人。对这个问题的共轭先验家族——伽马分布的性质进行的反复探索表明，如果我们假设这个城市和其他城市之间以及今年和其他年份之间存在可交换性，那么在这个例子中，$Gamma(3.0,5.0)$密度为哮喘死亡率提供了一个合理的先验密度。先验分布的平均值为 0.6(模式为 0.4) ，97.5% 的密度质量在 1.44 以下。在实际应用中，指定先验均值可以设定两个伽马参数的比值，然后通过反复试验改变形状参数，使之与分布尾部的先验知识相匹配。后验概率。结果表明,$Gamma(\alpha,\beta)$先验分布 $\theta$ 的后验概率为 $Gamma(\alpha+$y$,\beta+x)$。根据先验分布和数据描述，$\theta$ 的后验概率为$Gamma(6.0,7.0)$，平均后验概率为 0.86ー向先验分布发生了实质性收缩。1000 的直方图来自后验概率分布。例如，根据 伽马后验概率计算，我市哮喘长期死亡率大于每 10 万人每年 1.0 人的后验概率0.30。
 
-![image-20211019193429710](C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20211019193429710.png)
+![lxy_3](https://github.com/XiyuanLi629/2021BayesianCourse/blob/main/figure/lxy_3.png)
 
 图 3  $\theta$ 的后验密度，每 10 万人每年的哮喘死亡率，   以$Gamma(3.0,5.0)$为先验分布: (a)给定$y=3$万人中的 3 人死亡; (b)给定 $y=30$万恒定人口 10 年中的 30 人死亡。直方图显示参差不齐，因为
 它们仅从每种情况下的后验概率分布中的 1000 个随机抽取构建。
@@ -312,7 +312,7 @@ p(y|\theta)=\theta^nexp(-n\overline{y}\theta),对于\overline{y}\geq0,
 $$
 当看作 $\theta$ 的可能性时，对于固定的 $y$，与 $Gamma(n+1，n\overline{y})$密度成正比。因此，$\theta$ 的$Gamma(\alpha,\beta)$先验分布可以看作是总等待时间 $\beta$ 的 $\alpha-1$指数观测值。
 
-![image-20211019195436193](C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20211019195436193.png)
+![lxy_4](https://github.com/XiyuanLi629/2021BayesianCourse/blob/main/figure/lxy_4.png)
 *图 4 1980-1989 年美国白人男性肾癌/输尿管癌年龄标准化死亡率最高的 10% 的县。*
 
 
@@ -331,7 +331,7 @@ $$
 
 ------
 
-![image-20211018165407272](C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20211018165407272.png)
+![lxy_5](https://github.com/XiyuanLi629/2021BayesianCourse/blob/main/figure/lxy_5.png)
 
 *图5：1980-1989 年美国白人男性肾癌/输尿管癌年龄标准化死亡率最低的 10% 的县。令人惊讶的是，该模式与图 4所示的最高发病率地图有些相似。*
 
@@ -385,11 +385,11 @@ $$
 
 *比较不同大小的县。*在泊松模型中，$$\frac{y_i}{10n_j}$$的方差与暴露参数$$n_j$$成反比，因此可以认为是该县的“样本量”。图 6 显示了原始肾癌死亡率随人口而变化的情况。极高和极低的比率都在低人口县。相比之下，图  7a 显示贝叶斯估计的比率变化很小。最后，图7b 显示了一个县样本的 50% 的区间估计值(之所以选择这个区间估计值是因为很难在一个图中显示所有的 3071)。较小的县提供的信息较少，因此具有较宽的后验间隔。
 
-![image-20211018191358382](C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20211018191358382.png)
+![lxy_6](https://github.com/XiyuanLi629/2021BayesianCourse/blob/main/figure/lxy_6.png)
 
   *图 6(a)肾癌死亡率$$y_i/(10n_j)$$与人口规模$$n_j$$。(b)按$$\log_{10}人口$$的比例重新绘制，以更清楚地看到数据。模式来自数据的离散性($$n_j=0,1,2，...$$)。*
 
-![image-20211018192214991](C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20211018192214991.png)
+![lxy_7](https://github.com/XiyuanLi629/2021BayesianCourse/blob/main/figure/lxy_7.png)
 
 图 7(a) 贝叶斯估计的肾癌后期平均死亡率，$$E(\theta|y_i)=\frac{20+y_i}{430000+10n_j}$$
  美国的 3071 个县
@@ -413,7 +413,7 @@ $$
 
   将观察到的平均值和方差与其预期匹配，并求解 $\alpha$ 和 $\beta$ 产生先验分布的参数。实际的计算更复杂。
 
-![image-20211019084735594](C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20211019084735594.png)
+![lxy_8](https://github.com/XiyuanLi629/2021BayesianCourse/blob/main/figure/lxy_8.png)
 
 *图8美国 3071 个县的年龄调整后肾癌死亡率$\frac{y_i}{10n_j}$的经验分布，以及基础癌症死亡率 $\theta_j$的Gamma (20,430000)先验分布。*
 
