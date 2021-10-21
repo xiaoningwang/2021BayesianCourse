@@ -295,12 +295,12 @@ problems. Journal of the American Statistical Association 89, 278–288.
 
 [2]Little, R. J. A., and Rubin, D. B. (2002). Statistical Analysis with Missing Data, second edition.New York: Wiley.
 
-[3]Liu, C. (1995). Missing data imputation using the multivariate t distribution. Journal of Multivariate Analysis 48, 198–206.
+[3]Liu, C. (1995). Missing data imputation using the multivariate t distribution. Journal of Multivariate Analysis 48, 198–206.
 
 [4]Little, R. J. A., and Rubin, D. B. (2002). Statistical Analysis with Missing Data, second edition.
 New York: Wiley.
 
-[5]Liu, C. (1995). Missing data imputation using the multivariate t distribution. Journal of Multivariate Analysis 48, 198–206.
+[5]Liu, C. (1995). Missing data imputation using the multivariate t distribution. Journal of Multivariate Analysis 48, 198–206.
 
 [6]Rubin, D. B. (1976). Inference and missing data. Biometrika 63, 581–592.
 
