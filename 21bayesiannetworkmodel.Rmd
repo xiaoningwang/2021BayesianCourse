@@ -222,3 +222,11 @@ graphviz.plot(data_iiamb,main="交替增量关联马尔可夫毯")
 &ensp;&ensp;&ensp;&ensp;2. 将线性模型引入贝叶斯网络将有更多的诸如假设检验，区间估计的讨论空间，因此可以考虑将两者结合。
 
 &ensp;&ensp;&ensp;&ensp;3. 从因果的角度看，一个完善的贝叶斯网络（结构因果模型）将有更多的价值可以挖掘，比如“干预效应”、“中介效应”、“反事实”。
+
+
+---
+参考文献：
+
+1. 《贝叶斯数据分析——基于R与Python的实现》，吴喜之，2020年7月第1版。
+
+2. *Causal Inference in Statistics: a primer*, Judea Pearl, Madelyn Glymour, Nicholas P.Jewell.
