@@ -289,3 +289,21 @@ $$y_{mp}=((y_{s_i\ i1}^k,...,y_{s_i\ ik}^k),i=1,...,n_k,k=1,...,Q),$$
 图18.2b显示了Dukakis感知到的意识形态的类似情节。观察到的和估算出的调查结果都显示了这个变量的时间趋势——Dukakis在竞选快结束时被认为更加自由。在该模型的早期版本（这里没有显示）中，没有包括时间作为预测器，Dukakis的感知意识形态的情节显示了一个问题：观察到的数据显示了时间趋势，但推断数据没有。这个图有助于揭示模型的缺陷：估算的调查结果看起来与数据系统地不同。
 
 ## **5.参考文献**
+
+[1]Kong, A., Wong, w. H.,and Liu, J. S. (1996). Sequential imputations and Bayesian missing data
+problems. Journal of the American Statistical Association 89, 278–288.
+
+[2]Little, R. J. A., and Rubin, D. B. (2002). Statistical Analysis with Missing Data, second edition.New York: Wiley.
+
+[3]Liu, C. (1995). Missing data imputation using the multivariate t distribution. Journal of Multivariate Analysis 48, 198–206.
+
+[4]Little, R. J. A., and Rubin, D. B. (2002). Statistical Analysis with Missing Data, second edition.
+New York: Wiley.
+
+[5]Liu, C. (1995). Missing data imputation using the multivariate t distribution. Journal of Multivariate Analysis 48, 198–206.
+
+[6]Rubin, D. B. (1976). Inference and missing data. Biometrika 63, 581–592.
+
+[7]Van Buuren, S. (2012). Flexible Imputation of Missing Data. London: Chapman & Hall.
+
+ 
