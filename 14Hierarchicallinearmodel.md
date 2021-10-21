@@ -1,5 +1,6 @@
 14Hierarchicallinearmodel
 ----
+### 郑从云 2019302130046
 
 ## （1）简介
 分层线性模型（Hierarchical Linear Model、简称 HLM，也被称为mixed-effect model，random-effect models，nested data models或者multilevel linear models）是一种复杂的统计模型。在计量经济学文献中也常常被称为Random-coefficient regression models(Rosenberg, 1973; Longford, 1993)。在某些统计学文献种也被称为Covariance components models(Dempster, Rubin, & Tsutakawa, 1981; Longford, 1987)。现在广泛被使用的名称Hierarchical Linear Model最早出现于1972年Lindley and Smith的论文以及1973年Smith的论文。
