@@ -4,6 +4,10 @@
 
 -------------------------------------------------
 
+​	*周瑾纯-2019302130047*
+
+
+
 ​	在第20章中，我们考虑了像样条和核回归这样的基函数方法，这些方法通常需要选择一组任意的结点。我们可以预先指定一个网格中有许多结点，然后通过选择和收缩变量来有效地减少那些不必要的结点，但即使这样仍然可能有一些结点对初始网格存在敏感性。高维网格会导致沉重的计算负担，而低维网格可能不够灵活。另一种更具独特的计算和理论优势的可能方法是使用高斯过程为回归函数建立一个先验分布。高斯过程是一类灵活的模型，其中任何有限维边际分布都是高斯分布，它可以看作是高斯分布的无限维泛化。
 
 ## 21.1 高斯过程回归
@@ -18,7 +22,8 @@ $$
 $$
 k(x,x^′)=\tau^2exp(-\frac{|x-x^′|^2}{l^2}),
 $$
-<img src="https://github.com/karency/2021BayesianCourse/blob/aafc61534f7c79824c8cac9e2530710db367ec27/21-1.jpg" align="center">
+<img src="https://github.com/karency/2021BayesianCourse/blob/da81895e849606448702c2857862ba42a1906adf/figure/21-1.jpg" align="center">
+
 <center/>图21.1使用平方指数协方差函数、振幅参数τ以和长度尺度参数l的不同值从高斯过程先验随机抽取<center>
 
 
@@ -71,7 +76,7 @@ $$
 
 ​	有大量关于高斯过程的近似的文献是通过减少矩阵反演负担来加快计算速度的。一些高斯过程例如:
 
-<img src="https://github.com/karency/2021BayesianCourse/blob/aafc61534f7c79824c8cac9e2530710db367ec27/21-2.jpg" align="center">
+<img src="https://github.com/karency/2021BayesianCourse/blob/da81895e849606448702c2857862ba42a1906adf/figure/21-2.jpg" align="center">
 
 图21.2拟合了10个数据点的高斯过程$\mu(x)$的后验图，条件是表征过程的参数$\tau$， $l$的三种不同选择。与图21.1相比，图21.1显示了每个模型的先验分布绘制的曲线。在我们通常的分析中，我们将先验分布分配给$\tau$，$ l$，然后对这些参数连同曲线$\mu(x)$进行联合后验推断；见图21.3。我们在这里展示条件后验分布的这三种选择，以说明$τ$， $l$在后验推断中的作用。
 
@@ -91,7 +96,7 @@ log p(y|\tau,l,\sigma^2)=-\frac n2log(2\pi)-\frac 12log|K(x,x)+\sigma^2I|-\frac 
 $$
 ​	边际似然与先验结合，得到非标准化的边际后验，推理可采用第10-13章所述的方法进行。图21.3展示了使用与图21相同的数据估算$\tau$、$l$和$\sigma$的边际后验分布，以及$\mu(x)$的后验平均值和使用图21.1中数据的对$\mu(x)$进行逐点90%的波段测量。我们使用切片采样获得后验模拟。$\tau$和$l$的先验值为$t_4^+(0,1)$，$\sigma$的先验值为对数均匀。
 
-<img src="https://github.com/karency/2021BayesianCourse/blob/aafc61534f7c79824c8cac9e2530710db367ec27/21-3.jpg" align="center">
+<img src="https://github.com/karency/2021BayesianCourse/blob/da81895e849606448702c2857862ba42a1906adf/figure/21-3.jpg" align="center">
 
 图21.3给定与图21.2相同的10个数据点，高斯过程参数$τ$，$l$和误差尺度$σ$的边缘后验分布，以及$\mu(x)$的后验均值和逐点90%波段。
 
@@ -159,9 +164,9 @@ E(\tilde{f_1})=K(\tilde{x},x)(K(x,x)+\sigma^2I)^{-1}y
 $$
 ​	平滑的季节效应与九个月前的日照量或平均温度成反比。周末出生人数较少，特殊日子出生人数较少或较多，这可以通过选择性剖腹产和诱导分娩来解释。随着时间的推移，一周中的一天模式变得更加明显，考虑到这类出生率的普遍增长，这是有道理的。
 
-<img src="https://github.com/karency/2021BayesianCourse/blob/aafc61534f7c79824c8cac9e2530710db367ec27/21-4-1.jpg" align="center">
+<img src="https://github.com/karency/2021BayesianCourse/blob/da81895e849606448702c2857862ba42a1906adf/figure/21-4-1.jpg" align="center">
 
-<img src="https://github.com/karency/2021BayesianCourse/blob/aafc61534f7c79824c8cac9e2530710db367ec27/21-4-2.jpg" align="center">
+<img src="https://github.com/karency/2021BayesianCourse/blob/da81895e849606448702c2857862ba42a1906adf/figure/21-4-2.jpg" align="center">
 
 ​	图21.4根据1969年至1988年每天的确切数据，美国的相对出生人数，分为不同的组成部分，每个组成部分都有一个加性高斯过程模型。图21.5显示了改进模型的估计。
 
@@ -228,8 +233,9 @@ $$
 
 9. 最后，$\epsilon_t \sim N(0,\sigma^2)$对非结构化残差进行了建模。
 
-<img src="https://github.com/karency/2021BayesianCourse/blob/aafc61534f7c79824c8cac9e2530710db367ec27/21-5-1.jpg" align="center">
-<img src="https://github.com/karency/2021BayesianCourse/blob/aafc61534f7c79824c8cac9e2530710db367ec27/21-5-2.jpg" align="center">
+<img src="https://github.com/karency/2021BayesianCourse/blob/da81895e849606448702c2857862ba42a1906adf/figure/21-5-1.jpg" align="center">
+
+<img src="https://github.com/karency/2021BayesianCourse/blob/da81895e849606448702c2857862ba42a1906adf/figure/21-5-2.jpg" align="center">
 
 *图21.5根据1969年至1988年每天的确切数据，将美国的相对出生人数分为不同的组成部分，每个组成部分采用加性高斯过程模型。与图21.4相比，改进后的模型允许一年中的每一天都有单独的效应，而不仅仅是几个选定的日期。*
 
@@ -292,7 +298,8 @@ $$
 ​	该模型发现了明显的非线性模式，并且右边的底部子图还表明，与$WBC$相关的条件比较与汤森剥夺指数有相互作用。高斯过程模型的好处是，我们不需要为函数明确定义任何参数形式或定义任何交互项。
 
 ​	在之前的研究中，$WBC$没有进行对数转换，因为只考虑了加法模型，既没有发现当$WBC$较小时预期寿命的降低，也没有发现$WBC$与$TDI$之间的相互作用，而额外的空间成分解释了一些变化。但将其加入上述模型后，其影响并不显著。
-<img src="https://github.com/karency/2021BayesianCourse/blob/aafc61534f7c79824c8cac9e2530710db367ec27/21-6.jpg" align="center">
+
+<img src="https://github.com/karency/2021BayesianCourse/blob/da81895e849606448702c2857862ba42a1906adf/figure/21-6.jpg" align="center">
 
 *图21.6 在白血病的例子中，每个预测器与固定于其平均值或定义值的其他预测器的估计条件比较。每个图中的粗线是使用高斯过程模型估计的后验中值，细线表示逐点90%的间隔。*
 
@@ -339,7 +346,7 @@ $$
 
 ​	这个推理的难点是在可能的分母上对连续函数$f$进行积分。这个积分通常在实践中是用有限基函数表示或通过所选有限区域的离散化计算出来的。$f$和$m$、$k$的参数可以用各种马尔可夫链模拟方法进行推断，也可以用拉普拉斯法和参数求积法相结合的方法进行推断。与混合模型密度估计(见第22和23章)相比，$logistic$高斯过程具有计算优势，因为$f$的后验分布是单峰且给定了超参数的(总和固定的有限表示)。
 
-<img src="https://github.com/karency/2021BayesianCourse/blob/aafc61534f7c79824c8cac9e2530710db367ec27/21-7.jpg" align="center">
+<img src="https://github.com/karency/2021BayesianCourse/blob/da81895e849606448702c2857862ba42a1906adf/figure/21-7.jpg" align="center">
 
 *图21.7两个使用高斯过程的密度估计的简单例子。左栏显示酸度数据，右栏显示星系数据。顶部行显示直方图，底部行显示logistic高斯过程密度估计值和90%点态后验间隔。*
 
@@ -455,5 +462,5 @@ $$
 
 
 
-[^1]: 在一些文献中，参数化是以$α=1/l^2$​表示的。
+[^1]: 在一些文献中，参数化是以$α=1/l^2$​​表示的。
 
