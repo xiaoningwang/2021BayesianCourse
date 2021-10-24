@@ -94,7 +94,7 @@ $$(13.23)
 •为了确定(13.19)中µ的分布，我们需要Mαj来自(13.22)的E(αj)和1/Mτ2来自(13.23)的E(1/τ2)。  
 •为了确定(13.20)中τ的分布，我们需要E(αj −µ)2)，即(Mαj −Mµ)2+Sαj2+Sµ2 由(13.21)和(13.22)推导，并利用变分近似中密度g是独立的假设。   
 
-![图13.5](http://m.qpic.cn/psc?/V53Y1btr4NO8EX13kqqy23sG0Q2r9lkF/45NBuzDIW489QBoVep5mcemMUN5sUBz9P*ZneakuL30tsYBDBvVl6V7lYsnV5O6AxUKloSw98PY784KtULBxcKMl7RC1Jids1wv7iwILewo!/b&bo=MwPfAQAAAAABF94!&rf=viewer_4)
+![图13.5](https://github.com/baijiaxin2001/2021BayesianCourse/blob/b6e25cd4f1ae3c99810ea2fb44dc02b17e4e0a1a/figure/bjx_figure1.png)
 
 8所学校分层模型的变分 逼近参数的变分贝叶斯进展在一个随机的起点之后，参数需要大约50次迭代才能达到近似收敛。右下角的图显示了Kullback-Leibler散度KL(g||p)(计算到任意的加性常数);如果编制正确的变分算法，KL(g||p)能得到一致减小。  
 
@@ -110,7 +110,7 @@ $$
 -\mathrm{E}_{g}\left(\log \left(\frac{p(y \mid \theta)}{g\left(\theta_{\mathcal{Y}}\right.}\right)\right)=-\mathrm{E}_{g}(\log p(y \mid \theta))+\mathrm{E}_{g}(\log g(\theta))=\frac{1}{2} \sum_{j=1}^{8} \frac{\left(y-M_{\alpha}\right)^{2}+S_{\alpha}^{2}}{\sigma_{j}^{2}}+8 \log M_{\tau}+\frac{1}{2} \sum_{j=1}^{8} \frac{\left(M_{\alpha}-M_{\mu}\right)^{2}+S_{\alpha}^{2}+S_{\mu}^{2}}{M_{\tau}^{2}}-\sum_{j=1}^{J} \log S_{\alpha}-\log S_{\mu}-J \log M_{\tau}+\text { constant }
 $$  
 
-![图13.6](http://m.qpic.cn/psc?/V53Y1btr4NO8EX13kqqy23sG0Q2r9lkF/45NBuzDIW489QBoVep5mcemMUN5sUBz9P*ZneakuL31XTSl2yPnOnvSNlfToRs7sYsb*Xl2klLa8edetnSC2g.wawphM*051noeAdciMOw0!/b&bo=MwMHAQAAAAABFwY!&rf=viewer_4)  
+![图13.6](https://github.com/baijiaxin2001/2021BayesianCourse/blob/b6e25cd4f1ae3c99810ea2fb44dc02b17e4e0a1a/figure/bjx_figure2.png)  
 图13.6对于100次变分贝叶斯迭代，A, B, C学校的效果推论进展线条和阴影区域显示了变异分布的中值、50%区间和90%区间。每个图的右侧显示的是通过模拟计算的完整贝叶斯推断的相应分位数。  
   
 图13.5右下角的图显示了随着算法的进行KL(g||p)的稳定下降。  
