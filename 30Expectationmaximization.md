@@ -238,7 +238,7 @@ $$
   
   
   
-参考文献：Bayesian Data Analysis(Third Edition),C-Gelman Andrew,International Standard Book Number-13: 978-1-4398-9820-8 (eBook - PDF).
+参考文献：[1]Bayesian Data Analysis(Third Edition),C-Gelman Andrew,International Standard Book Number-13: 978-1-4398-9820-8 (eBook - PDF).
   
   
   
