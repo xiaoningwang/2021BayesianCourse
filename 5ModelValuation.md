@@ -16,7 +16,7 @@
 $$
 {E}_{D}\left[(f(\boldsymbol{x} ; D)-\bar{f}(\boldsymbol{x}))^{2}\right]+E_{D}\left[(\bar{f}(\boldsymbol{x})-y)^{2}\right]+{E}_{D}\left[\left(y_{D}-y\right)^{2}\right]
 $$
-<img src="C:\Users\len\Pictures\Saved Pictures\7d1f1f282aa47261eda7cedae38df70e (2).jpg" alt="center"  />
+<img src="https://github.com/ruichaw/2021BayesianCourse/blob/main/figure/%E5%9B%BE%E7%89%877.1.jpg"  />
 
 <center/>图7.1模型评估指标函数图像<center>
 
@@ -49,7 +49,7 @@ plt.scatter(testX_min_max,result)
 
 ​        我们将使用简单的线性回归作为示例。 图 7.2 显示了一个快速总结过去近几十年的总统选举季的近几年经济情况与选举情况。 它基于政治科学家创建的“面包与和平”模型道格拉斯希布斯仅根据经济增长预测选举。
 
-<img src="C:\Users\len\Pictures\Saved Pictures\微信截图_20211018123038.png" style="zoom: 50%;" />
+<img src="https://github.com/ruichaw/2021BayesianCourse/blob/main/figure/%E5%9B%BE%E7%89%877.2.png" />
 
 <center/>图7.2 Douglas Hibbs’s ‘bread and peace’ model of voting and the economy.
 
@@ -258,7 +258,7 @@ $$
 
 
 
-<img src="C:\Users\len\AppData\Roaming\Typora\typora-user-images\image-20211019172136335.png" alt="image-20211019172136335"  />
+<img src="https://github.com/ruichaw/2021BayesianCourse/blob/main/figure/%E5%9B%BE%E7%89%877.3.png"  />
 
 <center/>图7.3对数预测密度分布图<center>
 
