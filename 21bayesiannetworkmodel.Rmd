@@ -1,0 +1,225 @@
+---
+title: "Beyesian Network Model"
+author: "Zou Tao"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+#output:
+#  word_document: default
+#  pdf_document: default
+---
+
+```{r warning=FALSE, include=FALSE}
+library(ggplot2)
+library(bnlearn)
+library(Rgraphviz)
+library(knitr)
+```
+# 贝叶斯网络模型（Bayesian network model）
+## 一、背景
+&ensp;&ensp;&ensp;&ensp;贝叶斯网络的基础理论包括图理论、概率论、计算机科学等概念，是多变量概率分布的一种概率图模型。同时贝叶斯网络也是一种因果推理模型，已经在医疗诊断、电子技术与工业工程等领域发挥重要作用。例如，Google就在许多服务中使用了贝叶斯网络。
+
+## 二、图模型简介
+&ensp;&ensp;&ensp;&ensp;贝叶斯网络建立在一个有向无环图的基础之上，图模型的建立要么通过专家知识建立，要么通过从数据中学习。贝叶斯网络中的箭头是有因果关系的，因此在建立图模型时要考虑到父节点与子节点有因果关系的传递效应。
+
+&ensp;&ensp;&ensp;&ensp;一个完整的贝叶斯网络图是庞大而复杂的，但是任何网络图都是由三个基础图形结构所组成。设X，Y，Z为三个随机变量，下面介绍由这三个随机变量组成的三种基础图结构（三元V结构），其中链式结构和分叉结构分别由Simon(1953)和Reichenbach(1956)提出，对撞结构最早可追述到英国经济学家Pigou(1911)。
+
+### （一）链式结构（Chains）
+
+```{r warning=FALSE,echo=FALSE, fig.height=3, fig.width=4, fig.align='center'}
+base_graph1 <- model2network('[X|Ux][Ux][Uy][Uz][Y|Uy:X][Z|Y:Uz]')
+graphviz.plot(base_graph1, highlight=list(nodes=c("X","Y","Z"),arcs=c("X","Y","Y","Z"),textCol="red"))
+```
+
+&ensp;&ensp;&ensp;&ensp;在此链式结构中，Ux、Uy、Uz是X、Y、Z的随机误差项，没有任何节点指向它们，因此它们是外生变量（exogenous variables），而X、Y、Z是内生变量（
+endogenous variables）。对于链式结构，有以下结论：
+
++ Z和Y**相关**。$$P(Z|Y)≠P(Z)$$
++ Y和X**相关**。$$P(Y|X)≠P(Y)$$
++ Z与X**很可能相关**。$$P(Z|X)≠P(Z)$$
++ 当控制Y时，Z与X**独立**。$$P(Z|X,Y)=P(Z|Y)$$
+
+### （二）分叉结构（Forks）
+
+```{r warning=FALSE,echo=FALSE, fig.height=3, fig.width=4, fig.align='center'}
+base_graph2 <- model2network('[Z|Uz][Uz][Uy][Ux][Y|Uy:Z][X|Ux:Z]')
+graphviz.plot(base_graph2, highlight=list(nodes=c("X","Y","Z"),arcs=c("Z","X","Z","Y"),textCol="red"))
+```
+
+在分叉结构中，Z是X与Y共同的原因，有以下结论：
+
++ Z和X**相关**。$$P(X|Z)≠P(X)$$
++ Z和Y**相关**。$$P(Y|Z)≠P(Y)$$
++ X和Y**很可能相关**。$$P(X|Y)≠P(X)$$
++ 当控制Z时，X与Y**独立**。$$P(X|Y,Z)=P(X|Z)$$
+
+### （三）对撞结构（Colliders）
+
+```{r warning=FALSE,echo=FALSE, fig.height=3, fig.width=4, fig.align='center'}
+base_graph3 <- model2network('[Ux][Uy][X|Ux][Y|Uy][Z|X:Y:Uz][Uz]')
+graphviz.plot(base_graph3, highlight=list(nodes=c("X","Y","Z"),arcs=c("X","Z","Y","Z"),textCol="red"))
+```
+
+在对撞结构中，X和Y是Z的原因，有以下结论：
+
++ X和Z**相关**。$$P(X|Z)≠P(X)$$
++ Y和Z**相关**。$$P(Y|Z)≠P(Y)$$
++ X和Y**独立**。$$P(X|Y)=P(X)$$
++ 当控制Z时，X与Y**相关**。$$P(X|Y,Z)≠P(X|Z)$$
+
+&ensp;&ensp;&ensp;&ensp;三种最基本的结构可以组成更为复杂的网络。针对贝叶斯网络中的一般条件独立性和依赖性，Pearl(1988)提出了**d-分离**（direction-dependent separation）的概念，它可以方便让我们分析贝叶斯网络结构和研究因果关系中的干预效应（Intervention）、中介效应（Mediation）。**d-分离**有以下两这种情况：
+
+1. 在链式结构和分叉结构中，控制了中间节点后，其两端的节点是相互独立的。此时称两端节点关于中间节点**d-分离**。
+2. 在对撞结构中，不控制中间节点，其两端节点是相互独立的。此时称两端节点关于中间节点**d-分离**。
+
+&ensp;&ensp;&ensp;&ensp;例如，在如下网络图中（未画出误差项节点），Z与Y是相依的，因为它们有一共同的原因T。当控制了T节点的取值后，Z与Y从相依变成了独立。若此时再控制W节点的取值，Z与Y又变为相依关系，因为W是Z与Y路径上的对撞节点。因此，Z与Y是关于{W, T}的**d-分离**节点。
+
+```{r warning=FALSE,echo=FALSE, fig.height=3, fig.width=4, fig.align='center'}
+example1 <- model2network('[Y|X:T][Z|T][W|Z:X][X][T]')
+graphviz.plot(example1)
+```
+
+&ensp;&ensp;&ensp;&ensp;最小的使得节点A和网络中其他节点**d-分离**的节点集合称为马尔可夫毯（Markov blanket, MB），贝叶斯网络中节点的马尔可夫毯为其父节点、子节点及子节点的父节点的集合。
+
+### （四）乘积分解定理（Product Decomposition）
+&ensp;&ensp;&ensp;&ensp;10个0-1变量所组成的条件概率表的行数就已经达到了$2^{10}$之多，那么对于实际中更多的变量及其取值种类，计算机将无法容纳如此巨大的条件概率表。而图模型可以极大地减少条件概率的存储难题。在概率论中，n个变量的条件概率有如下的乘法计算公式：$$P(X_1,X_2,X_3,X_4,...,X_n)=P(X_1)P(X_2|X_1)P(X_3|X_1,X_2)...P(X_n|X_1,X_2,...,X_{n-1})$$
+
+&ensp;&ensp;&ensp;&ensp;这个表达式有n！种计算形式，且等式右侧越靠后的条件概率存储起来越复杂。基于考虑到因果关系的图模型，上式右侧的许多条件概率将得到简化。现在先给出如下的乘积分解定理：$$P(X_1,X_2,...,X_n)=\prod_i^n{P(X_i|pa_i)}$$
+
+&ensp;&ensp;&ensp;&ensp;其中$pa_i$表示第i个节点的父亲节点。
+
+&ensp;&ensp;&ensp;&ensp;下面通过举例来说明乘积分解定理，考虑如下的图模型，其中$X_3$是$X_1$和$X_2$的对撞节点，是$X_4$和$X_5$的分叉节点。
+```{r warning=FALSE,echo=FALSE, fig.height=3, fig.width=4, fig.align='center'}
+example2 <- model2network('[X1][X2][X3|X1:X2][X4|X3][X5|X3]')
+graphviz.plot(example2)
+```
+
+&ensp;&ensp;&ensp;&ensp;根据乘积分解定理有
+$$P(X_1,X_2,X_3,X_4,X_5)=P(X_1)P(X_2)P(X_3|X_1,X_2)P(X_4|X_3)P(X_5|X_3)$$
+&ensp;&ensp;&ensp;&ensp;由对撞结构第三条定理，有$P(X_2|X_1)=P(X_2)$；由于$X_1$和$X_2$确定了$X_3$，因此$P(X_4|X_3)=P(X_4|X_1,X_2,X_3)$；同理有$P(X_5|X_1,X_2,X_3,X_4,X_5)=P(X_5|X_3,X_4)$，又由分叉结构第四条定理$P(X_5|X_3,X_4)=P(X_5|X_3)$。于是上述等式是自然成立的。
+
+&ensp;&ensp;&ensp;&ensp;一个问题以图模型的形式展现出来将更加的直观，也更加的详细。最重要的是，基于图模型可以在很大程度上减少计算的复杂度，这是贝叶斯网络模型的一个优势。
+
+
+
+## 二、从数据中得到贝叶斯网络
+### （一）基于计分的算法（score-based algorithms）
+&ensp;&ensp;&ensp;&ensp;既然图模型如此方便，下面就探讨如何利用数据和专家知识构建图模型。按照一定的计分规则，通过诸如吝啬搜索（greedy search）、登山（hill-climbing）、禁忌搜索（tabu search）等搜索方法给每一个候选的贝叶斯网络一种计分，选择其中的计分最大者为最佳网络模型。我们将在后文实例分析中看到，基于计分算法的贝叶斯网络的箭头虽然对子节点有预测作用，但并不能表示因果关系。
+
+&ensp;&ensp;&ensp;&ensp;常用的计分规则算法有如下几种：
+
++ 多项对数似然计分（熵度量）
++ AIC计分
++ BIC计分
++ 贝叶斯Dirichlet等价对数计分
+
+&ensp;&ensp;&ensp;&ensp;由于本文档主要讨论贝叶斯网络的架构和应用，限于篇幅，此处的计分规则详细算法详见其他同学的编译文档。
+
+### （二）基于约束的算法（constraint-based algorithms）
+&ensp;&ensp;&ensp;&ensp;这种算法建立的贝叶斯网络结构也可以被叫做因果图模型，它是利用贝叶斯网络马尔可夫性的条件独立性检验来分析其概率关系，将所有可能的边和节点都看成是3V结构，构造统计上基于**d分离**的图形。依据图灵奖得主Judea Pearl的说法，观测数据之中并不包含因果关系。因此基于约束算法的贝叶斯网络结构往往需要根据专家经验添加箭头方向的人为约束。
+
+&ensp;&ensp;&ensp;&ensp;常用的约束算法有如下几种：
+
++ 增长收缩（grow-shrink）：最简单的基于增长收缩马尔可夫毯搜索算法。
++ 增量关联（incremental association）：基于增量关联的马尔可夫毯算法（IAMB），基于向前选择和除掉假阳性的两相搜索算法。
++ 快速增量关联（fast incremental association）：利用推测的向前步骤选择以减少条件独立检验数目的各种IAMB。
++ 交替增量关联（interleaved incremental association）：向前步骤选择以在马尔可夫毯搜寻步骤中减少条件独立检验数目的另一种IAMB。
+
+&ensp;&ensp;&ensp;&ensp;基于约束算法所产生的贝叶斯网络结构并不包含箭头，这方便人为地根据专家经验提供箭头（因果）方向。
+
+## 三、案例及R语言实现
+
+### （一）基于计分的算法
+&ensp;&ensp;&ensp;&ensp;本文档仅考虑变量是离散值的情况。
+
+&ensp;&ensp;&ensp;&ensp;此处采用吴喜之先生编著的教材《贝叶斯数据分析——基于R与Python的实现》（2020年7月第1版）中所使用的数据“driver.csv”。本文档借鉴其R代码，并在此基础上做更多的探索。
+
+&ensp;&ensp;&ensp;&ensp;此数据集中共有5000个样本 × 6项指标，所有数据均为0-1变量。其中Y表示是否年轻；D表示是否饮酒；A表示是否有过事故；V表示是否违规过；C表示是否收到过罚单；G表示是否为自动挡。现在基于上文中提到的四种计分规则，并利用爬山算法对此数据集进行贝叶斯网络的构建。
+```{r warning=FALSE,fig.align='center'}
+data <- read.csv("zt_dataset1.csv",sep=",",header=TRUE)#driver.csv数据集
+for(i in 1:ncol(data)){data[,i] <- factor(data[,i])}
+names(data) <- c("Y","D","A","V","C","G")
+data_hc_loglik <- hc(data, score="loglik")
+data_hc_aic <- hc(data, score="aic")
+data_hc_bic <- hc(data, score="bic")
+data_hc_bde <- hc(data, score="bde")
+par(mfrow=c(2,2))
+graphviz.plot(data_hc_loglik, main="基于多项对数似然计分规则的爬山算法")
+graphviz.plot(data_hc_aic, main="基于AIC计分规则的爬山算法")
+graphviz.plot(data_hc_bic, main="基于BIC计分规则的爬山算法")
+graphviz.plot(data_hc_bde, main="贝叶斯Dirichlet等价对数计分规则的爬山算法")
+```
+
+&ensp;&ensp;&ensp;&ensp;可以看出，除了基于多项对数似然计分规则的算法，其他算法所得出的贝叶斯网络图形均一致。对于第二张贝叶斯网络，“年轻（Y）”、和“饮酒（D）”两个变量为条件均会影响“事故（A）”、“违规（V）”、“罚单（C）”三个变量的发生概率。下列一组刻面图（行为是否饮酒，列为是否年轻）显示“年轻”和“饮酒”将导致事故的概率增高，既年轻又饮酒的群体发生事故的概率是最高的，这和我们的常识是符合的。
+
+```{r echo=TRUE, fig.align='center', warning=FALSE}
+data <- read.csv("zt_dataset1.csv",sep=",",header=TRUE)#driver.csv数据集
+names(data) <- c("Y","D","A","V","C","G")
+ggplot(data, aes(y=A)) + 
+  geom_histogram(fill="cornflowerblue",stat="count",binwidth=1.0, bins=30) + 
+  facet_grid(D~Y)
+```
+
+&ensp;&ensp;&ensp;&ensp;请注意，基于计分算法的贝叶斯网络中的箭头并没有因果意义，我将在下一节详细展示基于计分算法的弊端。
+
+### （二）基于约束的算法
+&ensp;&ensp;&ensp;&ensp;在上一节例子生成的贝叶斯网络图模型中，我们并没有发现其中的箭头有什么明显的异常。这是因为driver.csv是一个设计好的数据集，基于算法恰好可以生成我们想要的图形。现在我们使用中国综合社会调查（CGSS2017)数据，在社会调查数据更为真实，其中没有任何人为涉及数据的行为。这里选取“年龄”，“教育”，“户口”，“收入”，“性别”五个变量。年龄大于25岁的记为1，小于25记为0；教育为从1至13递增的有序型数据；户口为农村的记为0，非农村的记为1；收入高于四分之三分位数的记为1，否则记为0；男性记为1；女性记为0。在删除了个别缺失数据后，剩余11371个样本。这里采用基于AIC计分的算法得出如下贝叶斯网络结构。
+
+```{r warning=FALSE,echo=TRUE, fig.align='center', fig.height=4, fig.width=4.8}
+data <- read.csv("zt_dataset2.csv", header=TRUE, sep=",",na.strings = c(9999999,9999998,9999997,9999996,99,98,97,14,21,"#NULL!"))#cgss2017数据集
+data <- subset(data,select=c("a7a","a62","a18","a31","a2"))
+names(data) <- c("edu","income","hukou","old","sex")
+data <- na.omit(data)
+data$sex[data$sex==2] <- 0
+data$hukou[data$hukou==1] <- 0
+data$hukou[data$hukou>=2] <- 1
+income75 <- unname(quantile(data$income,0.75))
+data$income[data$income<=income75] <- 0
+data$income[data$income>=income75] <- 1
+data$old <- 2016-data$old
+data$old[data$old<=25] <- 0
+data$old[data$old>25] <- 1
+#print(paste("样本总数为：",nrow(data)))#样本总数11371
+for(i in 1:ncol(data)){
+  data[,i] <- factor(data[,i])
+}
+data_hc_aic <- hc(data, score="aic")
+graphviz.plot(data_hc_aic,main="基于AIC计分规则的爬山算法")
+```
+
+&ensp;&ensp;&ensp;&ensp;如果把图中箭头的指向视为因果将会引起滑稽的结论，总所周知，年龄和性别不可能是其他变量的结果，图中仅能表示年龄和性别与这些变量之间并不是独立的。
+
+&ensp;&ensp;&ensp;&ensp;针对同样的数据集，我们采用基于约束的算法，并且把任何指向“年龄”和“性别”的箭头加入到黑名单列表（人为介入图形的构建）。
+
+```{r warning=FALSE, echo=TRUE, fig.align='center'}
+White_List <- c()
+Black_List <- data.frame(from=rep(c("edu","hukou","income"),2),to=c(rep("old",3),rep("sex",3)))
+data_gs <- gs(data,whitelist=White_List,blacklist=Black_List)
+data_iamb <- iamb(data,whitelist=White_List,blacklist=Black_List)
+data_fiamb <- fast.iamb(data,whitelist=White_List,blacklist=Black_List)
+data_iiamb <- inter.iamb(data,whitelist=White_List,blacklist=Black_List)
+par(mfrow=c(2,2))
+graphviz.plot(data_gs,main="增长收缩马尔可夫毯")
+graphviz.plot(data_iamb,main="增量关联马尔可夫毯")
+graphviz.plot(data_fiamb,main="快速增量关联马尔可夫毯")
+graphviz.plot(data_iiamb,main="交替增量关联马尔可夫毯")
+```
+
+&ensp;&ensp;&ensp;&ensp;在四种基于马尔可夫毯的约束算法并添加箭头方向黑名单的贝叶斯网络图形结果一致，表明上图为较为稳定的网络结构。现在我们可以有较为充分的自信认为此贝叶斯网络具备因果表征能力。分析图中信息，“年龄”是"教育”、“收入”、“户口”的原因。个人年龄越大，其获得的教育程度越高、收入越高是符合常理的。年龄是户口的原因，这里可以理解为当代中国的城市化热潮，在农村长大的人们纷纷涌向城市。户口是教育和收入的原因，城市户口的全体显然比农村户口的群体享有更多的教育机会与收入机会。最后教育也是收入的原因，这是显然的。综上讨论，我认为此贝叶斯网络较为完善。
+
+## 四、延展
+&ensp;&ensp;&ensp;&ensp;1. 可以划分训练集和测试集，在建立贝叶斯网络的之后同时检验其准确性。
+
+&ensp;&ensp;&ensp;&ensp;2. 将线性模型引入贝叶斯网络将有更多的诸如假设检验，区间估计的讨论空间，因此可以考虑将两者结合。
+
+&ensp;&ensp;&ensp;&ensp;3. 从因果的角度看，一个完善的贝叶斯网络（结构因果模型）将有更多的价值可以挖掘，比如“干预效应”、“中介效应”、“反事实”。
+
+
+---
+参考文献：
+
+1. 《贝叶斯数据分析——基于R与Python的实现》，吴喜之，2020年7月第1版。
+
+2. *Causal Inference in Statistics: a primer*, Judea Pearl, Madelyn Glymour, Nicholas P.Jewell.
