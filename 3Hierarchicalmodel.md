@@ -128,6 +128,6 @@ plt.show()
 ~~~
 最终结果如下：
 <div align=center>
-<img src="https://github.com/Ks-zZ/2021BayesianCourse/blob/main/figure/zks_picture.png" width=80%>
+![](figure/zks_picture.png)
 </div>
 &ensp;&ensp;&ensp;&ensp;由图中可以看出，参数$r$的最佳取值范围在0.125~0.15之间。上面是完整的贝叶斯分层模型的应用与代码求解。
