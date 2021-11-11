@@ -78,7 +78,7 @@ plt.ylabel('math')
 abline(m, c, linestyle='--', color=red)
 ```
 
-![](https://files.mdnice.com/user/21245/59ef7d84-e9e0-46ea-ae9c-79af2c85dfab.png)
+![](figure/14-1.png)
 
 
 ```python
@@ -100,13 +100,13 @@ def pooled_model(df, ax, grp_id):
     
 facetgrid(pooled_model)
 ```
-![](https://files.mdnice.com/user/21245/c4d8306b-14e3-4ce8-be25-3e275873cbcb.png)
+![](figure/14-2.png)
 
 图表显示了不同群体之间关系的变化。我们还注意到，估计值受到一些组中作业完成率高的少数数据点(可能的异常值)的高度影响。
 
 使用 PyMC3 构建我们的贝叶斯层次模型。我们将在组级参数上构造超优先级，以允许模型在组之间共享学生的个人属性。对于这个模型，我们将使用一个随机斜率 β 和截距 α。这意味着它们将随着每个组而变化，而不是以固定的斜率和截距截取整个数据。概率模型的图形表示如下。
 
-![](https://files.mdnice.com/user/21245/cd1fcc04-6d37-408d-b4cf-cce0c5b66e2b.png)
+![](figure/14-3.png)
 
 虽然我们在这里通过观察样本的一般分布来选择先验概率，但使用无信息先验会导致类似的结果。下面的代码片段定义了所使用的 PyMC3 模型。
 ```python
@@ -144,7 +144,7 @@ def posterior_plot(df, ax, grp_id):
     
 facetgrid(posterior_plot)
 ```
-![](https://files.mdnice.com/user/21245/b187ae79-683e-4b2f-b51e-2badaf8dc48e.png)
+![](figure/14-4.png)
 
 注意显示负斜率的组周围的一般较高的不确定性。这个模型意味着，我们必须更加小心地对待从模型中得出的对某些群体的决定。注意数据越多，偏差越小，贝叶斯模型就会收敛到OLS模型。
 
