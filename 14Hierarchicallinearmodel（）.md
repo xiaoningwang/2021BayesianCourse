@@ -1,6 +1,7 @@
-14 Hierarchical Linear Model
+14Hierarchicallinearmodel
 ----
-### 郑从云 2019302130046
+郑从云 2019302130046
+
 ## （1）简介
 分层线性模型（Hierarchical Linear Model、简称 HLM，也被称为mixed-effect model，random-effect models，nested data models或者multilevel linear models）是一种复杂的统计模型。在计量经济学文献中也常常被称为Random-coefficient regression models(Rosenberg, 1973; Longford, 1993)。在某些统计学文献种也被称为Covariance components models(Dempster, Rubin, & Tsutakawa, 1981; Longford, 1987)。现在广泛被使用的名称Hierarchical Linear Model最早出现于1972年Lindley and Smith的论文以及1973年Smith的论文。
 
@@ -14,6 +15,7 @@ HLM 解决的难题：能够正确处理个体效应和组效应之间的关系�
 由于预测因子处于多个水平，最低水平的单位或受试者的可交换性假设被打破。经典回归的最简单扩展是为数据中的每个较高层次单元（即教育示例中的班级或抽样示例中的阶层或集群）引入一组指标变量作为预测因子。但这通常会显著增加模型中的参数数量，只有通过进一步的建模（以人口分布的形式）才能对这些参数进行合理的估计。后者本身可以采用简单的可交换的或独立的和相同分布的形式，但也可以合理地考虑在该第二水平上的进一步回归模型，以允许在该级别定义的预测因子。原则上，以这种方式处理的变化水平数量没有限制。贝叶斯方法为处理未知参数的估计提供了现成的指导，尽管计算的复杂性可能相当大，特别是当一个人离开共轭正态规范的领域时。在本章中，我们将简要介绍分层线性模型的广泛主题，强调处理正常模型时使用的一般原则。
 
 估计回归系数的最大收益通常来自于在模型中指定结构。例如，在选举预测问题中，将国家和地区指标变量与定量预测分开进行聚类和建模至关重要。一般来说，当在回归中使用多个预测变量时，应设置它们，以便它们可以分层结构，以便贝叶斯分析可以在汇集有关它们的信息方面做最有效的工作。
+
 ## （4）算法模型
 我们首先考虑分层回归模型，其中回归系数组是可交换的，并用正态总体分布建模。每个这样的组被称为一批随机效应器，这些效应器具有不同的系数。
 * 简单变系数模型
@@ -78,7 +80,7 @@ plt.ylabel('math')
 abline(m, c, linestyle='--', color=red)
 ```
 
-![](figure/14-1.png)
+![](https://files.mdnice.com/user/21245/59ef7d84-e9e0-46ea-ae9c-79af2c85dfab.png)
 
 
 ```python
@@ -100,13 +102,13 @@ def pooled_model(df, ax, grp_id):
     
 facetgrid(pooled_model)
 ```
-![](figure/14-2.png)
+![](https://files.mdnice.com/user/21245/c4d8306b-14e3-4ce8-be25-3e275873cbcb.png)
 
 图表显示了不同群体之间关系的变化。我们还注意到，估计值受到一些组中作业完成率高的少数数据点(可能的异常值)的高度影响。
 
 使用 PyMC3 构建我们的贝叶斯层次模型。我们将在组级参数上构造超优先级，以允许模型在组之间共享学生的个人属性。对于这个模型，我们将使用一个随机斜率 β 和截距 α。这意味着它们将随着每个组而变化，而不是以固定的斜率和截距截取整个数据。概率模型的图形表示如下。
 
-![](figure/14-3.png)
+![](https://files.mdnice.com/user/21245/cd1fcc04-6d37-408d-b4cf-cce0c5b66e2b.png)
 
 虽然我们在这里通过观察样本的一般分布来选择先验概率，但使用无信息先验会导致类似的结果。下面的代码片段定义了所使用的 PyMC3 模型。
 ```python
@@ -144,7 +146,7 @@ def posterior_plot(df, ax, grp_id):
     
 facetgrid(posterior_plot)
 ```
-![](figure/14-4.png)
+![](https://files.mdnice.com/user/21245/b187ae79-683e-4b2f-b51e-2badaf8dc48e.png)
 
 注意显示负斜率的组周围的一般较高的不确定性。这个模型意味着，我们必须更加小心地对待从模型中得出的对某些群体的决定。注意数据越多，偏差越小，贝叶斯模型就会收敛到OLS模型。
 
