@@ -239,8 +239,14 @@ bw = baumWelch(hmm,w$observation,maxIteration=,delta=,pseudoCount=)
 
 ​       需要说明的是，上述只是HMM在语音识别中应用的一个小场合，真正的语音识别模型应用的方法更多、更复杂，效果也更好。
 
+
+
 参考文献
+
 [1]《贝叶斯数据分析——基于R与Python的实现》，吴喜之
+
 [2]《Hidden Markov Models for Time Series An Introduction Using R》，Walter Zucchini,lain L.MacDonald
+
 [3]《语音合成技术综述及研究现状》，魏伟华
+
 [4]《贝叶斯分析》，韦来生
