@@ -1,5 +1,5 @@
 # 隐马尔科夫模型
-
+​ 陈浩宇
 ##一、基本概念
 
 ###1.1 马尔科夫链
@@ -39,11 +39,6 @@ $$
 ​        $B(m*n)$：发送概率矩阵，其元素$b_{s_i}(O_j)$表示隐状态$s_i$表现为观测值$O_j$的概率.
 
 ​        $\pi=\{\pi_i\}$：隐马尔科夫链的初始状态分布概率，其元素 $\pi_i$ 表示$P(S_1=s_i)$.
-
-​        隐马尔科夫模型的示意图如下所示：
-
-![隐马尔科夫模型](C:\Users\Pine1968\Desktop\贝叶斯分析\隐马尔科夫模型.png)
-
 
 
 ​        该模型由两部分组成：①可观测的过程$O_t$.
@@ -241,8 +236,8 @@ bw = baumWelch(hmm,w$observation,maxIteration=,delta=,pseudoCount=)
 
 ​       需要说明的是，上述只是HMM在语音识别中应用的一个小场合，真正的语音识别模型应用的方法更多、更复杂，效果也更好。
 
-参考文献
-[1]《贝叶斯数据分析——基于R与Python的实现》，吴喜之
-[2]《Hidden Markov Models for Time Series An Introduction Using R》，Walter Zucchini,lain L.MacDonald
-[3]《语音合成技术综述及研究现状》，魏伟华
-[4]《贝叶斯分析》，韦来生
+​参考文献
+​[1]《贝叶斯数据分析——基于R与Python的实现》，吴喜之
+​[2]《Hidden Markov Models for Time Series An Introduction Using R》，Walter Zucchini,lain L.MacDonald
+​[3]《语音合成技术综述及研究现状》，魏伟华
+​[4]《贝叶斯分析》，韦来生
