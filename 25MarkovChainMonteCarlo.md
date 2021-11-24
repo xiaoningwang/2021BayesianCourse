@@ -16,7 +16,7 @@ MCMC，全称Markov chain Monte Carlo，马尔可夫链蒙特卡洛，是一种�
 $$\theta =\int_a^bf(x)dx$$
 如果不知道$f(x)$的原函数，那么这个积分就比较难求解。  
 常用的思路是通过模拟求解近似值。假设函数图像如下:  
-![avatar](https://github.com/hx-ling/2021BayesianCourse/blob/main/figure/figure1.png)
+![avatar](./figure/figure1.png)
 
 则一个简单的近似求解方法是在$[a,b]$之间随机的采样一个点。比如$x_0$，然后用$f(x_0)$代表在$[a,b]$区间上所有的$f(x)$的值。那么定积分的近似求解为:  
 $$(b-a)f(x_0)$$
@@ -257,7 +257,7 @@ p2 = plt.hist(sample_x[9001:], 100,density=True,alpha=0.5, histtype='stepfilled'
 plt.legend()
 plt.show()
 ```
-![avatar](https://github.com/hx-ling/2021BayesianCourse/blob/main/figure/Metorpolis_Python.png)  
+![avatar](./figure/Metorpolis_Python.png)  
 由结果图可以看到，通过Metropolis采样算法采集到的样本序列可以近似地看做自由度为3的t分布的样本。  
 
 **Metropolis——R案例实践**  
@@ -283,7 +283,7 @@ curve(dgamma(x,5,5),from=0,to=8,add=TRUE,col=2,lwd=3)
 plot(1:k,X[1:k],type = 'l',col=2,lty=2,ylab = 'X',xlab = "index",xlim = c(1,M),ylim = range(X))
 lines((k+1):M,X[(k+1):M])
 ```
-![avatar](https://github.com/hx-ling/2021BayesianCourse/blob/main/figure/Metropolis_R.jpeg)  
+![avatar](./figure/Metropolis_R.jpeg)  
 左图为样本的直方图和真实分布，可以看出其符合较好。
 右图为马尔可夫链（粉色为热身部分）。 
 
@@ -344,7 +344,7 @@ plt.hist(pi, num_bins, density=True, facecolor='red', alpha=0.7,label='sample')
 plt.legend()
 plt.show()
 ```
-![avatar](https://github.com/hx-ling/2021BayesianCourse/blob/main/figure/M-H_Python.png)  
+![avatar](./figure/M-H_Python.png)  
 输出的图中可以看到采样值的分布与真实的分布之间的关系如下，采样集还是比较拟合对应分布的。  
 
 **M-H算法——R案例实践**  
@@ -369,7 +369,7 @@ curve(dgamma(x,5,5),from=0,to=8,add=TRUE,col=2,lwd=3)
 plot(1:k,X[1:k],type = 'l',col=2,lty=2,ylab = 'X',xlab = "index",xlim = c(1,M),ylim = range(X))
 lines((k+1):M,X[(k+1):M])
 ```
-![avatar](https://github.com/hx-ling/2021BayesianCourse/blob/main/figure/M-H_R.jpeg)  
+![avatar](./figure/M-H_R.jpeg)  
 左图为样本的直方图和真实分布，可以看出其符合较好。 
 右图为马尔可夫链（粉色为热身部分）。 
  
@@ -454,7 +454,7 @@ plt.legend()
 plt.show()
 ```
 输出的两个特征各自的分布如下：  
-![avatar](https://github.com/hx-ling/2021BayesianCourse/blob/main/figure/Gibbs_Python1.png)  
+![avatar](./figure/Gibbs_Python1.png)  
 查看样本集生成的二维正态分布，代码如下：  
 ```Python
 fig = plt.figure()
@@ -463,7 +463,7 @@ ax.scatter(x_res, y_res, z_res,marker='o',color='pink')
 plt.show()
 ```
 输出的正态分布图如下：  
-![avatar](https://github.com/hx-ling/2021BayesianCourse/blob/main/figure/Gibbs_Python2.png)  
+![avatar](./figure/Gibbs_Python2.png)  
 可以看出，Gibbs抽样得到的采样集还是比较拟合对应分布的。  
 
 **Gibbs——R案例实践**  
@@ -491,7 +491,7 @@ par(mfrow=c(1,2))
 hist(mu[-(1:k)])
 hist(tau[-(1:k)])
 ```
-![avatar](https://github.com/hx-ling/2021BayesianCourse/blob/main/figure/Gibbs_R.jpeg)  
+![avatar](./figure/Gibbs_R.jpeg)  
 左右图分别是$\mu$和$\tau$后验分布去掉热身部分后的直方图  
 
 ## 六、MCMC案例应用
