@@ -29,14 +29,14 @@
 在分析前，需要定一些建模细节。首先将旅客抵达车站视作泊松过程，这意味着假设乘客可能在任何时间等概率到达，乘客有一个未知的到达率$\lambda$，以每分钟到达的乘客计量。因为在很短且相同的时间段内观察乘客，所以假设$\lambda$为常数。
 
 另一方面，列车的到达过程不是泊松的。高峰时间从终点（灰西鲜站）去波士顿的列车每隔7-8分钟发出，但到Kendall广场的时候，列车间隔在3-12分钟内变化。
-计算每个工作日下午4点到下午6点Kendall广场站前后到站列车的时间间隔，持续记录5天，每天记录了15 次列车到达。这些分布的差别如图2-1所示, 标为z。
+计算每个工作日下午4点到下午6点Kendall广场站前后到站列车的时间间隔，持续记录5天，每天记录了15 次列车到达。这些分布的差别如图2-1所示, 标为$z$。
 
-<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/Figure1.png" title="图2-1" width="456" height="350" />
+<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/lcyFigure1.png" title="图2-1" width="456" height="350" />
 
-*图2-1 根据收集到的数据绘制的列车间隔的PMF,以KDE平滑处理（z为实际分布；zb是由 乘客看到列车间隔的偏差分布）*
+*图2-1 根据收集到的数据绘制的列车间隔的PMF,以KDE平滑处理（$z$为实际分布；$zb$是由 乘客看到列车间隔的偏差分布）*
 
 
-根据收集到的数据绘制的列车间隔的PMF,以KDE平滑处理（z为实际分布；zb是由乘客看到列车间隔的偏差分布）。
+根据收集到的数据绘制的列车间隔的PMF,以KDE平滑处理（$z$为实际分布；$zb$是由乘客看到列车间隔的偏差分布）。
 
 这是下午4点到下午6点在站台记录的列车间隔时间的分布。但是如果随机到达站台（不管列车时刻表），会看到一个与此不同的分布，随机到达的乘客所看到的列车间隔的平均值，比实际的平均值要高一些。这是因为乘客到达的时间间隔更可能是一个较大的区间。考虑一个简单的例子： 假设列车间隔是5分钟或者10分钟（相等的概率）。在这种情况下，列车之间的平 时间是7.5分钟。但乘客更可能在10分钟的时段内到达而不是在5分钟内，事实上前者是后者的两倍。如果对到站旅客进行调查会发现，其中2/3在10分钟的时段内到达，5分钟时段内到达的只有1/3。所以到站乘客观察到的列车间隔平均值是8.33分钟。
 
@@ -55,13 +55,13 @@
         return new_pmf
 ```
 
-pmf是实际的分布；new_pmf是偏分布。在循环中，将每个值的概率x乘以观测到的似然度，其正比于x，然后对结果归一化。
+pmf是实际的分布；new_pmf是偏分布。在循环中，将每个值的概率$x$乘以观测到的似然度，其正比于$x$，然后对结果归一化。
 
 ### （三）等待时间
 
-等待时间设为y，是乘客到达时刻和下一趟列车到达时刻之间的时间。经过时间设为x，是乘客到达时刻和上一趟列车到达时刻之间的时间。使得zb = x +y。给定zb的分布，可以计算出y的分布。首先先从一个简单的情况开始，然后再一般化。假设如前面的例子，zb为5分钟的概率是1/3, 10分钟的概率就是2/3。如果乘客在5分钟间隔内随机到达，y均匀分布于0至5分钟内。如果乘客在10分钟的间隔到达，y均匀分布于0到10分钟内。所以整体分布是根据每一个间隔的概率加权了的均匀分布的混合分布。
+等待时间设为$y$，是乘客到达时刻和下一趟列车到达时刻之间的时间。经过时间设为$x$，是乘客到达时刻和上一趟列车到达时刻之间的时间。使得$zb = x +y$。给定$zb$的分布，可以计算出$y$的分布。首先先从一个简单的情况开始，然后再一般化。假设如前面的例子，$zb$为5分钟的概率是1/3, 10分钟的概率就是2/3。如果乘客在5分钟间隔内随机到达，$y$均匀分布于0至5分钟内。如果乘客在10分钟的间隔到达，$y$均匀分布于0到10分钟内。所以整体分布是根据每一个间隔的概率加权了的均匀分布的混合分布。
 
-下面的函数将计算Zb的分布和y的分布：
+下面的函数将计算$Zb$的分布和$y$的分布：
 
 ```python
     def PmfOfWaitTime(pmf_zb):
@@ -109,34 +109,34 @@ MakeRange定义了一组等待时间(以秒表示)的可能值。默认情况下
             self.pmf_x = self.pmf_y
 ```
 
-参数pmf_z是z的非偏差分布。pmf_zb是乘客看到的列车间隔的偏差分布。pmf_y 是等待时间的分布。pmf_x是经过的时间的分布，它和等待时间分布是一样的。想知 道为什么？记得对于一个zp的一个特定值，y的分布是从0到zp均匀的，再考虑到 x = zp - y,因此x的分布也是从0到zp均匀的。
+参数pmf_z是$z$的非偏差分布。pmf_zb是乘客看到的列车间隔的偏差分布。pmf_y是等待时间的分布。pmf_x是经过的时间的分布，它和等待时间分布是一样的。想知道为什么？记得对于一个$zp$的一个特定值，$y$的分布是从0到$zp$均匀的，再考虑到 $x = zp - y$,因此x的分布也是从0到$zp$均匀的。
 
-图2-2显示了z、zb和y的分布——基于Red Line网站上收集的数据。
-为了解释这些分布，将从Pmfs切换到Cdfs。可知，z的平均值为7.8分钟。zb的平均值为8.8分钟，高出z约13%。 y均值为4.4分钟，是zb均值的一半。
+图2-2显示了$z$、$zb$和$y$的分布——基于Red Line网站上收集的数据。
+为了解释这些分布，将从Pmfs切换到Cdfs。可知，$z$的平均值为7.8分钟。$zb$的平均值为8.8分钟，高出$z$约13%。 $y$均值为4.4分钟，是$zb$均值的一半。
 
-<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/Figure2.png" title="图2-2" width="456" height="350" />
+<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/lcyFigure2.png" title="图2-2" width="456" height="350" />
 
 *图2-2 z, zb,乘客等待时间y的CDF*
 
 ### （四）预测等待时间
-假设给定z的实际分布，已知乘客到达率$\lambda$是每分钟2名乘客。
+假设给定$z$的实际分布，已知乘客到达率$\lambda$是每分钟2名乘客。
 
 在这种情况下可以：
 
-- 1.用z的分布来计算zp的先验分布，乘客所看到的列车间隔分布。
+- 1.用$z$的分布来计算$zp$的先验分布，乘客所看到的列车间隔分布。
 
-- 2.然后，可以使用乘客数量来估计x的分布，即上一趟火车离开后经过的时间。
+- 2.然后，可以使用乘客数量来估计$x$的分布，即上一趟火车离开后经过的时间。
 
-- 3.最后，使用关系y = zp - x可得y的分布。
+- 3.最后，使用关系$y = zp - x$可得$y$的分布。
 
-第一步是创建一个WaitTimeCalculator,封装zp, x和y的分布——在考虑乘客的数目之前。
+第一步是创建一个WaitTimeCalculator,封装$zp$, $x$和$y$的分布——在考虑乘客的数目之前。
 
 ```python
     wtc = WaitTimeCalculator(pmf_z)
 ```
 
 pmf_z是给定的间隔时间的分布。
-接下来的步骤是创建一个ElapsedTimeEstimator，它封装了x的后验分布和y的预测分布。
+接下来的步骤是创建一个ElapsedTimeEstimator，它封装了$x$的后验分布和$y$的预测分布。
 
 ```python
     ete = ElapsedTimeEstimator (wtc,
@@ -144,7 +144,7 @@ pmf_z是给定的间隔时间的分布。
                                 num_passengers=15)
 ```
 
-参数是WaitTimeCalculator,乘客到达率lam (表示为乘客人数/秒)和站台上看到的乘客数量(假设是15)。
+参数是WaitTimeCalculator,乘客到达率$\lambda$(表示为乘客人数/秒)和站台上看到的乘客数量(假设是15)。
 ElapsedTimeEstimator 的定义：
 
 ```python
@@ -161,7 +161,7 @@ prior_x和posterior_x是经过时间的先验和后验分布。pmf_y是等待时
 
 ElapsedTimeEstimator 使用 Elapsed 和 PredictWaitTime, 定义如下。
 
-Elapsed是表示x的假想分布的Suite对象。x的先验分布直接由WaitTimeCalculator 得到。然后使用这些数据，包括到达率，lam和站台上乘客的数量计算后验分布。
+Elapsed是表示$x$的假想分布的Suite对象。$x$的先验分布直接由WaitTimeCalculator 得到。然后使用这些数据，包括到达率，$\lambda$和站台上乘客的数量计算后验分布。
 
 下面是Elapsed的定义：
 
@@ -175,8 +175,8 @@ Elapsed是表示x的假想分布的Suite对象。x的先验分布直接由WaitTi
             return like
 ```
 
-Likelihood接受一个假设和数据，并计算该假设下数据的似然度。在这个例子里面hypo是上一趟列车后经过的时间，data是一个包括lam和乘客数量元组。
-数据的似然度是给定到达率lam下，x时间内k次列车抵达的概率。利用一个泊松分布的PMF来计算它。
+Likelihood接受一个假设和数据，并计算该假设下数据的似然度。在这个例子里面hypo是上一趟列车后经过的时间，data是一个包括$\lambda$和乘客数量元组。
+数据的似然度是给定到达率$\lambda$下，$x$时间内$k$次列车抵达的概率。利用一个泊松分布的PMF来计算它。
 最后，PredictWaitTime的定义是：
 
 ```python
@@ -186,13 +186,13 @@ Likelihood接受一个假设和数据，并计算该假设下数据的似然度�
         return pmf_y
 ```
 
-pmf_zb是列车间隔的分布情况；pmf_x是经过时间的分布(根据对乘客数量的观察得到)。由于y = zb - x，可以计算：
+pmf_zb是列车间隔的分布情况；pmf_x是经过时间的分布(根据对乘客数量的观察得到)。由于$y = zb - x$，可以计算：
 
 ```python
     pmf_y = pmf_zb - pmf_x
 ```
 
-减法运算符调用Pmf._sub_,其中列举了所有zb和x对，计算其差，将结果加总到pmf_y。
+减法运算符调用Pmf._sub_,其中列举了所有$zb$和$x$对，计算其差，将结果加总到pmf_y。
 
 由此产生的Pmf包括一些显然不可能的负值。例如，如果乘客是在5分钟的间隔期间到达的，乘客的等待时间不可能超过5分钟。RemoveNegatives会移除这些不可能的值并重新归一化。
 
@@ -204,9 +204,9 @@ pmf_zb是列车间隔的分布情况；pmf_x是经过时间的分布(根据对�
         pmf.Normalize()
 ```
 
-图2-3显示了结果。x的先验分布和y一样。x的后验分布表明，看到站台上的15名乘客后，考虑到自上一趟车过后的时间大概是5-10分钟，所以预计下一班列车会在5分钟内到达，置信度为80%。
+图2-3显示了结果。$x$的先验分布和$y$一样。$x$的后验分布表明，看到站台上的15名乘客后，考虑到自上一趟车过后的时间大概是5-10分钟，所以预计下一班列车会在5分钟内到达，置信度为80%。
 
-<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/Figure3.png" title="图2-3" width="456" height="350" />
+<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/lcyFigure3.png" title="图2-3" width="456" height="350" />
 
 *图2-3 x的先验分布和后验分布，以及预测的y值*
 
@@ -225,13 +225,13 @@ pmf_zb是列车间隔的分布情况；pmf_x是经过时间的分布(根据对�
 | 18 | 5.4 | 12 |
 |  4 | 5.8 | 11 |
 
-其中k1是当他到达时，正在等候的乘客数;y是他的等待时间;k2为等待期间到达的乘客数量。
+其中$k1$是当他到达时，正在等候的乘客数;$y$是他的等待时间;$k$2为等待期间到达的乘客数量。
 
 一个多星期的记录中，他等待时间是18分钟，看到36名乘客到达，因此可以估计，到达率是每分钟2名乘客。就实验来说，这一估计足够了，但为了完整起见，应该计算人的后验分布，然后演示怎么样在后面的分析中利用该分布。
 
 ArrivalRate是个代表人假设的Suite对象。Likelihood接收假设和数据，计算出假设下的数据似然度。
 
-在例子里面，假设是人的取值。数据是y、k数据对，其中y是一个等待时间，k是到达的乘客人数。
+在例子里面，假设是人的取值。数据是$y$、$k$数据对，其中$y$是一个等待时间，$k$是到达的乘客人数。
 
 ```python
     class ArrivalRate(thinkbayes.Suite):
@@ -243,7 +243,7 @@ ArrivalRate是个代表人假设的Suite对象。Likelihood接收假设和数据
             return like
  ```
 
-ArrivalRateEstimator封装估算$\lambda$的过程。参数passenger_data，是一个包括k1, y, k2元素的元组，具体数据如前文”预测等待时间“所示。
+ArrivalRateEstimator封装估算$\lambda$的过程。参数passenger_data，是一个包括$k1$,$y$,$k2$元素的元组，具体数据如前文”预测等待时间“所示。
 
 ```python
     class ArrivalRateEstimator(object):
@@ -263,9 +263,9 @@ __init__构建假设，这是lam假设值的序列，然后生成先验分布pri
 
 图2-4给出了先验和后验分布。正如预期的那样，均值和中位值都在观察得到的值附近，每分钟2名乘客。但不确定后验分布的范围是否是由于$\lambda$基于小样本的原因。
 
-<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/Figure4.png" title="图2-4" width="456" height="350" />
+<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/lcyFigure4.png" title="图2-4" width="456" height="350" />
 
-*图2-4 基于5天乘客数据的lam的前验和后验分布*
+*图2-4 基于5天乘客数据的$\lambda$的前验和后验分布*
 
 ### （六）消除不确定性
 无论何时，分析中总有一些输入量带来的不确定性，可以通过下面这个步骤将这一因素考虑进来：
@@ -293,30 +293,30 @@ __init__构建假设，这是lam假设值的序列，然后生成先验分布pri
             self.mixture = thinkbayes.MakeMixture(self.metapmf)
 ```
 
-wtc是包含zb分布的WaitTimeCalculator实例。are则是包含了lam分布的 ArrivalTimeEstimator实例。第一行创建了一个元Pmf来映射y的可能分布和其概率。对于lam的每一个值，用ElapsedTimeEstimator计算y的相应分布，并将其存储在元Pmf。然后用MakeMixture来计算混合分布。
+wtc是包含zb分布的WaitTimeCalculator实例。are则是包含了$\lambda$分布的 ArrivalTimeEstimator实例。第一行创建了一个元Pmf来映射$y$的可能分布和其概率。对于$\lambda$的每一个值，用ElapsedTimeEstimator计算$y$的相应分布，并将其存储在元Pmf。然后用MakeMixture来计算混合分布。
 
-图2-5显示了结果。背景中的阴影线表示了 y对应于lam每个值的分布，细线表示似然度。粗线是这些分布的混合分布。
+图2-5显示了结果。背景中的阴影线表示了 $y$对应于$\lambda$每个值的分布，细线表示似然度。粗线是这些分布的混合分布。
 
-在这种情况下，可以用lam的单点估计得到一个非常类似的结果。因此就实用而言，将估计的不确定性包含进来不是必需的。
+在这种情况下，可以用$\lambda$的单点估计得到一个非常类似的结果。因此就实用而言，将估计的不确定性包含进来不是必需的。
 
-在一般情况下，如果系统响应是非线性的，那么包括可变性就很重要了。此时，输入的微小变化都会引起输出的较大变化，而本例中，lam的后验变化很小，对于小的扰动，系统的响应近似线性。
+在一般情况下，如果系统响应是非线性的，那么包括可变性就很重要了。此时，输入的微小变化都会引起输出的较大变化，而本例中，$\lambda$的后验变化很小，对于小的扰动，系统的响应近似线性。
 
-<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/Figure5.png" title="图2-5" width="456" height="350" />
+<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/lcyFigure5.png" title="图2-5" width="456" height="350" />
 
-*图2-5 对应了 lam所有可能值的y的预测分布*
+*图2-5 对应了$\lambda$所有可能值的$y$的预测分布*
 
 ### （七）决策分析
 建设如果预测乘客等待时间会超过15分钟，则建议乘客乘坐出租车离开。
 
-在这种情况下计算“y超过15分钟”作为num_passengers的函数的概率。在num_passengers的区间上运行“预测等待时间”里的分析方法。但该分析对长时间延误的频次敏感，而由于长时间延误罕见，因此很难估计其时间延误发生频次。
+在这种情况下计算“$y$超过15分钟”作为num_passengers的函数的概率。在num_passengers的区间上运行“预测等待时间”里的分析方法。但该分析对长时间延误的频次敏感，而由于长时间延误罕见，因此很难估计其时间延误发生频次。
 
 由于只有一周的数据，观察到的最长延误是15分钟，故无法准确估计长时间延误的频次，但可以使用以前的观察来进行至少是粗略的估计。
 
 有一名乘客在一年中看到过由于信号问题、停电、其他车站的警察行动造成的3个长时间延误，所以估计大约每年有3次长时间延误。
 
-但这种看法是偏颇的，应该更倾向于观察长时间延误是因为它们影响了大批乘客。所以，应该把个人的意见作为zb的样本，而不是z的。
+但这种看法是偏颇的，应该更倾向于观察长时间延误是因为它们影响了大批乘客。所以，应该把个人的意见作为$zb$的样本，而不是$z$的。
 
-通过在一年时间中乘坐红线的220次观察到的间隔时间gap_times 产生了220个列车间隔的样本，并计算它们的Pmf：
+通过在一年时间中乘坐红线的220次观察到的间隔时间gap_times产生了220个列车间隔的样本，并计算它们的Pmf：
 
 ```python
     n = 220
@@ -325,7 +325,7 @@ wtc是包含zb分布的WaitTimeCalculator实例。are则是包含了lam分布的
     pmf_z = thinkbayes.MakePmfFromList(sample_z)
 ```
 
-接下来，偏置pmf_z得到zb的分布情况，抽取样本，然后添加了30分钟、40分钟和50分钟的三次延误(以秒表示)：
+接下来，偏置pmf_z得到$zb$的分布情况，抽取样本，然后添加了30分钟、40分钟和50分钟的三次延误(以秒表示)：
 
 ```python
     cdf_zp = BiasPmf(pmf_z).MakeCdf()
@@ -334,7 +334,7 @@ wtc是包含zb分布的WaitTimeCalculator实例。are则是包含了lam分布的
 
 Cdf.Sample比Pmf.Sample更高效，因而一般会更快地将Pmf转换成Cdf。
 
-接下来，以zb的样本用KDE来估计Pdf，然后将Pdf转换为Pmf：
+接下来，以$zb$的样本用KDE来估计Pdf，然后将Pdf转换为Pmf：
 
 ```python
     pdf_zb = thinkbayes.EstimatedPdf(sample_zb)
@@ -342,7 +342,7 @@ Cdf.Sample比Pmf.Sample更高效，因而一般会更快地将Pmf转换成Cdf。
     pmf_zb = pdf_zb.MakePmf(xs)
 ```
 
-最后，反偏置zb的分布来获得z的分布，用z创建WaitTimeCalculator：
+最后，反偏置$zb$的分布来获得$z$的分布，用$z$创建WaitTimeCalculator：
 
 ```python
     pmf_z = UnbiasPmf(pmf_zb)
@@ -366,7 +366,7 @@ Cdf.Sample比Pmf.Sample更高效，因而一般会更快地将Pmf转换成Cdf。
 
 或者，进一步分析可以量化错过南站。
 
-<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/Figure6.png" title="图2-6" width="456" height="350" />
+<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/lcyFigure6.png" title="图2-6" width="456" height="350" />
 
 *图2-6 以站台上乘客人数为变量的等待时间超过15分钟的概率函数*
 
