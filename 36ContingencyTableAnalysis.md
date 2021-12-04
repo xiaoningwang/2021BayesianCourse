@@ -6,28 +6,28 @@
 &emsp;&emsp;对于列联表数据形式的数据，可以使用带参数的先验分布，并将结果以带参数的后验分布或其他一些形式进行数据分析。所用的分析必须依赖于先验分布，这里描述的形式只适用于某种类型的先验知识，贝叶斯分析能够使某些二项式问题得到应用，结合一些一般性结论能够应用于列联表。这里使用的方法与方差分析有紧密联系，在简化涉及三个或更高维的列联表分析时需要进行检验。
 
 ## （一）二项分布
-&emsp;&emsp;二项分布作为一般多项情况的结果的特殊情况，在基于二项分布进行推广时具有启发意义。以概率$\theta$进行N次独立的试验，导致$n$次成功实验和$(N-n)$次失败实验的概率为：
+&emsp;&emsp;二项分布作为一般多项情况的结果的特殊情况，在基于二项分布进行推广时具有启发意义。以概率$\theta$进行$N$次独立的试验，导致$n$次成功实验和$(N-n)$次失败实验的概率为：
 
 **$$
-(1.1)		\theta^{n}(1-\theta)^{N-n}
+\theta^{n}(1-\theta)^{N-n}\tag{1.1}
 $$**
 
 &emsp;&emsp;将一个密度与以下数据成正比的先验分布作为先验分布是很方便的
 
 **$$
-(1.2)		\theta^{a}(1-\theta)^{b}
+\theta^{a}(1-\theta)^{b}\tag{1.2}
 $$**
 
 &emsp;&emsp;其中 $a, b>-1$ 当$a$ 和 $b$ 都趋向于-1时，后验密度与以下数据成正比
 
 **$$
-(1.3)		\theta^{a+n}(1-\theta)^{b+N-n}
+\theta^{a+n}(1-\theta)^{b+N-n}\tag{1.3}
 $$**
 
 &emsp;&emsp;由$β$分布和$F$分布之间的已知关系得到下式
 
 **$$
-(1.4)		F=\left(\frac{b+N-n+1}{a+n+1}\right)\left(\frac{\theta}{1-\theta}\right)
+F=\left(\frac{b+N-n+1}{a+n+1}\right)\left(\frac{\theta}{1-\theta}\right)\tag{1.4}
 $$**
 
 &emsp;&emsp;$F$分布的自由度为$[2(a+n+1), 2(b+N-n+1)]$
@@ -36,13 +36,13 @@ $$**
 Fisher在$F$中取$z=\frac{1}{2}$ : 在这种情况下，用F的自然对数更为方便。那么，Fisher的近似方法相当于说，如果$F$有$\nu_{1}$和$\nu_{2}$的自由度，那么$\ln F$是近似正态的，其均值为 $\ln \left\{\left(\nu_{1}-1\right) /\left(\nu_{2}-1\right)\right\}$，方差为$2\left(\nu_{1}^{-1}+\nu_{2}^{-1}\right)$对于$\ln \{\theta /(1-\theta)\}$，均值为：
 
 **$$
-(1.5)		\ln \left\{\left(a+n+\frac{1}{2}\right) /\left(N-n+b+\frac{1}{2}\right)\right\}
+\ln \left\{\left(a+n+\frac{1}{2}\right) /\left(N-n+b+\frac{1}{2}\right)\right\}\tag{1.5}
 $$**
 
 &emsp;&emsp;方差为：
 
 **$$
-(1.6)		(a+n+1)^{-1}+(b+N-n+1)^{-1}
+(a+n+1)^{-1}+(b+N-n+1)^{-1}\tag{1.6}
 $$**
 
 &emsp;&emsp;因此，我们要考虑有利于成功的几率的自然对数，即 $\theta /(1-\theta)$。如果$\theta$的值是已知的，并且小于$\frac{1}{2}$，通常会引用它的值到固定的小数位。在这种情况下，$\theta$的对数可以被引用到一个固定的位数，它的特定变化对所有的$\theta$都具有同等意义。使用对数的另一个更重要的论据是，在下面要讨论的情况下，它们存在某些加法属性，基于独立的重要属性是以乘法方式表达的，而对对数而言是加法方式。本文的结果将完全用对数和它们的多项式概括来表达。
@@ -54,13 +54,13 @@ $$**
 &emsp;&emsp;在许多应用中，先验分布的$a$和$b$的值可能确实很小。如果样本值$n$和$(N-n)$成功和失败的数量都很大，从（1.5）和（1.6）中我们可以看出，$a$和$b$的实际小值并不重要。因此，采取$a=b=-1$是合理的。在$a=b=-1$的情况下，$\ln \{\theta /(1-\theta)\}$的后验分布近似于正态分布，其均值为：
 
 **$$
-(1.7)		\ln \left\{\left(n-\frac{1}{2}\right) /\left(N-n-\frac{1}{2}\right)\right\}
+\ln \left\{\left(n-\frac{1}{2}\right) /\left(N-n-\frac{1}{2}\right)\right\}\tag{1.7}
 $$**
 
 &emsp;&emsp;方差为$n^{-1}+(N-n)^{-1}$，简化后记作:
 
 **$$
-(1.8)		\quad \ln \{\theta /(1-\theta)\} \sim N\left[\ln \{n /(N-n)\}, n^{-1}+(N-n)^{-1}\right]
+\quad \ln \{\theta /(1-\theta)\} \sim N\left[\ln \{n /(N-n)\}, n^{-1}+(N-n)^{-1}\right]\tag{1.8}
 $$**
 
 &emsp;&emsp;在本文中，通过在计算后验平均值时减少$\frac{1}{2}$的观测值，可以对$a=b=-1$的先验近似值进行一些改进。换句话说，(1.8)说真实的对数是关于样本对数的近似正态分布，方差等于成功和失败两类数字的倒数之和。
@@ -72,11 +72,11 @@ $$**
 &emsp;&emsp;我们采用Fisher的另一个建议：如果$n_{i}(i=1,2, \cdots k)$是独立的泊松变量，其平均值是$\Psi_{i}$，那么它们的条件分布为$\theta_{i}=\Psi_{i} / \sum \Psi_{i}$
 
 **$$
-(2.1)		\begin{aligned}
+\begin{aligned}
 p\left(n_{1}, n_{2}, \cdots, n_{k} \mid N\right) &=p\left(n_{1}, n_{2}, \cdots, n_{k}\right) / p(N) \\
 &=\frac{e^{-\Sigma \Psi_{i}} \prod\left(\Psi_{i}^{n_{i}} / n_{i} !\right)}{e^{-\Sigma \Psi_{i}}\left(\sum \Psi_{i}\right)^{N} / N !} \\
 &=N ! \prod\left(\theta_{i}^{n_{i}} / n_{i} !\right)
-\end{aligned}
+\end{aligned}\tag{2.1}
 $$**
 
 &emsp;&emsp;对这一结果的另一种看法是，泊松的概率分布只取决于$\theta=\sum \Psi_{i}$，而给定$N$的条件多叉分布，它只取决于$\theta_{1}, \theta_{2}, \cdots, \theta_{k}$。因此，在先验的这些条件下，$\theta_{i}$的后验分布将只取决于似然的二项式部分。也就是说，这个后验分布可以通过泊松装置得到。
@@ -84,19 +84,19 @@ $$**
 &emsp;&emsp;对于$\Psi_{i}$的一个适当的先验分布，可以通过假设它们的对数是独立的，并且均匀分布在整个实线上得到。从$\Psi_{1}, \Psi_{2}, \cdots, \Psi_{k}$到$\theta, \theta_{1}, \theta_{2}, \cdots, \theta_{k-1}$的变形的雅各布式，很容易发现是$\theta^{k-1}$，因此
 
 **$$
-(2.2)		\frac{d \Psi_{1} d \Psi_{2} \cdots d \Psi_{k}}{\Psi_{1} \Psi_{2} \cdots \Psi_{k}}=\theta^{k-1} \frac{d \theta d \theta_{1} \cdots d \theta_{k-1}}{\theta^{k} \theta_{1} \cdots \theta_{k}}=\left(\frac{d \theta}{\theta}\right)\left(\frac{d \theta_{1} \cdots d \theta_{k-1}}{\theta_{1} \cdots \theta_{k}}\right)
+\frac{d \Psi_{1} d \Psi_{2} \cdots d \Psi_{k}}{\Psi_{1} \Psi_{2} \cdots \Psi_{k}}=\theta^{k-1} \frac{d \theta d \theta_{1} \cdots d \theta_{k-1}}{\theta^{k} \theta_{1} \cdots \theta_{k}}=\left(\frac{d \theta}{\theta}\right)\left(\frac{d \theta_{1} \cdots d \theta_{k-1}}{\theta_{1} \cdots \theta_{k}}\right)\tag{2.2}
 $$**
 
 &emsp;&emsp;然后，通过将（2.2）中的最后一个因素乘以（2.1）中的似然，得到$\theta_{i}$的后验分布，其结果与以下数据成正比
 
 **$$
-(2.3)		\Pi \theta_{i}^{n_{i}-1}
+\Pi \theta_{i}^{n_{i}-1}\tag{2.3}
 $$**
 
 &emsp;&emsp;通过考虑泊松分布寻求（2.3）的近似值。给定$n_{i}$的$\Psi_{i}$的后验分布正比于
 
 **$$
-(2.4)		\prod\left(e^{-\Psi_{i}} \Psi_{i}^{n_{i}-1}\right)
+\prod\left(e^{-\Psi_{i}} \Psi_{i}^{n_{i}-1}\right)\tag{2.4}
 $$**
 
 &emsp;&emsp;因此，$Psi_{i}$是独立的，每一个都是III型或Gamma分布的。但是，正如上面所解释的，如果一个变量有这样的分布，那么除了较小的$n_{i}$值之外，它的对数是近似正态分布的。均值为$\ln n_{i}$，方差为$n_{i}^{-1}$。
@@ -113,20 +113,20 @@ $$**
 &emsp;&emsp;如果随机变量$n_{1}, n_{2}, \cdots, n_{k}$服从参数为$\theta_{1}, \theta_{2}, \cdots, \theta_{k}的多项式分布；同时如果我们的先验分布在区域$\theta_{i} \geqq 0, \sum \theta_{i}=1$内具有密度比例$\left(\prod \theta_{i}\right)^{-1}$，那么，当常数$a_{p i}(p=1,2, \cdots, m ; i=1,2, \cdots, k ; m<k)$满足 $\sum_{i} a_{p i}=0$，则对比度的联合后验分布$\underline{ }_{i} a_{p i} \ln \theta_{i}(p=1,2, \cdots, m)$近似正态，均值为
 
 **$$
-(2.5)		\sum_{i} a_{p i} \ln n_{i}
+\sum_{i} a_{p i} \ln n_{i}\tag{2.5}
 $$**
 
 &emsp;&emsp;和协方差
 
 **$$
-(2.6)		\sum_{i} a_{p i} a_{g i} n_{i}^{-1}
+\sum_{i} a_{p i} a_{g i} n_{i}^{-1}\tag{2.6}
 $$**
 
 &emsp;&emsp;均值和协方差的表达式来源于$\ln \Psi_{i}$以及它们均值和方差的独立性。
 由(2.5)给出的方法可以写成
 
 **$$
-(2.7)		\sum_{i} a_{p i} \ln \left(n_{i} / N\right)
+\sum_{i} a_{p i} \ln \left(n_{i} / N\right)\tag{2.7}
 $$**
 
 &emsp;&emsp;在二项式的情况下，$k=2$，唯一的对比是$\ln \theta_{1}-\ln \theta_{2}=\ln \{\theta /(1-\theta)\}$的倍数。因此，先前关于二项式的结果是该定理的一个特例。如果把注意力集中在对数上，那么可以使用简单的正态结果：特别是可以使用方差分析的方法。我们将在下文中看到，在分析二项式数据，特别是列联表数据时，许多有关的参数都可以用对数来表示，因此，可以应用正态理论，与二项式的情况一样，通过从（2.5）中的$n_{i}$除去$\frac{1}{2}来改善近似值。
@@ -139,19 +139,19 @@ $$**
 &emsp;&emsp;将这些想法应用于对数的后验分布。$\phi_{1}, \phi_{2}, \cdots, \phi_{s}$是s个线性独立的对数，其均值为$m_{i}$，协方差为$v_{i j}$，表达式来自（2.5）和（2.6）。$\phi_{i}$的联合密度在椭圆体上是恒定的：
 
 **$$
-(3.1)		\sum_{i, j=1}^{s}\left(\phi_{i}-m_{i}\right) v^{i j}\left(\phi_{j}-m_{j}\right)=c
+\sum_{i, j=1}^{s}\left(\phi_{i}-m_{i}\right) v^{i j}\left(\phi_{j}-m_{j}\right)=c\tag{3.1}
 $$**
 
 &emsp;&emsp;其中，$v^{i j}$是分散矩阵的逆元素，$c$是任意正常数。后验概率为：
 
 **$$
-(3.2)		\sum_{i, j=1}^{s}\left(\phi_{i}-m_{i}\right) v^{i j}\left(\phi_{j}-m_{j}\right) \leqq \chi_{\alpha}^{2}
+\sum_{i, j=1}^{s}\left(\phi_{i}-m_{i}\right) v^{i j}\left(\phi_{j}-m_{j}\right) \leqq \chi_{\alpha}^{2}\tag{3.2}
 $$**
 
 &emsp;&emsp;在$\alpha=0.05$的情况下，（3.2）的后验概率为95%。提出一个对假设的显著性检验$\phi_{i}=\phi_{i}^{(0)}$，当$\phi_{i}^{(0)}=0(i=1,2, \cdots, s)$时，相关的统计量减少为
 
 **$$
-(3.3)		\sum_{i, j=1}^{s} m_{i} v^{i j} m_{j}
+\sum_{i, j=1}^{s} m_{i} v^{i j} m_{j}\tag{3.3}
 $$**
 
 &emsp;&emsp;可与$\chi^{2}$进行对比。
@@ -172,23 +172,23 @@ $$**
 &emsp;&emsp;如果$\theta_{i j}(i=1,2, \cdots r; j=1,2, \cdots s)$的先验分布与$\prod_{i j} \theta_{i j}^{-1}$成比例，那么$\theta_{i .}$以及$\phi_{i j}=\theta_{i j} / \theta_{i .}$的先验分布与下式成比例
 
 **$$
-(4.1)		\prod_{i} \theta_{i}^{-1} \prod_{i, j} \phi_{i j}^{-1}
+\prod_{i} \theta_{i}^{-1} \prod_{i, j} \phi_{i j}^{-1}\tag{4.1}
 $$**
 
 &emsp;&emsp;考虑参数$\theta_{i j}$的变化，其中对于所有$i$和$j$，排除$i=r, j=s$到$\theta_{i .} (i<r)$和 $\phi_{i j}(j<s)$。由于参数之间存在的约束，某些值必须被排除，即$\sum_{i j} \theta_{i j}=\sum_{i} \theta_{i .}=\sum_{j} \phi_{i j}=1$。其中：
 
 **$$
-(4.2)		\begin{array}{rlr}
+\begin{array}{rlr}
 \theta_{i j} & =\phi_{i j} \theta_{i} . & i<r, j<s, \\
 \theta_{r j} & =\phi_{r j}\left(1-\sum_{i<r} \theta_{i \cdot}\right) & j<s, \\
 \theta_{i 8} & =\left(1-\sum_{j<s} \phi_{i j}\right) \theta_{i} . & i<r .\\
-\end{array}
+\end{array}\tag{4.2}
 $$**
                                                                         
 &emsp;&emsp;从\theta_{i j}$到新参数的转换的雅各布系数很容易计算出来：
                                                                         
 **$$
-(4.3)		\prod_{i=1}^{r} \theta_{i}^{s-1}
+\prod_{i=1}^{r} \theta_{i}^{s-1}\tag{4.3}
 $$**
                                                                         
 &emsp;&emsp;于是，$\phi_{i j}$和$\theta_{i .}$的联合密度与$\prod_{i, j} \theta_{i j}^{-1}$和（5.3）成正比：
@@ -222,28 +222,28 @@ $$**
 &emsp;&emsp;或者说，在$A_{1}$和$A_{2}$内，$B$分类的几率是一样的。因此，一个可以考虑的参数是log-odds
 
 **$$
-(4.4)		\begin{aligned}
+\begin{aligned}
 \phi &=\ln \theta_{11}-\ln \theta_{21}-\ln \theta_{12}+\ln \theta_{22} \\
 &=\ln \phi_{11}-\ln \phi_{21}-\ln \phi_{12}+\ln \phi_{22}
-\end{aligned}
+\end{aligned}\tag{4.4}
 $$**
                                                                         
 &emsp;&emsp;根据主定理，或根据上述（b）和（c）的组合，该参数近似于正态分布，其平均值为
 
 **$$
-(4.5)		\ln n_{11}-\ln n_{21}-\ln n_{12}+\ln n_{22}
+\ln n_{11}-\ln n_{21}-\ln n_{12}+\ln n_{22}\tag{4.5}
 $$**
                                                                         
 &emsp;&emsp;方差为
                                                                         
 **$$
-(4.6)		n_{11}^{-1}+n_{21}^{-1}+n_{12}^{-1}+n_{22}^{-1}
+n_{11}^{-1}+n_{21}^{-1}+n_{12}^{-1}+n_{22}^{-1}\tag{4.6}
 $$**
                                                                         
 &emsp;&emsp;独立性的无效假设是 $\phi=0$，可以通过参考以下内容进行检验
 
 **$$
-(4.7)		\frac{\left(\ln n_{11}-\ln n_{21}-\ln n_{12}+\ln n_{22}\right)^{2}}{n_{11}^{-1}+n_{21}^{-1}+n_{12}^{-1}+n_{22}^{-1}}
+\frac{\left(\ln n_{11}-\ln n_{21}-\ln n_{12}+\ln n_{22}\right)^{2}}{n_{11}^{-1}+n_{21}^{-1}+n_{12}^{-1}+n_{22}^{-1}}\tag{4.7}
 $$**
 
 &emsp;&emsp;通过在取对数之前从分子中的每个$n_{i j}$中减去$\frac{1}{2}$，可能可以改善近似度。这个结果可用于有一个或没有固定边际的表格。如果$\phi$被用作关联度量，使用(4.5)和(4.6)可以很容易地得到它的贝叶斯置信区间。$\phi$的自然参数是$\theta_{1 .}$和$\theta_{.1}$，即边际概率。
@@ -251,11 +251,11 @@ $$**
 &emsp;&emsp;在处理大于2元的表格时，注意到该分析与方差分析之间的某些相似之处会有所帮助。如果表格（没有固定的边际）以$\theta_{1 .}, \theta_{. 1}$和$\phi$进行分析，前两个对应于$A$和$B$分类的主效应，最后一个对应于两个分类的交互作用：事实上，（4.4）的形式正是基于概率对数的交互作用。然而，如果$\phi$被认为是一种交互作用，那么相应的主效应将是
 
 **$$
-(4.8)		\ln \theta_{11}-ln \theta_{21}+ln \theta_{12}-ln \theta_{22}
+\ln \theta_{11}-ln \theta_{21}+ln \theta_{12}-ln \theta_{22}\tag{4.8}
 $$**
                                                                         
 **$$
-(4.9)		\ln \left\{theta_{1 .}/ θ_{2 .}\right\}=\ln \left(\theta_{11}+\theta_{12}\right)-\ln \left(\theta_{21}+\theta_{22}\right)
+\ln \left\{theta_{1 .}/ θ_{2 .}\right\}=\ln \left(\theta_{11}+\theta_{12}\right)-\ln \left(\theta_{21}+\theta_{22}\right)\tag{4.9}
 $$**
                                                                         
 &emsp;&emsp;即使使用了（4.8），也应该注意到，它并不独立于$\phi$，因为$\ln \theta_{i j}$的方差并不相等。因此，方差分析的思想在研究列联表时在概念上是有用的，总的变异被分解成不同的部分，这些部分是独立的，不一定或通常是独立的：个别的贡献也不具有方差分析或$\chi^{2}$经常要求的相加的特性。$\theta_{1 .}, \theta_{. 1}$和$\phi$的后验分布的相互依赖性如下。$\theta_{1 .}$与$\phi\left((a)-(c)\right.$以上无关，$\theta_{. 1}$也是如此。但$\theta_{1}$不独立于$\theta_{.1}$，$\phi$也不独立于一对$\left(\theta_{1 .} , \theta_{. 1}\right)$。似乎没有任何参数化在两种分类中是对称的，并给出独立的分布。
@@ -263,7 +263,7 @@ $$**
 &emsp;&emsp;$2 \times 2$列联表的两个边际$n_{i .}$和$n_{. j}$都是固定的，其经典的例子是女士品茶。Bahadur提出了一个条件分布的参数化，给定两个边际进行贝叶斯分析。如果两个分类变量是独立的，很容易计算出$n_{11}$的这个分布：它是超几何的。用$p\left(n_{11}\right)$表示。那么推荐使用下式作为分类变量不独立时的分布：
                                                                         
 **$$
-(4.10)		p\left(n_{11} \mid \theta\right)=e^{\theta_{11}} p\left(n_{11}\right) / \sum_{n} e^{\theta n} p(n)
+p\left(n_{11} \mid \theta\right)=e^{\theta_{11}} p\left(n_{11}\right) / \sum_{n} e^{\theta n} p(n)\tag{4.10}
 $$**
                                                                         
 &emsp;&emsp;其中，参数$\theta$衡量两个分类变量之间的关联程度：$\theta=0$说明两变量独立。但对于参数$\theta$的解释有一定的难度。 但这也许是对实验设计的批评，因为在任何情况下，人们都很难从任何分析中推断出这位女士今后对任何一杯茶进行正确分类的概率是多少。Elfving在对该问题的Neyman-Pearson研究中使用了分布（4.10）。 
@@ -271,25 +271,25 @@ $$**
 &emsp;&emsp;$2 \times 2$表的分析扩展到一般的$r \times 2$表是很简单的。关于$\theta_{. 1}$或关于$\theta_{i .}(i=1,2, \cdots r)$的推断可以分别以以上述二项式和多项式的方式进行。两种分类之间没有关联的无效假设是$\theta_{i j} / \theta_{i}=\phi_{i j}$不依赖于$i$。就log-odds而言，这就等于说下式不依赖于$i$，或者所有的log-odds是相等的。
                                                                         
 **$$
-(4.11)		\ln \theta_{i 1}-\ln \theta_{i 2}
+\ln \theta_{i 1}-\ln \theta_{i 2}\tag{4.11}
 $$**
                                                                         
 &emsp;&emsp;此时，这些对数概率是独立的，因此它们的后验密度的对数与下列各项成正比
                                                                         
 **$$
-(4.12)		\sum\left\{\left(\ln \theta_{i 1}-\ln \theta_{i 2}\right)-\left(\ln n_{i 1}-\ln n_{i 2}\right)\right\}^{2}\left(n_{i 1}^{-1}+n_{i 2}^{-1}\right)^{-1}
+\sum\left\{\left(\ln \theta_{i 1}-\ln \theta_{i 2}\right)-\left(\ln n_{i 1}-\ln n_{i 2}\right)\right\}^{2}\left(n_{i 1}^{-1}+n_{i 2}^{-1}\right)^{-1}\tag{4.12}
 $$**
                                                                         
 &emsp;&emsp;这可以写成关于平均值的加权平方和和涉及平均值的项，因此可以用前者来检验（4.11）中的所有内容是否相等。如果$x_{i}=\ln n_{i 1}-\ln n_{i 2}$并且$m_{i}=n_{i 1}^{-1}+n_{i 2}^{-1}$，则检验标准为
                                                                         
 **$$
-(4.13)		\sum\left(x_{i}-x .\right)^{2} m_{i}
+\sum\left(x_{i}-x .\right)^{2} m_{i}\tag{4.13}
 $$**
                                                                         
 &emsp;&emsp;其中，$x .=5 m_{i} x_{i} / \sum m_{i}$，并服从自由度为$(r-1)$的$\chi^{2}$分布。假设（4.11）相当于说存在常数$a_{i}, b_{j}(i=1,2, \cdots r ; j=1,2)$，使
                                                                         
 **$$
-(4.14)		\ln \theta_{i j}=a_{i}+b_{j}
+\ln \theta_{i j}=a_{i}+b_{j}\tag{4.14}
 $$**
                                                                         
 &emsp;&emsp;此外，如果只考虑对比，$\ln \theta_{i j}$是方差为$n_{i j}^{-1}$的独立正态分布。因此，假设(5.14)是在通常的正态分布理论下的二维方差分析中没有交互作用的假设，方差是已知的，且不相等的，参数和观测值的角色是可以互换的，参数才是随机变量。当模型(4.14)被拟合时，该假设可以通过在模型中考虑适当的残差平方和进行检验。  
@@ -297,12 +297,12 @@ $$**
 &emsp;&emsp;当我们考虑$r$和$s$都大于2的一般的$r \times s$表时，就会出现新的困难。无法找到既独立又能反映相关性假设的对数，即两种分类变量是不相干的。满足后一个要求很容易，但如果没有前一个要求，对应于（4.12）的二次方形式就不再是一个简单的平方和了。当$\ln \theta_{i j}$的方差是随机量是独立性无法实现。例如，考虑一个$3 \times 3$表格中的分类变量之间是否具有关联性的检验。四个对数的消失将相当于分类的独立性：
                                                                         
 **$$
-(4.15)		\begin{aligned}
+\begin{aligned}
 &\ln \theta_{11}-\ln \theta_{12}-\ln \theta_{21}+\ln \theta_{22} \\
 &\ln \theta_{11}-\ln \theta_{13}-\ln \theta_{21}+\ln \theta_{23} \\
 &\ln \theta_{21}-\ln \theta_{22}-\ln \theta_{31}+\ln \theta_{32} \\
 &\ln \theta_{21}-\ln \theta_{23}-\ln \theta_{31}+\ln \theta_{33}
-\end{aligned}
+\end{aligned}\tag{4.15}
 $$**
                                                                         
 &emsp;&emsp;但这些都是相关的，例如，第一个和第二个之间的协方差是$n_{11}^{-1}+n_{21}^{-1}$。从这里开始的直接方法是确定（4.15）中的log-odds的离散矩阵A，以及相同对比的样本值：即用$n_{i j}$代替（4.15）中的$\theta_{i j}$所产生的表达式。如果$n$是样本值的列向量，那么相关的二次方形式是$n^{\prime} A^{-1} n$。无论选择什么样的对数，都会产生相同的二次方形式，因为它们必须与（4.15）中使用的对数呈线性关系，该方法在线性变换下是不变的。 
@@ -313,7 +313,7 @@ $$**
 &emsp;&emsp;接下来考虑$r \times s \times t$表的问题，其中的样本通过三种方式分类：已经提到的两种方式，以及排他性和穷尽性的$C_{1}, C_{2}, \cdots C_{t}$类别。分别用$n_{i j k}$和$\theta_{i j k}$表示类中的数量和概率。如同在二维表中，将情况重新参数化是很方便的，例如，使用
                                                                         
 **$$
-(5.1)		\theta_{i . .}=\sum_{j, k} \theta_{i j k}, \quad \phi_{i j}=\sum_{\vec{k}} \theta_{i j k} / \theta_{i} . \ldots, \quad \Psi_{i j k}=\theta_{i j k} / \sum_{k} \theta_{i j k}
+\theta_{i . .}=\sum_{j, k} \theta_{i j k}, \quad \phi_{i j}=\sum_{\vec{k}} \theta_{i j k} / \theta_{i} . \ldots, \quad \Psi_{i j k}=\theta_{i j k} / \sum_{k} \theta_{i j k}\tag{5.1}
 $$**
                                                                         
 &emsp;&emsp;给定$A_{i}$，$\theta_{i} . .$是$A_{i}$的概率，$\phi_{i j}$是$B_{j}$的概率；给定$A_{i}$和$B_{j}$，$\Psi_{i j k}$是$C_{k}$的概率。$\theta_{i j k}=\theta_{i} . . \phi_{i j} \cdot \Psi_{i j k}$。定理2的重复应用表明：如果先验密度与$\prod^{\prime} \theta_{i j k}^{-1}$成正比，那么$\left\{\theta_{i . .}\right\},\left\{\phi_{i j .}\right\}$的后验分布将是独立的。此外，从似然函数的形式来看，$\left\{\phi_{i j}\right\}$的分布将不取决于$n_{i . .}$的分布，并且$\left\{\Psi_{i j k}\right\}$的分布也不取决于$n_{i j .}$的分布。这些结果使我们能够分析其中一个或两个分类变量是非随机的列联表。已经讨论过的方法可以对$\left\{\theta_{i . .}\right\}$和 $\left\{\phi_{i j .}\right\}$进行分析：因此我们对$\left\{\Psi_{i j k}\right\}$进行考虑。
@@ -321,16 +321,16 @@ $$**
 &emsp;&emsp;二维列联表的方法可以扩展到更大的表，基于$\chi^{2}$统计量的经典方法在试图扩展时出现了复杂的问题。一个众所周知的对$2 \times 2 \times 2$表的扩展是Bartlett对三维变量不存在相互作用的定义：
                                                                         
 **$$
-(5.2)		\frac{\theta_{111} \theta_{221}}{\theta_{211} \theta_{121}}=\frac{\theta_{112} \theta_{222}}{\theta_{212} \theta_{122}}
+\frac{\theta_{111} \theta_{221}}{\theta_{211} \theta_{121}}=\frac{\theta_{112} \theta_{222}}{\theta_{212} \theta_{122}}\tag{5.2}
 $$**
                                                                         
 &emsp;&emsp;这等同于用$\Psi$代替$\theta$来写，后缀不做改变。如果对(5.2)的两边都取对数，认为
                                                                         
 **$$
-(5.3)		\begin{array}{r}
+\begin{array}{r}
 \Psi=\left\{\ln \theta_{111}-\ln \theta_{211}-\ln \theta_{121}+\ln \theta_{221}\right\} \\
 -\left\{\ln \theta_{112}-\ln \theta_{212}-\ln \theta_{122}+\ln \theta_{222}\right\}
-\end{array}
+\end{array}\tag{5.3}
 $$**
                                                                         
 &emsp;&emsp;参数$\Psi$可以作为$2 \times 2 \times 2$表中三因素互动的定义。这种说法很容易得到证实，因为（5.3）正是$\ln \theta_{i j k}$的方差分析中这种交互作用的形式。因此，通过所述方法，可以用七个参数来研究$2 \times 2 \times 2$表：$\theta_{1} . ., \theta_{\cdot 1}, \theta_{. .1}$。，对应于（4.4）中定义的关联测量的三个双因素互动。(双因素相互作用可以清楚地写成$\phi_{i j .}, \phi_{i . k}$和$\phi_{. j k}$)。  
@@ -339,43 +339,43 @@ $$**
 假设我们感兴趣的是C分类对另外两个分类的依赖性。那么可以认为A和B提供了两个因素，我们希望评估它们对因变量（由C分类代表）的影响。如果A和B是非随机的，那么唯一被定义的概率是
                                                                         
 **$$
-(5.4)		\begin{array}{ll}
+\begin{array}{ll}
 \Psi_{i j 1}=p\left(C_{1} \mid A_{i}, B_{j}\right), & (i, j=1,2)
-\end{array}
+\end{array}\tag{5.4}
 $$**
                                                                         
 &emsp;&emsp;其中，$\Psi_{i j 2}=1-\Psi_{i j 1}$。这四种概率可以用不同的方式进行比较，即使用下式的log-odds：
                                                                         
 **$$
-(5.5)		\ln p\left(C_{1} \mid A_{i}, B_{j}\right)-\ln p\left(C_{2} \mid A_{i}, B_{j}\right)
+\ln p\left(C_{1} \mid A_{i}, B_{j}\right)-\ln p\left(C_{2} \mid A_{i}, B_{j}\right)\tag{5.5}
 $$**
                                                                         
 &emsp;&emsp;与式（5.3）进行比较。有一种对于下式是否成立的研究：
                                                                         
 **$$
-(5.6)		p\left(C_{1} \mid B_{j}, A_{1}\right)=p\left(C_{1} \mid B_{j}, A_{2}\right) \quad(j=1,2)
+p\left(C_{1} \mid B_{j}, A_{1}\right)=p\left(C_{1} \mid B_{j}, A_{2}\right) \quad(j=1,2)\tag{5.6}
 $$**
                                                                         
 &emsp;&emsp;如果成立，那么在给定$B$分类的情况下，$C$分类和$A$分类是独立的。或者说，给定$B_{j}$的情况下，$A_{i}$不提供关于$A$的进一步信息。如果这一点对$B_{1}$和$B_{2}$都成立，那么$A$分类就不提供$B$分类尚未提供的信息。与随机过程理论中所研究的相应属性相类似，将其称为马尔科夫属性是很有用的，其中A、B和C分别指三个时间点，可以方便地认为是过去、现在和未来。  
 可以用一对log-odds来检验（5.6）的等式
                                                                         
 **$$
-(5.7)		\begin{aligned}
+\begin{aligned}
 \left\{\ln p\left(C_{1} \mid B_{j}, A_{1}\right)\right.&\left.-\ln p\left(C_{2} \mid B_{j}, A_{1}\right)\right\} \\
 &-\left\{\ln p\left(C_{1} \mid B_{j}, A_{2}\right)-\ln p\left(C_{2} \mid B_{j}, A_{2}\right)\right\}(j=1,2)
-\end{aligned}
+\end{aligned}\tag{5.7}
 $$**
                                                                         
 &emsp;&emsp;均值为
                                                                         
 **$$
-(5.8)		\ln n_{1 j 1}-\ln n_{1 j 2}-\ln n_{2 j 1}+\ln n_{2 j 2}
+\ln n_{1 j 1}-\ln n_{1 j 2}-\ln n_{2 j 1}+\ln n_{2 j 2}\tag{5.8}
 $$**
                                                                         
 &emsp;&emsp;方差为
                                                                         
 **$$
-(5.9)		n_{1 j 1}^{-1}+n_{1 j 2}^{-1}+n_{2 j 1}^{-1}+n_{2 j 2}^{-1}
+n_{1 j 1}^{-1}+n_{1 j 2}^{-1}+n_{2 j 1}^{-1}+n_{2 j 2}^{-1}\tag{5.9}
 $$**
                                                                         
 &emsp;&emsp;（5.7)中j=1和2的两个表达式是独立的，因此可以通过将y=1和2的均值的平方之和(5.8)除以方差(5.9)来检验马尔科夫特性，即自由度为2上的$\chi^{2}$。如果后验分布充分集中在零周围，那么人们可能会觉得有理由相信，我们可以在获得马尔科夫特性的基础上继续研究。如果是这样，那么就有可能讨论更简单的条件概率$p\left(C_{1} \mid B_{j}\right)$，否则它就没有定义。要看清上面这句话中的 "足够集中 "的确切含义并不容易，允许偏离马尔科夫属性的程度将取决于使用该属性所产生的分析对其偏离的 "稳健性"。  
@@ -383,22 +383,22 @@ $$**
 &emsp;&emsp;接下来考虑这样一种情况，即人们感兴趣的仍然是$C$对$A$和$B$的依赖性，但其中一个独立的分类，例如$A$是随机的，而另一个$B$不是。那么，除了已经讨论过的条件概率$p\left(C_{k} \mid A_{i}, B_{j}\right)$之外，概率$p\left(C_{k} \mid B_{j}\right)$也是有意义的。在这种情况下，方差分析方法可能会产生误导，因为自然主效应和交互作用在列联表分析中的定义与通常的线性假设情况相当不同。$B$对$C$的主效应是以$A$的平均值来定义的：事实上，
                                                                         
 **$$
-(5.10)		p\left(C_{k} \mid B_{j}\right)=p\left(C_{k} \mid A_{1}, B_{j}\right) p\left(A_{1} \mid B_{j}\right)+p\left(C_{k} \mid A_{2}, B_{j}\right) p\left(A_{2} \mid B_{j}\right)
+p\left(C_{k} \mid B_{j}\right)=p\left(C_{k} \mid A_{1}, B_{j}\right) p\left(A_{1} \mid B_{j}\right)+p\left(C_{k} \mid A_{2}, B_{j}\right) p\left(A_{2} \mid B_{j}\right)\tag{5.10}
 $$**
                                                                         
 &emsp;&emsp;由于$p\left(A_{1} \mid B_{j}\right) \neq$ $p\left(A_{2} \mid B_{j}\right)$，一般来说，这是每个$A$分类的概率的加权平均值。因此，因素$A$和$B$是 "混杂的"，主要效应很难解释。
 * ### 案例分析
 下面通过一个例子来解释这个问题，数据如下：
-                                                                        
-![image](https://github.com/huqiwen1023/2021BayesianCourse/blob/main/figure/5-11.png)
+
+<img src="./figure/5-11.png">                                                                        
                                                                         
 &emsp;&emsp;独立变量C分类为Alive或Dead。随机独立的$A$分类是按性别划分的，而非随机的独立$B$分类是按治疗方式划分的。让我们忽略抽样变化，假设比例（在总共52人中）为概率$\left\{\theta_{i j k}\right\}$。 Male 的$2 \times 2$表显示，通过计算log-odds之差得到的Treated和Dead之间的关联是-5/6。 Female 的$2 \times 2$表也得到同样的数值。因此，以log-odsd的差来衡量治疗对两个性别的好处是一样的。这等于说三因素的相互作用（5.3）为零。但是，如果将男性和女性的两个表格合并起来得出不涉及性别的结果，我们就会得到
                                                                         
-![image](https://github.com/huqiwen1023/2021BayesianCourse/blob/main/figure/5-12.png)
+<img src="./figure/5-12.png"> 
                                                                         
 &emsp;&emsp;并且，治疗与死亡之间的关联为零：或者说这两种分类是独立的。由于治疗和性别的分布是混在一起的，所以可以通过考虑忽略从属分类为Alive或 Dead 而产生的$2 \times 2$表看出，其结果是
                                                                         
-![image](https://github.com/huqiwen1023/2021BayesianCourse/blob/main/figure/5-13.png)
+<img src="./figure/5-13.png"> 
 
 &emsp;&emsp;可以看出，死亡率较高的女性比男性更经常接受治疗。因此，要了解治疗和性别的单独影响是不容易的。在通常的方差分析情况下，有可能在某种程度上分离影响，但这种方法在列联表中是不适用的，因为（5.12）中的关联不是（5.11）中分离的性别表中的线性函数。在(5.12)中，我们使用了$\ln \theta_{-j k}$，而不是像线性假设情况下的$\ln \theta_{1 j k}$和$\ln \theta_{2 j k}$的线性形式（再次比较方程（4.8）和（4.9））。如果每个性别接受治疗的比例在40/52时是相同的，那么对应于（5.12）的表格就会有与（5.12）中单独的$2 \times 2$表差不多的关联度。现在唯一的办法是单独对性别进行讨论。 
                                                                         
@@ -429,7 +429,8 @@ $$**
 
 &emsp;&emsp;如果能将分析扩展到更普遍的先验条件，那将是非常理想的。例如，可能存在一个$2 \times 2$的列联表，并且对于$\theta_{i}$的先验知识很少，但对 $\phi_{i j}$的先验知识足够多，这样的知识与在$2 \times 2$表中较少的边缘知识以及较多的内部知识来选择一组边缘总数相差不大。另一个例子是存在$A_{1}, A_{2}$和$A_{3}$的三分类情况时，人们在不清楚$\theta_{2}$和$\theta_{3}$的情况下，认为$\theta_{1}$接近0.20时是可信的。
 
-&emsp;&emsp;另一种需要考虑的先验类型是对$\ln \theta_{i}$之间的关联性进行考虑的先验。本文的所有分析都取决于它们的独立性。例如，在一个$2 \times 2$的表格中，人们可能有先验知识，即两个概率$p\left(A_{1} \mid B_{j}\right)(j=1,2)$的值很接近，那么将其纳入分析中是比较好的方式，比如在社会调查中可能存在两个分类，其中B1对应于 "在家"，B2对应于 "不在家"，在这种情况下对考虑关联性的先验知识的考虑是非常重要的。相关先验的第二个例子是，多叉分布是从分组频率分布（比如柱状图）中产生的，而底层密度的平滑性在相邻的组之间产生了关联性。 
+&emsp;&emsp;另一种需要考虑的先验类型是对$\ln \theta_{i}$之间的关联性进行考虑的先验。本文的所有分析都取决于它们的独立性。例如，在一个$2 \times 2$的表格中，人们可能有先验知识，即两个概率$p\left(A_{1} \mid B_{j}\right)(j=1,2)$的值很接近，那么将其纳入分析中是比较好的方式，比如在社会调查中可能存在两个分类，其中B1对应于 "在家"，B2对应于 "不在家"，在这种情况下对考虑关联性的先验知识的考虑是非常重要的。相关先验的第二个例子是，多叉分布是从分组频率分布（比如柱状图）中产生的，而底层密度的平滑性在相邻的组之间产生了关联性。  
+
 &emsp;&emsp;希望在未来的文章中能够通过log-odds和多变量正态分布对这种情况进行处理。
 
 ## 参考文献
