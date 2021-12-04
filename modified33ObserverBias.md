@@ -31,7 +31,7 @@
 另一方面，列车的到达过程不是泊松的。高峰时间从终点（灰西鲜站）去波士顿的列车每隔7-8分钟发出，但到Kendall广场的时候，列车间隔在3-12分钟内变化。
 计算每个工作日下午4点到下午6点Kendall广场站前后到站列车的时间间隔，持续记录5天，每天记录了15 次列车到达。这些分布的差别如图2-1所示, 标为$z$。
 
-<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/lcyFigure1.png" title="图2-1" width="456" height="350" />
+<img src="./figure/lcyFigure1.png"> 
 
 *图2-1 根据收集到的数据绘制的列车间隔的PMF,以KDE平滑处理（$z$为实际分布；$zb$是由 乘客看到列车间隔的偏差分布）*
 
@@ -114,7 +114,7 @@ MakeRange定义了一组等待时间(以秒表示)的可能值。默认情况下
 图2-2显示了$z$、$zb$和$y$的分布——基于Red Line网站上收集的数据。
 为了解释这些分布，将从Pmfs切换到Cdfs。可知，$z$的平均值为7.8分钟。$zb$的平均值为8.8分钟，高出$z$约13%。 $y$均值为4.4分钟，是$zb$均值的一半。
 
-<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/lcyFigure2.png" title="图2-2" width="456" height="350" />
+<img src="./figure/lcyFigure2.png"> 
 
 *图2-2 z, zb,乘客等待时间y的CDF*
 
@@ -206,8 +206,7 @@ pmf_zb是列车间隔的分布情况；pmf_x是经过时间的分布(根据对�
 
 图2-3显示了结果。$x$的先验分布和$y$一样。$x$的后验分布表明，看到站台上的15名乘客后，考虑到自上一趟车过后的时间大概是5-10分钟，所以预计下一班列车会在5分钟内到达，置信度为80%。
 
-<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/lcyFigure3.png" title="图2-3" width="456" height="350" />
-
+<img src="./figure/lcyFigure3.png"> 
 *图2-3 x的先验分布和后验分布，以及预测的y值*
 
 ### （五）估计到达率
@@ -263,7 +262,7 @@ __init__构建假设，这是lam假设值的序列，然后生成先验分布pri
 
 图2-4给出了先验和后验分布。正如预期的那样，均值和中位值都在观察得到的值附近，每分钟2名乘客。但不确定后验分布的范围是否是由于$\lambda$基于小样本的原因。
 
-<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/lcyFigure4.png" title="图2-4" width="456" height="350" />
+<img src="./figure/lcyFigure4.png"> 
 
 *图2-4 基于5天乘客数据的$\lambda$的前验和后验分布*
 
@@ -301,7 +300,7 @@ wtc是包含zb分布的WaitTimeCalculator实例。are则是包含了$\lambda$分
 
 在一般情况下，如果系统响应是非线性的，那么包括可变性就很重要了。此时，输入的微小变化都会引起输出的较大变化，而本例中，$\lambda$的后验变化很小，对于小的扰动，系统的响应近似线性。
 
-<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/lcyFigure5.png" title="图2-5" width="456" height="350" />
+<img src="./figure/lcyFigure5.png"> 
 
 *图2-5 对应了$\lambda$所有可能值的$y$的预测分布*
 
@@ -366,7 +365,7 @@ Cdf.Sample比Pmf.Sample更高效，因而一般会更快地将Pmf转换成Cdf。
 
 或者，进一步分析可以量化错过南站。
 
-<img src="https://github.com/Lucylcylu/2021BayesianCourse/blob/main/figure/lcyFigure6.png" title="图2-6" width="456" height="350" />
+<img src="./figure/lcyFigure6.png"> 
 
 *图2-6 以站台上乘客人数为变量的等待时间超过15分钟的概率函数*
 
