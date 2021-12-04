@@ -32,7 +32,7 @@
 
 ##### 3.推断问题：在已知部分变量时，计算其他变量的条件概率分布
 
-![a](https://github.com/WangYiyi0326/2021BayesianCourse/blob/main/figure/wyy_1.png)
+![a](/figure/wyy_1.png)
 
 ### 三、概率图模型的表示方式：有向图/无向图
 
@@ -46,7 +46,7 @@
 
 下图给出了两个代表性图模型（有向图和无向图）的示例，分别表示了四个变量${X_1,X_2,X_3,X_4}$之间的依赖关系。图中带阴影的节点表示可观测到的变量，不带阴影的节点表示隐变量，连边表示两变量间的条件依赖关系。
 
-![b](https://github.com/WangYiyi0326/2021BayesianCourse/blob/main/figure/wyy_2.png)
+![b](/figure/wyy_2.png)
 
 ##### 1.有向图模型
 
@@ -68,7 +68,7 @@ $$
 
 （4）共果关系，即图（d）：当 $X_2$未知时，$X_1$和$X_3$是独立的；当 $X_2$已知时，$X_1$和$X_3$不独立。
 
-![c](https://github.com/WangYiyi0326/2021BayesianCourse/blob/main/figure/wyy_3.png)
+![c](/figure/wyy_3.png)
 
 **实例：经典的机器学习模型——朴素贝叶斯分类器**
 
@@ -82,7 +82,7 @@ $$
 
 在朴素贝叶斯分类器中，假设在给定$Y$的情况下，$X_M$之间是条件独立的。下图给出了朴素贝叶斯分类器的图模型表示。
 
-![d](https://github.com/WangYiyi0326/2021BayesianCourse/blob/main/figure/wyy_4.png)
+![d](/figure/wyy_4.png)
 
 条件概率分布$p(y|x)$可以分解为
 $$
@@ -96,7 +96,7 @@ $$
 
 无向图模型，也称为马尔可夫随机场（Markov Random Field，MRF）或马尔可夫网络（Markov Network），是一类用无向图来描述一组具有局部马尔可夫性质的随机向量$X$的联合概率分布的模型。常见的无向图模型有：**最大熵模型**、**条件随机场**、**玻尔兹曼机**、**受限玻尔兹曼机等**。
 
-马尔可夫随机场：对于一个随机向量 $X=[X_1,X_2,...,X_k]^T$和一个有$K$个节点的无向图$G(\nu,\varepsilon)$ （可以存在循环），图 $G$中的节点$k$表示随机变量$X_k$，$1\leq k\leq K$。如果$(G,X)$满足局部马尔可夫性质，即一个变量 $X_k$在给定它的邻居的情况下独立于所有其他变量， $p(x_k|x_{\k})=p(x_k|x_{\aleph(k)})$其中$\aleph(k)$为变量$X_k$的邻居集合，$\k$为除$X_k$外其他变量的集合，那么$(G,X)$就构成了一个马尔可夫场。
+马尔可夫随机场：对于一个随机向量 $X=[X_1,X_2,...,X_k]^T$和一个有$K$个节点的无向图$G(\nu,\varepsilon)$ （可以存在循环），图 $G$中的节点$k$表示随机变量$X_k$，$1\leq k\leq K$。如果$(G,X)$满足局部马尔可夫性质，即一个变量 $X_k$在给定它的邻居的情况下独立于所有其他变量， $p(x_k|x_{k'})=p(x_k|x_{\aleph(k)})$其中$\aleph(k)$为变量$X_k$的邻居集合，$k'$为除$X_k$外其他变量的集合，那么$(G,X)$就构成了一个马尔可夫场。
 
 ##### 3.有向图和无向图之间的转换
 
@@ -110,7 +110,7 @@ p(x)=p(x_1)p(x_2)p(x_3)p(x_4|x_1,x_2,x_3)
 $$
 其中$p(x_4|x_1,x_2,x_3)$和四个变量都相关。如果要转化为无向图，需要将这四个变量都归属于一个团中，因此，需要将$x_4$的三个父节点之间都加上连边，如下图（b）所示。这个过程称为道德化。转换后的无向图称为道德图。在道德化的过程中，原来有向图的一些独立性会丢失。
 
-![e](https://github.com/WangYiyi0326/2021BayesianCourse/blob/main/figure/wyy_5.png)
+![e](/figure/wyy_5.png)
 
 ### 四、学习：图结构的学习和参数的学习
 
@@ -144,7 +144,7 @@ bl.av<-model2network('[C][B][A|B][R|C:A][H|C:A][N|A]')
 graphviz.plot(bl.av)
 ```
 
-![Rplot](https://github.com/WangYiyi0326/2021BayesianCourse/blob/main/figure/wyy_6.png)
+![Rplot](/figure/wyy_6.png)
 
 定义本例中贝叶斯网络的概率。
 
@@ -232,8 +232,8 @@ R       no  yes
 
 生成两个节点的条件概率图如下。
 
-![1](https://github.com/WangYiyi0326/2021BayesianCourse/blob/main/figure/wyy_7.png)
+![1](/figure/wyy_7.png)
 
-![3](https://github.com/WangYiyi0326/2021BayesianCourse/blob/main/figure/wyy_8.png)
+![3](/figure/wyy_8.png)
 
 
